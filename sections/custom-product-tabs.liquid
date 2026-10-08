@@ -1,0 +1,314 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+
+{%- unless section.settings.quick_add == 'none' -%}
+  {{ 'quick-add.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{%- endunless -%}
+
+{%- if section.settings.quick_add == 'standard' -%}
+  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{%- liquid
+  assign valid_tabs = 0
+  for block in section.blocks
+    if block.settings.collection != blank
+      assign valid_tabs = valid_tabs | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if valid_tabs > 0 or request.design_mode -%}
+  <section
+    class="custom-product-tabs"
+    data-product-tabs
+    data-section-id="{{ section.id }}"
+    style="
+      --product-tabs-background: {{ section.settings.background_color }};
+      --product-tabs-text: {{ section.settings.text_color }};
+      --product-tabs-accent: {{ section.settings.accent_color }};
+      --product-tabs-active-tab: {{ section.settings.active_tab_color }};
+      --product-tabs-space-top: {{ section.settings.padding_top }}px;
+      --product-tabs-space-bottom: {{ section.settings.padding_bottom }}px;
+    "
+  >
+    <div class="custom-product-tabs__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="custom-product-tabs__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="custom-product-tabs__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+
+      <div class="custom-product-tabs__tablist" role="tablist" aria-label="{{ section.settings.heading | default: 'Product collections' | escape }}">
+        {%- assign active_tab_set = false -%}
+        {%- for block in section.blocks -%}
+          {%- assign tab_collection = block.settings.collection -%}
+          {%- if tab_collection != blank -%}
+            {%- assign tab_label = block.settings.label | default: tab_collection.title -%}
+            <button
+              class="custom-product-tabs__tab{% unless active_tab_set %} is-active{% endunless %}"
+              id="ProductTab-{{ section.id }}-{{ block.id }}"
+              type="button"
+              role="tab"
+              aria-selected="{% unless active_tab_set %}true{% else %}false{% endunless %}"
+              aria-controls="ProductPanel-{{ section.id }}-{{ block.id }}"
+              tabindex="{% unless active_tab_set %}0{% else %}-1{% endunless %}"
+              data-product-tab
+              data-panel-id="ProductPanel-{{ section.id }}-{{ block.id }}"
+            >
+              {{ tab_label | escape }}
+            </button>
+            {%- assign active_tab_set = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if valid_tabs == 0 and request.design_mode -%}
+          <span class="custom-product-tabs__editor-note">
+            Add a collection to each tab block to display products.
+          </span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- assign active_panel_set = false -%}
+    {%- for block in section.blocks -%}
+      {%- assign tab_collection = block.settings.collection -%}
+      {%- if tab_collection != blank -%}
+        <div
+          class="custom-product-tabs__panel{% unless active_panel_set %} is-active{% endunless %}"
+          id="ProductPanel-{{ section.id }}-{{ block.id }}"
+          role="tabpanel"
+          aria-labelledby="ProductTab-{{ section.id }}-{{ block.id }}"
+          data-product-panel
+          {% if active_panel_set %}hidden{% endif %}
+          {{ block.shopify_attributes }}
+        >
+          <ul
+            class="grid product-grid contains-card contains-card--product grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+            role="list"
+            aria-label="{{ tab_collection.title | escape }}"
+          >
+            {%- assign skip_card_product_styles = false -%}
+            {%- for product in tab_collection.products limit: section.settings.products_to_show -%}
+              <li
+                class="grid__item"
+                data-product-card-item
+                style="--product-tabs-item-index: {{ forloop.index0 }};"
+              >
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  image_shape: 'default',
+                  lazy_load: true,
+                  show_secondary_image: section.settings.show_secondary_image,
+                  show_vendor: section.settings.show_vendor,
+                  show_rating: section.settings.show_rating,
+                  skip_styles: skip_card_product_styles,
+                  section_id: section.id,
+                  quick_add: section.settings.quick_add,
+                  show_discount_percent: true,
+                  product_view_context: 'collection'
+                %}
+              </li>
+              {%- assign skip_card_product_styles = true -%}
+            {%- else -%}
+              {%- if request.design_mode -%}
+                <li class="custom-product-tabs__empty grid__item">
+                  This collection has no products to show.
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+          {%- if section.settings.show_view_all and tab_collection.products_count > section.settings.products_to_show -%}
+            <div class="custom-product-tabs__view-all">
+              <a class="button button--secondary" href="{{ tab_collection.url }}">
+                {{ section.settings.view_all_label | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+        {%- assign active_panel_set = true -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Tabbed products",
+  "tag": "section",
+  "class": "custom-product-tabs-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Small text above heading",
+      "default": "Explore Laxmipati Essentials"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sarees for Every Moment"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Products per tab"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Mobile columns",
+      "default": "2",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Product image ratio",
+      "default": "portrait",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Show second image on hover",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show product ratings",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "quick_add",
+      "label": "Quick add",
+      "default": "standard",
+      "options": [
+        { "value": "none", "label": "Off" },
+        { "value": "standard", "label": "Standard" },
+        { "value": "bulk", "label": "Bulk" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show collection link",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Collection link label",
+      "default": "View all"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#fff8f8"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#651313"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Border and accent color",
+      "default": "#a33a3a"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_color",
+      "label": "Active tab color",
+      "default": "#ffc20e"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Space above section",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Space below section",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "Best Sellers"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Tabbed products",
+      "blocks": [
+        { "type": "collection_tab", "settings": { "label": "Best Sellers" } },
+        { "type": "collection_tab", "settings": { "label": "New Arrivals" } },
+        { "type": "collection_tab", "settings": { "label": "Heritage" } },
+        { "type": "collection_tab", "settings": { "label": "Colourful Prints" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

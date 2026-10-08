@@ -1,0 +1,156 @@
+{
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Browse our latest products",
+            "heading_size": "h0"
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify:\/\/collections\/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "button"
+      ],
+      "settings": {
+        "image_overlay_opacity": 40,
+        "image_height": "large",
+        "desktop_content_position": "bottom-center",
+        "show_text_box": false,
+        "image_behavior": "none",
+        "desktop_content_alignment": "center",
+        "color_scheme": "scheme-3",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": false,
+        "show_text_below": false
+      }
+    },
+    "collection_circles": {
+      "type": "custom-collection-circles",
+      "settings": {
+        "heading": "",
+        "background_color": "#fff8f8",
+        "text_color": "#171717",
+        "ring_color": "#a10f19",
+        "ring_width": 2,
+        "image_size": 170,
+        "mobile_image_size": 120,
+        "item_gap": 20,
+        "space_top": 12,
+        "space_bottom": 20,
+        "show_arrows": false,
+        "auto_rotate": false,
+        "change_slides_speed": 5
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "product_tabs": {
+      "type": "custom-product-tabs",
+      "settings": {
+        "eyebrow": "Explore Laxmipati Essentials",
+        "heading": "Sarees for Every Moment",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "image_ratio": "portrait",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "standard",
+        "show_view_all": false,
+        "view_all_label": "View all",
+        "background_color": "#fff8f8",
+        "text_color": "#651313",
+        "accent_color": "#a33a3a",
+        "active_tab_color": "#ffc20e",
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {
+        "best_sellers": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Best Sellers",
+            "collection": ""
+          }
+        },
+        "new_arrivals": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "New Arrivals",
+            "collection": ""
+          }
+        },
+        "heritage": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Heritage",
+            "collection": ""
+          }
+        },
+        "colourful_prints": {
+          "type": "collection_tab",
+          "settings": {
+            "label": "Colourful Prints",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "best_sellers",
+        "new_arrivals",
+        "heritage",
+        "colourful_prints"
+      ]
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured products",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "padding_top": 44,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "image_banner",
+    "collection_circles",
+    "product_tabs",
+    "featured_collection"
+  ]
+}
