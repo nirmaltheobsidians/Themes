@@ -1,85 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "new_banner_Ry86xh": {
-      "type": "new-banner",
+    "collection_list_Tiyt8N": {
+      "type": "collection-list",
       "blocks": {
-        "slide_LaV7R8": {
-          "type": "slide",
+        "featured_collection_QjWB6L": {
+          "type": "featured_collection",
           "settings": {
-            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
-            "top_text": "NEW SEASON",
-            "heading": "Elevate Your Everyday Style",
-            "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
-            "show_buttons": true,
-            "btn_1_label": "Shop Women",
-            "btn_1_link": "",
-            "btn_2_label": "Shop Men",
-            "btn_2_link": "",
-            "show_product_1": true,
-            "product_1": "ergonomic-baby-carrier-neutral",
-            "prod_1_title": "Red Co-ord Set",
-            "prod_1_price": "$89",
-            "prod_1_rating": "5.0",
-            "prod_1_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
-            "show_product_2": true,
-            "product_2": "baby-white-noise-machine",
-            "prod_2_title": "Red Co-ord Set",
-            "prod_2_price": "$89",
-            "prod_2_rating": "5.0",
-            "prod_2_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
-            "show_product_3": true,
-            "product_3": "insulated-baby-bottle-steel",
-            "prod_3_title": "Red Co-ord Set",
-            "prod_3_price": "$89",
-            "prod_3_rating": "5.0",
-            "prod_3_desc": "A refined blazer and trousers in stretch fabric — designed to move with you."
+            "collection": ""
           }
         },
-        "slide_ebbCmm": {
-          "type": "slide",
+        "featured_collection_8f8E4p": {
+          "type": "featured_collection",
           "settings": {
-            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
-            "top_text": "NEW SEASON",
-            "heading": "Elevate Your Everyday Style",
-            "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
-            "show_buttons": true,
-            "btn_1_label": "Shop Women",
-            "btn_1_link": "",
-            "btn_2_label": "Shop Men",
-            "btn_2_link": "",
-            "show_product_1": true,
-            "product_1": "silicone-baby-teether-set",
-            "prod_1_title": "Red Co-ord Set",
-            "prod_1_price": "$89",
-            "prod_1_rating": "5.0",
-            "prod_1_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
-            "show_product_2": true,
-            "product_2": "foldable-waterproof-play-mat",
-            "prod_2_title": "Red Co-ord Set",
-            "prod_2_price": "$89",
-            "prod_2_rating": "5.0",
-            "prod_2_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
-            "show_product_3": true,
-            "product_3": "crib-mattress-protector",
-            "prod_3_title": "Red Co-ord Set",
-            "prod_3_price": "$89",
-            "prod_3_rating": "5.0",
-            "prod_3_desc": "A refined blazer and trousers in stretch fabric — designed to move with you."
+            "collection": ""
+          }
+        },
+        "featured_collection_bTn9C3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
           }
         }
       },
       "block_order": [
-        "slide_LaV7R8",
-        "slide_ebbCmm"
+        "featured_collection_QjWB6L",
+        "featured_collection_8f8E4p",
+        "featured_collection_bTn9C3"
       ],
-      "name": "Custom Hero Banner",
+      "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "margin_top": 0,
-        "margin_bottom": 0
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
-    "new_banner_Ry86xh"
+    "collection_list_Tiyt8N"
   ]
 }
