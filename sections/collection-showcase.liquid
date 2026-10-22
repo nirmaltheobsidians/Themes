@@ -1,0 +1,142 @@
+<div class="td-collection-showcase">
+  <div class="td-cmn-container page-width">
+    <div class="td-collection-showcase-wrapper">
+
+      <!-- Images Box (Dynamic) -->
+      <div class="td-collection-showcase-img-box">
+        <div class="td-collection-images">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.showcase_image != blank -%}
+              <span class="td-collection-image-wrapper">
+                <img src="{{ block.settings.showcase_image | image_url: width: 800 }}" alt="{{ block.settings.title | escape }}" width="" height="" class="td-collection-image {%- if forloop.first -%}td-active{%- endif -%}">
+              </span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <!-- Collection Names & Details Box (Dynamic) -->
+      <div class="td-collection-name-showcase-box">
+        <div class="td-collection-name-showcase">
+          {%- for block in section.blocks -%}
+            <div class="td-collection-item" {{ block.shopify_attributes }}>
+              {%- if block.settings.collection_url != blank -%}
+                <a href="{{ block.settings.collection_url }}" style="text-decoration: none; color: inherit;">
+              {%- endif -%}
+                <h4>{{ block.settings.title }}</h4>
+                {%- if block.settings.item_count != blank -%}
+                  <span>({{ block.settings.item_count }})</span>
+                {%- endif -%}
+              {%- if block.settings.collection_url != blank -%}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- View All Button (Dynamic) -->
+        {%- if section.settings.button_text != blank -%}
+          <div class="td-button-wrapper">
+            <a href="{{ section.settings.button_url | default: 'javascript:void(0);' }}" class="td-without-icon-btn td-underline-btn">
+              <span class="td-new-btn-text">
+                {{ section.settings.button_text }}
+              </span>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "View All Collections"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_item",
+      "name": "Collection Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "showcase_image",
+          "label": "Showcase Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Collection Title",
+          "default": "New Arrivals"
+        },
+        {
+          "type": "text",
+          "id": "item_count",
+          "label": "Item Count",
+          "default": "120"
+        },
+        {
+          "type": "url",
+          "id": "collection_url",
+          "label": "Collection Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Showcase",
+      "blocks": [
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "New Arrivals",
+            "item_count": "120"
+          }
+        },
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Summer Collection",
+            "item_count": "125"
+          }
+        },
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Best Sellers",
+            "item_count": "99"
+          }
+        },
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Winter Collection",
+            "item_count": "143"
+          }
+        },
+        {
+          "type": "collection_item",
+          "settings": {
+            "title": "Autumn Edit",
+            "item_count": "88"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

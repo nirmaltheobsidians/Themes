@@ -752,11 +752,7 @@ img.td-arrow-shape {
 	max-width: 70%;
 }
 
-.td-cmn-container {
-	max-width: 1640px;
-	margin: 0 auto;
-	padding: 0 20px;
-}
+
 
 .td-shop-catg .wrapper {
 	position: relative;
@@ -4892,8 +4888,14 @@ shopify-account.TD_header__icon-link.ctm_account {
 	position: relative;
 	overflow: hidden;
 	border-radius: 0;
-	height: 580px;
+	/* height: 580px; */
 	width: 100%;
+}
+
+span.td-collection-image-wrapper img {
+    height: auto;
+    width: 100%;
+    display: block;
 }
 
 .td-collection-image-wrapper {

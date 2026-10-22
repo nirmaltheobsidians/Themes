@@ -77,9 +77,72 @@
         "margin_top": 0,
         "margin_bottom": 0
       }
+    },
+    "collection_showcase_PJDebb": {
+      "type": "collection-showcase",
+      "blocks": {
+        "collection_item_eVGHgg": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "title": "New Arrivals",
+            "item_count": "120",
+            "collection_url": ""
+          }
+        },
+        "collection_item_fbk39R": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
+            "title": "Summer Collection",
+            "item_count": "125",
+            "collection_url": ""
+          }
+        },
+        "collection_item_BeHPEd": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
+            "title": "Best Sellers",
+            "item_count": "99",
+            "collection_url": ""
+          }
+        },
+        "collection_item_Vrpkmy": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "title": "Winter Collection",
+            "item_count": "143",
+            "collection_url": ""
+          }
+        },
+        "collection_item_damjtX": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
+            "title": "Autumn Edit",
+            "item_count": "88",
+            "collection_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_eVGHgg",
+        "collection_item_fbk39R",
+        "collection_item_BeHPEd",
+        "collection_item_Vrpkmy",
+        "collection_item_damjtX"
+      ],
+      "name": "Collection Showcase",
+      "settings": {
+        "button_text": "View All Collections",
+        "button_url": ""
+      }
     }
   },
   "order": [
-    "new_banner_Ry86xh"
+    "new_banner_Ry86xh",
+    "collection_showcase_PJDebb"
   ]
 }
