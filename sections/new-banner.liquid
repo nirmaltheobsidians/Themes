@@ -1,0 +1,830 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'template-collection.css' | asset_url | stylesheet_tag }}
+
+{{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
+
+{{ 'quick-add.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
+
+<div
+  class="td-new-banner-section-custom"
+  style="margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;"
+>
+  <div class="swiper td-new-hero-slider">
+    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'slide' -%}
+            <div class="swiper-slide td-new-hero-slide" {{ block.shopify_attributes }}>
+              <div class="td-new-banner-image-wrapper">
+                {%- if block.settings.banner_image != blank -%}
+                  <img
+                    src="{{ block.settings.banner_image | image_url: width: 2000 }}"
+                    alt="{{ block.settings.banner_image.alt | escape }}"
+                    width=""
+                    height=""
+                  >
+                {%- else -%}
+                  <img src="{{ 'new-theme-banner.jpg' | asset_url }}" alt="banner_img" width="" height="">
+                {%- endif -%}
+              </div>
+              <div class="td-new-banner-content-outer page-width">
+                <div class="td-new-banner-content-inner">
+                  {%- if block.settings.top_text != blank -%}
+                    <span class="td-new-banner-top">{{ block.settings.top_text }}</span>
+                  {%- endif -%}
+
+                  {%- if block.settings.heading != blank -%}
+                    <h1>{{ block.settings.heading }}</h1>
+                  {%- endif -%}
+
+                  {%- if block.settings.description != blank -%}
+                    <p>{{ block.settings.description }}</p>
+                  {%- endif -%}
+
+                  {%- if block.settings.show_buttons -%}
+                    <div class="td-new-banner-button-wrapper">
+                      {%- if block.settings.btn_1_label != blank -%}
+                        <a href="{{ block.settings.btn_1_link }}" class="td-new-theme-btn td-filled-btn">
+                          <span class="td-new-btn-text">
+                            {{ block.settings.btn_1_label }}
+                          </span>
+                        </a>
+                      {%- endif -%}
+
+                      {%- if block.settings.btn_2_label != blank -%}
+                        <a href="{{ block.settings.btn_2_link }}" class="td-new-theme-btn td-border-btn">
+                          <span class="td-new-btn-text">
+                            {{ block.settings.btn_2_label }}
+                          </span>
+                        </a>
+                      {%- endif -%}
+                      <div class="td-new-hero-slider-navigation">
+                        <div class="swiper-button-prev td-new-hero-slider-nav">
+                          <span class="td-nav-icon-wrapper">
+                            <svg
+                              width="20"
+                              height="17"
+                              viewBox="0 0 20 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M8.25 0.75L0.75 8.25L8.25 15.75M0.75 8.25L18.75 8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </span>
+                        </div>
+                        <div class="td-new-hero-slider-progress">
+                          <div class="td-new-hero-slider-progress-fill"></div>
+                        </div>
+                        <div class="swiper-button-next td-new-hero-slider-nav">
+                          <span class="td-nav-icon-wrapper">
+                            <svg
+                              width="20"
+                              height="17"
+                              viewBox="0 0 20 17"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M11.25 0.75L18.75 8.25L11.25 15.75M18.75 8.25L0.75 8.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <!-- Product Box 1: Top Left -->
+                {%- if block.settings.show_product_1 -%}
+                  <div class="td-new-banner-product-outer-box td-new-product-top-left-box">
+                    <div class="td-product-hightlight-box">
+                      <span class="td-product-highlight-dot td-top-left-dot">
+                        <span class="td-product-highlight-outer-dot-border"></span>
+                      </span>
+                      {%- assign product_1 = block.settings.product_1 -%}
+
+                      <div class="td-new-banner-product-box">
+                        {% render 'card-product',
+                          card_product: product_1,
+                          media_aspect_ratio: 'adapt',
+                          image_shape: false,
+                          lazy_load: true,
+                          show_secondary_image: true,
+                          show_vendor: false,
+                          show_rating: true,
+                          skip_styles: false,
+                          section_id: section.id,
+                          quick_add: 'standard',
+                          product_view_context: 'collection'
+                        %}
+                        {% comment %}
+                          <div class="prd">
+                            <div class="td-new-banner-product-box-inner">
+                              {%- if product_1 != blank and product_1.media.size > 0 -%}
+                                {%- for media in product_1.media limit: 3 -%}
+                                  <div class="{%- if product_1.media.size > 3 -%} ctm_media {% else %} ctm_not_media {% endif %} {% if forloop.index == 2 %} media-2 {% endif %} td-new-banner-product-image-wrapper">
+                                    <img
+                                      src="{{ media | img_url:'master' }}"
+                                      alt="{{ media.alt | escape }}"
+                                      width="100%"
+                                      height=""
+                                    >
+                                  </div>
+                                {%- endfor -%}
+                              {%- else -%}
+                                <div class="td-new-banner-product-image-wrapper">
+                                  <img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height="">
+                                </div>
+                                <div class="td-new-banner-product-image-wrapper">
+                                  <img src="{{ 'product-thumb-2.png' | asset_url }}" alt="banner_img" width="" height="">
+                                </div>
+                                <div class="td-new-banner-product-image-wrapper">
+                                  <img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height="">
+                                </div>
+                              {%- endif -%}
+                            </div>
+
+                            <div class="td-new-banner-product-price-wrapper">
+                              <h5>
+                                {{ product_1.title | default: block.settings.prod_1_title | default: 'Red Co-ord Set' }}
+                              </h5>
+                              <div class="td-new-banner-product-price">
+                                <p class="td-product-price-text">
+                                  {{ product_1.price | money | default: block.settings.prod_1_price | default: '$89' }}
+                                </p>
+                                <span class="td-prodcut-rating">
+                                  {{ block.settings.prod_1_rating | default: '5.0' }}
+                                  <svg
+                                    width="13"
+                                    height="13"
+                                    viewBox="0 0 13 13"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path d="M12.1552 4.10812L8.52522 3.79312L7.10772 0.455625C6.85272 -0.151875 5.98272 -0.151875 5.72772 0.455625L4.31022 3.80063L0.687718 4.10812C0.0277181 4.16062 -0.242282 4.98562 0.260218 5.42062L3.01272 7.80562L2.18772 11.3456C2.03772 11.9906 2.73522 12.5006 3.30522 12.1556L6.41772 10.2806L9.53022 12.1631C10.1002 12.5081 10.7977 11.9981 10.6477 11.3531L9.82272 7.80562L12.5752 5.42062C13.0777 4.98562 12.8152 4.16062 12.1552 4.10812ZM6.41772 8.87812V1.90312L7.70022 4.93313L10.9852 5.21813L8.49522 7.37812L9.24522 10.5881L6.41772 8.87812Z" fill="#F0C05A" />
+                                    <path d="M6.41772 8.87812V1.90312L7.70022 4.93313L10.9852 5.21813L8.49522 7.37812L9.24522 10.5881L6.41772 8.87812Z" fill="#F0C05A" />
+                                  </svg>
+                                </span>
+                              </div>
+                            </div>
+
+                            <p class="td-new-banner-product-desc">
+                              {%- if product_1 != blank -%}
+                                {{ product_1.description | strip_html | truncate: 120 }}
+                              {%- else -%}
+                                {{
+                                  block.settings.prod_1_desc
+                                  | default: 'A refined blazer and trousers in stretch fabric — designed to move with you.'
+                                }}
+                              {%- endif -%}
+                            </p>
+
+                            <div class="td-new-banner-product-swatches-wrapper">
+                              <div class="td-new-banner-product-color-swatch">
+                                {%- if product_1 != blank and product_1.media.size > 0 -%}
+                                  {%- for media in product_1.media limit: 4 -%}
+                                    <a href="javascript:void(0);" class="td-new-product-swatch-box">
+                                      <img
+                                        src="{{ media | image_url: width: 100 }}"
+                                        alt="{{ media.alt | escape }}"
+                                        width=""
+                                        height=""
+                                      >
+                                    </a>
+                                  {%- endfor -%}
+                                {%- else -%}
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                    ><img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height=""
+                                  ></a>
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                    ><img src="{{ 'color-swatch-2.png' | asset_url }}" alt="banner_img" width="" height=""
+                                  ></a>
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                    ><img src="{{ 'color-swatch-3.png' | asset_url }}" alt="banner_img" width="" height=""
+                                  ></a>
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                    ><img src="{{ 'color-swatch-4.png' | asset_url }}" alt="banner_img" width="" height=""
+                                  ></a>
+                                {%- endif -%}
+                              </div>
+
+                              <div class="td-new-banner-product-size-swatch">
+                                {%- assign has_size_1 = false -%}
+                                {%- if product_1 != blank -%}
+                                  {%- for option in product_1.options_with_values -%}
+                                    {%- if option.name == 'Size' or option.name == 'size' -%}
+                                      {%- assign has_size_1 = true -%}
+                                      {%- for value in option.values -%}
+                                        <a href="javascript:void(0);" class="td-new-product-swatch-box">{{ value }}</a>
+                                      {%- endfor -%}
+                                    {%- endif -%}
+                                  {%- endfor -%}
+                                {%- endif -%}
+                                {%- if has_size_1 == false -%}
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box">S</a>
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box">M</a>
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box">L</a>
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box">XL</a>
+                                {%- endif -%}
+                              </div>
+                            </div>
+
+                            <div class="td-new-add-to-cart-btn-wrapper">
+                              <a
+                                href="{{ product_1.url | default: 'javascript:void(0);' }}"
+                                class="td-new-theme-btn td-new-theme-black-btn td-new-add-to-cart-btn"
+                              >
+                                <span class="td-new-btn-text">Add to cart</span>
+                              </a>
+                            </div>
+                          </div>
+                        {% endcomment %}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                <!-- Product Box 2: Center -->
+                {%- if block.settings.show_product_2 -%}
+                  <div class="td-new-banner-product-outer-box td-new-product-center-box">
+                    <div class="td-product-hightlight-box">
+                      <span class="td-product-highlight-dot td-center-dot">
+                        <span class="td-product-highlight-outer-dot-border"></span>
+                      </span>
+                      {%- assign product_2 = block.settings.product_2 -%}
+
+                      <div class="td-new-banner-product-box">
+                        {% render 'card-product',
+                          card_product: product_2,
+                          media_aspect_ratio: 'adapt',
+                          image_shape: false,
+                          lazy_load: true,
+                          show_secondary_image: true,
+                          show_vendor: false,
+                          show_rating: true,
+                          skip_styles: false,
+                          section_id: section.id,
+                          quick_add: 'standard',
+                          product_view_context: 'collection'
+                        %}
+                        {% comment %}
+                          <div class="td-new-banner-product-box-inner">
+                            {%- if product_2 != blank and product_2.media.size > 0 -%}
+                              {%- for media in product_2.media limit: 3 -%}
+                                <div class="{%- if product_2.media.size > 3 -%} ctm_media {% else %} ctm_not_media media-2 {% endif %} td-new-banner-product-image-wrapper">
+                                  <img
+                                    src="{{ media | img_url:'master' }}"
+                                    alt="{{ media.alt | escape }}"
+                                    width=""
+                                    height=""
+                                  >
+                                </div>
+                              {%- endfor -%}
+                            {%- else -%}
+                              <div class="td-new-banner-product-image-wrapper">
+                                <img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height="">
+                              </div>
+                              <div class="td-new-banner-product-image-wrapper">
+                                <img src="{{ 'product-thumb-2.png' | asset_url }}" alt="banner_img" width="" height="">
+                              </div>
+                              <div class="td-new-banner-product-image-wrapper">
+                                <img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height="">
+                              </div>
+                            {%- endif -%}
+                          </div>
+                          <div class="td-new-banner-product-price-wrapper">
+                            <h5>
+                              {{ product_2.title | default: block.settings.prod_2_title | default: 'Red Co-ord Set' }}
+                            </h5>
+                            <div class="td-new-banner-product-price">
+                              <p class="td-product-price-text">
+                                {{ product_2.price | money | default: block.settings.prod_2_price | default: '$89' }}
+                              </p>
+                              <span class="td-prodcut-rating">
+                                {{- block.settings.prod_2_rating | default: '5.0' }}
+                                <svg
+                                  width="13"
+                                  height="13"
+                                  viewBox="0 0 13 13"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M12.1552 4.10812L8.52522 3.79312L7.10772 0.455625C6.85272 -0.151875 5.98272 -0.151875 5.72772 0.455625L4.31022 3.80063L0.687718 4.10812C0.0277181 4.16062 -0.242282 4.98562 0.260218 5.42062L3.01272 7.80562L2.18772 11.3456C2.03772 11.9906 2.73522 12.5006 3.30522 12.1556L6.41772 10.2806L9.53022 12.1631C10.1002 12.5081 10.7977 11.9981 10.6477 11.3531L9.82272 7.80562L12.5752 5.42062C13.0777 4.98562 12.8152 4.16062 12.1552 4.10812ZM6.41772 8.87812V1.90312L7.70022 4.93313L10.9852 5.21813L8.49522 7.37812L9.24522 10.5881L6.41772 8.87812Z" fill="#F0C05A" />
+                                  <path d="M6.41772 8.87812V1.90312L7.70022 4.93313L10.9852 5.21813L8.49522 7.37812L9.24522 10.5881L6.41772 8.87812Z" fill="#F0C05A" />
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
+                          <p class="td-new-banner-product-desc">
+                            {%- if product_2 != blank -%}
+                              {{ product_2.description | strip_html | truncate: 120 }}
+                            {%- else -%}
+                              {{
+                                block.settings.prod_2_desc
+                                | default: 'A refined blazer and trousers in stretch fabric — designed to move with you.'
+                              }}
+                            {%- endif -%}
+                          </p>
+                          <div class="td-new-banner-product-swatches-wrapper">
+                            <div class="td-new-banner-product-color-swatch">
+                              {%- if product_2 != blank and product_2.media.size > 0 -%}
+                                {%- for media in product_2.media limit: 4 -%}
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box">
+                                    <img
+                                      src="{{ media | image_url: width: 100 }}"
+                                      alt="{{ media.alt | escape }}"
+                                      width=""
+                                      height=""
+                                    >
+                                  </a>
+                                {%- endfor -%}
+                              {%- else -%}
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'color-swatch-2.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'color-swatch-3.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'color-swatch-4.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                              {%- endif -%}
+                            </div>
+                            <div class="td-new-banner-product-size-swatch">
+                              {%- assign has_size_2 = false -%}
+                              {%- if product_2 != blank -%}
+                                {%- for option in product_2.options_with_values -%}
+                                  {%- if option.name == 'Size' or option.name == 'size' -%}
+                                    {%- assign has_size_2 = true -%}
+                                    {%- for value in option.values -%}
+                                      <a href="javascript:void(0);" class="td-new-product-swatch-box">{{ value }}</a>
+                                    {%- endfor -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              {%- endif -%}
+                              {%- if has_size_2 == false -%}
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">S</a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">M</a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">L</a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">XL</a>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                          <div class="td-new-add-to-cart-btn-wrapper">
+                            <a
+                              href="{{ product_2.url | default: 'javascript:void(0);' }}"
+                              class="td-new-theme-btn td-new-theme-black-btn td-new-add-to-cart-btn"
+                            >
+                              <span class="td-new-btn-text">Add to cart</span>
+                            </a>
+                          </div>
+                        {% endcomment %}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                <!-- Product Box 3: Bottom Right -->
+                {%- if block.settings.show_product_3 -%}
+                  <div class="td-new-banner-product-outer-box td-new-product-bottom-right-box">
+                    <div class="td-product-hightlight-box">
+                      <span class="td-product-highlight-dot td-bottom-right-dot">
+                        <span class="td-product-highlight-outer-dot-border"></span>
+                      </span>
+                      {%- assign product_3 = block.settings.product_3 -%}
+
+                      <div class="td-new-banner-product-box">
+                        {% render 'card-product',
+                          card_product: product_3,
+                          media_aspect_ratio: 'adapt',
+                          image_shape: false,
+                          lazy_load: true,
+                          show_secondary_image: true,
+                          show_vendor: false,
+                          show_rating: true,
+                          skip_styles: false,
+                          section_id: section.id,
+                          quick_add: 'standard',
+                          product_view_context: 'collection'
+                        %}
+                        {% comment %}
+                          <div class="td-new-banner-product-box-inner">
+                            {%- if product_3 != blank and product_3.media.size > 0 -%}
+                              {%- for media in product_3.media limit: 3 -%}
+                                <div class="{%- if product_3.media.size > 3 -%} ctm_media {% else %} ctm_not_media media-2{% endif %} td-new-banner-product-image-wrapper">
+                                  <img
+                                    src="{{ media | img_url:'master' }}"
+                                    alt="{{ media.alt | escape }}"
+                                    width="100%"
+                                    height=""
+                                  >
+                                </div>
+                              {%- endfor -%}
+                            {%- else -%}
+                              <div class="td-new-banner-product-image-wrapper">
+                                <img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height="">
+                              </div>
+                              <div class="td-new-banner-product-image-wrapper">
+                                <img src="{{ 'product-thumb-2.png' | asset_url }}" alt="banner_img" width="" height="">
+                              </div>
+                              <div class="td-new-banner-product-image-wrapper">
+                                <img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height="">
+                              </div>
+                            {%- endif -%}
+                          </div>
+                          <div class="td-new-banner-product-price-wrapper">
+                            <h5>
+                              {{ product_3.title | default: block.settings.prod_3_title | default: 'Red Co-ord Set' }}
+                            </h5>
+                            <div class="td-new-banner-product-price">
+                              <p class="td-product-price-text">
+                                {{ product_3.price | money | default: block.settings.prod_3_price | default: '$89' }}
+                              </p>
+                              <span class="td-prodcut-rating">
+                                {{- block.settings.prod_3_rating | default: '5.0' }}
+                                <svg
+                                  width="13"
+                                  height="13"
+                                  viewBox="0 0 13 13"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M12.1552 4.10812L8.52522 3.79312L7.10772 0.455625C6.85272 -0.151875 5.98272 -0.151875 5.72772 0.455625L4.31022 3.80063L0.687718 4.10812C0.0277181 4.16062 -0.242282 4.98562 0.260218 5.42062L3.01272 7.80562L2.18772 11.3456C2.03772 11.9906 2.73522 12.5006 3.30522 12.1556L6.41772 10.2806L9.53022 12.1631C10.1002 12.5081 10.7977 11.9981 10.6477 11.3531L9.82272 7.80562L12.5752 5.42062C13.0777 4.98562 12.8152 4.16062 12.1552 4.10812ZM6.41772 8.87812V1.90312L7.70022 4.93313L10.9852 5.21813L8.49522 7.37812L9.24522 10.5881L6.41772 8.87812Z" fill="#F0C05A" />
+                                  <path d="M6.41772 8.87812V1.90312L7.70022 4.93313L10.9852 5.21813L8.49522 7.37812L9.24522 10.5881L6.41772 8.87812Z" fill="#F0C05A" />
+                                </svg>
+                              </span>
+                            </div>
+                          </div>
+                          <p class="td-new-banner-product-desc">
+                            {%- if product_3 != blank -%}
+                              {{ product_3.description | strip_html | truncate: 120 }}
+                            {%- else -%}
+                              {{
+                                block.settings.prod_3_desc
+                                | default: 'A refined blazer and trousers in stretch fabric — designed to move with you.'
+                              }}
+                            {%- endif -%}
+                          </p>
+                          <div class="td-new-banner-product-swatches-wrapper">
+                            <div class="td-new-banner-product-color-swatch">
+                              {%- if product_3 != blank and product_3.media.size > 0 -%}
+                                {%- for media in product_3.media limit: 4 -%}
+                                  <a href="javascript:void(0);" class="td-new-product-swatch-box">
+                                    <img
+                                      src="{{ media | image_url: width: 100 }}"
+                                      alt="{{ media.alt | escape }}"
+                                      width=""
+                                      height=""
+                                    >
+                                  </a>
+                                {%- endfor -%}
+                              {%- else -%}
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'product-thumb-1.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'color-swatch-2.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'color-swatch-3.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box"
+                                  ><img src="{{ 'color-swatch-4.png' | asset_url }}" alt="banner_img" width="" height=""
+                                ></a>
+                              {%- endif -%}
+                            </div>
+                            <div class="td-new-banner-product-size-swatch">
+                              {%- assign has_size_3 = false -%}
+                              {%- if product_3 != blank -%}
+                                {%- for option in product_3.options_with_values -%}
+                                  {%- if option.name == 'Size' or option.name == 'size' -%}
+                                    {%- assign has_size_3 = true -%}
+                                    {%- for value in option.values -%}
+                                      <a href="javascript:void(0);" class="td-new-product-swatch-box">{{ value }}</a>
+                                    {%- endfor -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              {%- endif -%}
+                              {%- if has_size_3 == false -%}
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">S</a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">M</a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">L</a>
+                                <a href="javascript:void(0);" class="td-new-product-swatch-box">XL</a>
+                              {%- endif -%}
+                            </div>
+                          </div>
+                          <div class="td-new-add-to-cart-btn-wrapper">
+                            <a
+                              href="{{ product_3.url | default: 'javascript:void(0);' }}"
+                              class="td-new-theme-btn td-new-theme-black-btn td-new-add-to-cart-btn"
+                            >
+                              <span class="td-new-btn-text">Add to cart</span>
+                            </a>
+                          </div>
+                        {% endcomment %}
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    <!-- Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener(
+    'click',
+    function (event) {
+      // Check karein ki click swatch box par hua hai ya uske andar ki image par
+      const swatchBox = event.target.closest('.td-new-product-swatch-box');
+      if (!swatchBox) return;
+
+      // Swatch box ke andar ki image ka src nikalen
+      const swatchImg = swatchBox.querySelector('img');
+      if (!swatchImg) return;
+      const newSrc = swatchImg.getAttribute('src');
+
+      // Sahi parent product box ko target karein
+      const productBox = swatchBox.closest('.td-new-banner-product-box');
+
+      if (productBox) {
+        const media2Img = productBox.querySelector('.media-2 img, .media-2');
+
+        if (media2Img) {
+          if (media2Img.tagName === 'IMG') {
+            media2Img.setAttribute('src', newSrc);
+          } else {
+            const img = media2Img.querySelector('img');
+            if (img) img.setAttribute('src', newSrc);
+          }
+          console.log('Theme mein image successfully update ho gayi:', newSrc);
+        } else {
+          console.log('.media-2 nahi mili is product box mein.');
+        }
+      } else {
+        console.log('.td-new-banner-product-box nahi mila.');
+      }
+    },
+    true
+  ); // <--- Yeh 'true' bohot zaroori hai, yehi theme ke baki scripts ke interference ko bypass karega
+
+  document.addEventListener('click', function (event) {
+    const swatchBox = event.target.closest('.td-new-product-swatch-box');
+    if (!swatchBox) return;
+
+    const productBox = swatchBox.closest('.td-new-banner-product-box');
+    if (!productBox) return;
+
+    // Visual active class toggle karne ke liye
+    swatchBox.parentElement
+      .querySelectorAll('.td-new-product-swatch-box')
+      .forEach((el) => el.classList.remove('is-active'));
+    swatchBox.classList.add('is-active');
+
+    // Yahan aap apne product ke available variants ka data map kar sakte hain
+    // Ya agar aapke paas variant ID attribute hai toh use update karein:
+    const variantId = swatchBox.getAttribute('data-variant-id');
+    if (variantId) {
+      const form = productBox.closest('form');
+      if (form) {
+        const variantInput = form.querySelector('.product-variant-id');
+        if (variantInput) variantInput.value = variantId;
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Hero Banner",
+  "settings": [
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Hero Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Banner Background Image"
+        },
+        {
+          "type": "text",
+          "id": "top_text",
+          "label": "Top Subheading",
+          "default": "NEW SEASON"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Elevate Your Everyday Style"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Discover the latest arrivals designed for ultimate comfort and modern sophistication."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_buttons",
+          "label": "Show Action Buttons",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "btn_1_label",
+          "label": "Button 1 Label",
+          "default": "Shop Women"
+        },
+        {
+          "type": "url",
+          "id": "btn_1_link",
+          "label": "Button 1 Link"
+        },
+        {
+          "type": "text",
+          "id": "btn_2_label",
+          "label": "Button 2 Label",
+          "default": "Shop Men"
+        },
+        {
+          "type": "url",
+          "id": "btn_2_link",
+          "label": "Button 2 Link"
+        },
+        {
+          "type": "header",
+          "content": "Product 1 (Top Left Box)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_1",
+          "label": "Show Product 1",
+          "default": true
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Select Product 1"
+        },
+        {
+          "type": "text",
+          "id": "prod_1_title",
+          "label": "Fallback Title",
+          "default": "Red Co-ord Set"
+        },
+        {
+          "type": "text",
+          "id": "prod_1_price",
+          "label": "Fallback Price",
+          "default": "$89"
+        },
+        {
+          "type": "text",
+          "id": "prod_1_rating",
+          "label": "Rating",
+          "default": "5.0"
+        },
+        {
+          "type": "textarea",
+          "id": "prod_1_desc",
+          "label": "Fallback Description",
+          "default": "A refined blazer and trousers in stretch fabric — designed to move with you."
+        },
+        {
+          "type": "header",
+          "content": "Product 2 (Center Box)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_2",
+          "label": "Show Product 2",
+          "default": true
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Select Product 2"
+        },
+        {
+          "type": "text",
+          "id": "prod_2_title",
+          "label": "Fallback Title",
+          "default": "Red Co-ord Set"
+        },
+        {
+          "type": "text",
+          "id": "prod_2_price",
+          "label": "Fallback Price",
+          "default": "$89"
+        },
+        {
+          "type": "text",
+          "id": "prod_2_rating",
+          "label": "Rating",
+          "default": "5.0"
+        },
+        {
+          "type": "textarea",
+          "id": "prod_2_desc",
+          "label": "Fallback Description",
+          "default": "A refined blazer and trousers in stretch fabric — designed to move with you."
+        },
+        {
+          "type": "header",
+          "content": "Product 3 (Bottom Right Box)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_3",
+          "label": "Show Product 3",
+          "default": true
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Select Product 3"
+        },
+        {
+          "type": "text",
+          "id": "prod_3_title",
+          "label": "Fallback Title",
+          "default": "Red Co-ord Set"
+        },
+        {
+          "type": "text",
+          "id": "prod_3_price",
+          "label": "Fallback Price",
+          "default": "$89"
+        },
+        {
+          "type": "text",
+          "id": "prod_3_rating",
+          "label": "Rating",
+          "default": "5.0"
+        },
+        {
+          "type": "textarea",
+          "id": "prod_3_desc",
+          "label": "Fallback Description",
+          "default": "A refined blazer and trousers in stretch fabric — designed to move with you."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Hero Banner",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

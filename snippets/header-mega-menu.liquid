@@ -1,9 +1,11 @@
-{% comment %}
-  Renders a megamenu for the header.
+{% doc %}
+  Renders the header menu in the mega menu style.
 
-  Usage:
+  @param {object} [section] - The current header section context, supplied implicitly when rendered from that section and used for menu settings.
+
+  @example
   {% render 'header-mega-menu' %}
-{% endcomment %}
+{% enddoc %}
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
@@ -27,98 +29,46 @@
               </summary>
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
-                class="mega-menu__content ob-mega-menu color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                <div class="ob-mega-menu__layout">
-                  <div class="ob-mega-menu__categories" role="tablist" aria-label="{{ link.title | escape }} categories">
-                    {%- for childlink in link.links -%}
-                      <button
-                        class="ob-mega-menu__category{% if forloop.first %} is-active{% endif %}"
-                        id="MegaMenuTab-{{ section.id }}-{{ forloop.parentloop.index }}-{{ forloop.index }}"
-                        type="button"
-                        role="tab"
-                        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-                        aria-controls="MegaMenuPanel-{{ section.id }}-{{ forloop.parentloop.index }}-{{ forloop.index }}"
-                        style="--ob-item-index: {{ forloop.index0 }};"
-                        data-ob-mega-tab
+                <ul
+                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
+                  role="list"
+                >
+                  {%- for childlink in link.links -%}
+                    <li>
+                      <a
+                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
+                        href="{{ childlink.url }}"
+                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                        {% if childlink.current %}
+                          aria-current="page"
+                        {% endif %}
                       >
-                        <span>{{ childlink.title | escape }}</span>
-                        <span class="ob-mega-menu__category-icon" aria-hidden="true">{% if forloop.first %}−{% else %}+{% endif %}</span>
-                      </button>
-                    {%- endfor -%}
-                  </div>
-
-                  <div class="ob-mega-menu__links">
-                    {%- for childlink in link.links -%}
-                      <div
-                        class="ob-mega-menu__panel{% if forloop.first %} is-active{% endif %}"
-                        id="MegaMenuPanel-{{ section.id }}-{{ forloop.parentloop.index }}-{{ forloop.index }}"
-                        role="tabpanel"
-                        aria-labelledby="MegaMenuTab-{{ section.id }}-{{ forloop.parentloop.index }}-{{ forloop.index }}"
-                        data-ob-mega-panel
-                        {% unless forloop.first %}hidden{% endunless %}
-                      >
-                        {%- if childlink.links != blank -%}
-                          <ul class="ob-mega-menu__link-list" role="list">
-                            {%- for grandchildlink in childlink.links -%}
-                              <li style="--ob-item-index: {{ forloop.index0 }};">
-                                <a
-                                  href="{{ grandchildlink.url }}"
-                                  class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
-                                  {% if grandchildlink.current %}aria-current="page"{% endif %}
-                                >
-                                  {{ grandchildlink.title | escape }}
-                                </a>
-                              </li>
-                            {%- endfor -%}
-                          </ul>
-                        {%- else -%}
-                          <a class="ob-mega-menu__standalone-link" href="{{ childlink.url }}" style="--ob-item-index: 0;">
-                            {{ childlink.title | escape }}
-                          </a>
-                        {%- endif -%}
-                      </div>
-                    {%- endfor -%}
-                  </div>
-
-                  {%- assign matching_image_count = 0 -%}
-                  {%- for block in section.blocks -%}
-                    {%- if block.type == 'mega_menu_image' and block.settings.image != blank -%}
-                      {%- if block.settings.menu_item == blank or block.settings.menu_item == link.title -%}
-                        {%- assign matching_image_count = matching_image_count | plus: 1 -%}
+                        {{ childlink.title | escape }}
+                      </a>
+                      {%- if childlink.links != blank -%}
+                        <ul class="list-unstyled" role="list">
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a
+                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                href="{{ grandchildlink.url }}"
+                                class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                {% if grandchildlink.current %}
+                                  aria-current="page"
+                                {% endif %}
+                              >
+                                {{ grandchildlink.title | escape }}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
                       {%- endif -%}
-                    {%- endif -%}
+                    </li>
                   {%- endfor -%}
-                  {%- if matching_image_count > 0 -%}
-                    <div class="ob-mega-menu__images ob-mega-menu__images--{{ matching_image_count | at_most: 2 }}">
-                      {%- for block in section.blocks -%}
-                        {%- if block.type == 'mega_menu_image' and block.settings.image != blank -%}
-                          {%- if block.settings.menu_item == blank or block.settings.menu_item == link.title -%}
-                            <a
-                              class="ob-mega-menu__image-card"
-                              href="{{ block.settings.link | default: link.url }}"
-                              style="--ob-item-index: {{ forloop.index0 }};"
-                              {{ block.shopify_attributes }}
-                            >
-                              {{
-                                block.settings.image
-                                | image_url: width: 900
-                                | image_tag:
-                                  widths: '300, 450, 600, 750, 900',
-                                  loading: 'lazy',
-                                  alt: block.settings.image.alt
-                              }}
-                              {%- if block.settings.title != blank -%}
-                                <span class="ob-mega-menu__image-title">{{ block.settings.title | escape }}</span>
-                              {%- endif -%}
-                            </a>
-                          {%- endif -%}
-                        {%- endif -%}
-                      {%- endfor -%}
-                    </div>
-                  {%- endif -%}
-                </div>
+                </ul>
               </div>
             </details>
           </header-menu>

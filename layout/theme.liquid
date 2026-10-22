@@ -52,8 +52,6 @@
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'custom-ob.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart-disclosure-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart-disclosure-tooltip.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
@@ -281,7 +279,7 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'custom-ob.css' | asset_url | stylesheet_tag }}
+    {{ 'global.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -322,6 +320,17 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+      <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+
+
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -404,5 +413,11 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+         <script src="{{ 'gsap.min.js' | asset_url }}" defer></script>
+     <script src="{{ 'ScrollTrigger.min.js' | asset_url }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
+    <script src="{{ 'custom-td.js' | asset_url }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"defer></script>
   </body>
 </html>
