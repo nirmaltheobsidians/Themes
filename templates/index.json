@@ -1,12 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "collection_list_Tiyt8N": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_QjWB6L": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_8f8E4p": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        },
+        "featured_collection_bTn9C3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_QjWB6L",
+        "featured_collection_8f8E4p",
+        "featured_collection_bTn9C3"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "new_banner_Ry86xh": {
       "type": "new-banner",
       "blocks": {
         "slide_LaV7R8": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -38,7 +88,7 @@
         "slide_ebbCmm": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -143,6 +193,7 @@
   },
   "order": [
     "new_banner_Ry86xh",
+    "collection_list_Tiyt8N",
     "collection_showcase_PJDebb"
   ]
 }
