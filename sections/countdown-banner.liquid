@@ -1,0 +1,111 @@
+<div class="td-countdown" data-countdown-date="{{ section.settings.end_date }}">
+    <div class="td-cmn-container page-width">
+        <div class="td-countdown-content-outer">
+            <div class="td-countdown-content">
+                <div class="td-sec-head td-sec-head-new">
+                    <span class="td-new-banner-top td-new-banner-top-black without-animate">{{ section.settings.badge_text }}</span>
+                    <div class="td-sec-head td-sec-head-new-inner">
+                        <h2>{{ section.settings.heading }}</h2>
+                        <p>
+                            {{ section.settings.description }}
+                        </p>
+                    </div>
+                </div>
+                <div class="td-new-banner-button-wrapper">
+                    <a href="{{ section.settings.button_link | default: 'javascript:void(0);' }}" class="td-new-theme-btn td-border-btn td-border-black-btn">
+                        <span class="td-new-btn-text">
+                            {{ section.settings.button_text }}
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="td-countdown-box td-timer-box-wrapper">
+                <div class="td-timer-box">
+                    <div class="td-digit-wrapper">
+                        <span id="days" class="td-digit">00</span>
+                    </div>
+                    <div class="td-counter-text">
+                        <p>DAYS</p>
+                    </div>
+                </div>
+                <div class="td-timer-box">
+                    <div class="td-digit-wrapper">
+                        <span id="hours" class="td-digit">00</span>
+                    </div>
+                    <div class="td-counter-text">
+                        <p>HOURS</p>
+                    </div>
+                </div>
+
+                <div class="td-timer-box">
+                    <div class="td-digit-wrapper">
+                        <span id="minutes" class="td-digit">00</span>
+                    </div>
+                    <div class="td-counter-text">
+                        <p>MINUTES</p>
+                    </div>
+                </div>
+
+                <div class="td-timer-box">
+                    <div class="td-digit-wrapper">
+                        <span id="seconds-tens" class="td-digit">0</span>
+                        <span id="seconds-ones" class="td-seconds-ones td-digit animate">0</span>
+                    </div>
+                    <div class="td-counter-text">
+                        <p>SECONDS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Countdown Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Limited Time Offer"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Weekend Style Event"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Enjoy up to 30% off a curated selection of seasonal styles — refresh your wardrobe with standout pieces, available for a limited time only."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "Countdown End Date",
+      "info": "Format: Month Day, Year (Jaise: September 30, 2026)",
+      "default": "September 30, 2026"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Banner"
+    }
+  ]
+}
+{% endschema %}
+

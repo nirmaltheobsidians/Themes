@@ -1,0 +1,106 @@
+<div class="td-popular-product ctm_popular_prd">
+  <div class="td-cmn-container page-width">
+    <div class="td-sec-head td-sec-head-new">
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.description }}</p>
+    </div>
+    <div class="td-popular-product-wrapper">
+      <div class="swiper td-trend-product-slider">
+        <div class="swiper-wrapper">
+          {%- assign collection = collections[section.settings.collection] -%}
+          {%- if collection != blank and collection.products.size > 0 -%}
+            {%- for product in collection.products limit: section.settings.product_limit -%}
+              <div class="swiper-slide td-trend-product-slide">
+                <div class="td-trend-product-box-wrapper">
+                  <div class="td-trend-product-box">
+                    {% render 'card-product',
+                      card_product: product,
+                      media_aspect_ratio: 'adapt',
+                      image_shape: false,
+                      lazy_load: true,
+                      show_secondary_image: true,
+                      show_vendor: false,
+                      show_rating: true,
+                      skip_styles: false,
+                      section_id: section.id,
+                      quick_add: 'standard',
+                      product_view_context: 'collection'
+                    %}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+        <!-- Navigation -->
+        <div class="td-new-hero-slider-navigation">
+          <div class="swiper-button-prev td-new-hero-slider-nav td-new-hero-slider-nav-black">
+            <span class="td-nav-icon-wrapper">
+              <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.25 0.75L0.75 8.25L8.25 15.75M0.75 8.25L18.75 8.25" stroke="white" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+          <div class="td-new-hero-slider-progress td-new-hero-slider-progress-black">
+            <div class="td-new-hero-slider-progress-fill td-new-hero-slider-progress-fill-black"></div>
+          </div>
+          <div class="swiper-button-next td-new-hero-slider-nav td-new-hero-slider-nav-black">
+            <span class="td-nav-icon-wrapper">
+              <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.25 0.75L18.75 8.25L11.25 15.75M18.75 8.25L0.75 8.25" stroke="white" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+          </div>
+        </div>
+        <!-- Navigation -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Popular Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Popular Products"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Explore the must-have styles our customers love. From essentials to favorites, these are the pieces that return."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "label": "Product Limit",
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Product Tag Text",
+      "default": "BESTSELLERS"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popular Products"
+    }
+  ]
+}
+{% endschema %}

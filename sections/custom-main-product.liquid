@@ -1,0 +1,368 @@
+{%- assign target_product = all_products[section.settings.product] -%}
+<div class="td-product-showcase" {%- if target_product != blank -%}data-variants='{{ target_product.variants | json }}'{%- endif -%}>
+  <div class="td-product-showcase-inner">
+    <div class="swiper td-product-showcase-slider">
+      <div class="swiper-wrapper">
+
+        {%- if target_product != blank and target_product.media.size > 0 -%}
+          {%- for media in target_product.media -%}
+            <div class="swiper-slide" data-media-id="{{ media.id }}">
+              <img src="{{ media | image_url: width: 800 }}" alt="{{ target_product.title | escape }}" width="" height="">
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="swiper-slide" data-media-id="1">
+            <img src="{{ 'timeline-img-1.png' | asset_url }}" alt="single_product" width="" height="">
+          </div>
+          <div class="swiper-slide" data-media-id="2">
+            <img src="{{ 'timeline-img-2.png' | asset_url }}" alt="single_product" width="" height="">
+          </div>
+          <div class="swiper-slide" data-media-id="3">
+            <img src="{{ 'product-showcase-1.png' | asset_url }}" alt="single_product" width="" height="">
+          </div>
+          <div class="swiper-slide" data-media-id="4">
+            <img src="{{ 'our-mission.png' | asset_url }}" alt="single_product" width="" height="">
+          </div>
+          <div class="swiper-slide" data-media-id="5">
+            <img src="{{ 'showcase-2.jpg' | asset_url }}" alt="single_product" width="" height="">
+          </div>
+        {%- endif -%}
+
+      </div>
+      <div class="td-single-product-showcase-nav-thumb">
+
+        <button class="td-single-product-showcase-nav-thumb-prev" type="button" aria-label="Previous product image">
+          <span class="td-single-product-nav-image">
+            <img src="" alt="Previous product image" width="" height="">
+          </span>
+
+          <span class="td-single-product-nav-label">
+            <span class="td-single-product-nav-arrow">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 13L1 7L7 1" stroke="black" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </span>
+            Previous
+          </span>
+        </button>
+
+
+        <button class="td-single-product-showcase-nav-thumb-next" type="button" aria-label="Next product image">
+          <span class="td-single-product-nav-image">
+            <img src="" alt="Next product image" width="" height="">
+          </span>
+          <span class="td-single-product-nav-label">
+            Next
+            <span class="td-single-product-nav-arrow">
+              <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.999999 13L7 7L1 1" stroke="black" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </span>
+          </span>
+        </button>
+
+      </div>
+
+      <div class="td-single-product-showcase-thumbs-outer">
+
+
+        <div class="swiper td-single-product-showcase-slider-thumbs">
+          <div class="swiper-wrapper">
+
+            {%- if target_product != blank and target_product.media.size > 0 -%}
+              {%- for media in target_product.media -%}
+                <div class="swiper-slide">
+                  <img src="{{ media | image_url: width: 200 }}" alt="{{ target_product.title | escape }}" width="" height="">
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              <div class="swiper-slide">
+                <img src="{{ 'timeline-img-1.png' | asset_url }}" alt="single_product" width="" height="">
+              </div>
+              <div class="swiper-slide">
+                <img src="{{ 'timeline-img-2.png' | asset_url }}" alt="single_product" width="" height="">
+              </div>
+              <div class="swiper-slide">
+                <img src="{{ 'product-showcase-1.png' | asset_url }}" alt="single_product" width="" height="">
+              </div>
+              <div class="swiper-slide">
+                <img src="{{ 'our-mission.png' | asset_url }}" alt="single_product" width="" height="">
+              </div>
+              <div class="swiper-slide">
+                <img src="{{ 'showcase-2.jpg' | asset_url }}" alt="single_product" width="" height="">
+              </div>
+            {%- endif -%}
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="td-product-showcase-content">
+      <div class="td-sec-head td-sec-head-new">
+        <span class="td-new-banner-top td-new-banner-top-black without-animate">{{ section.settings.badge_text }}</span>
+        <div class="td-sec-head td-sec-head-new-inner">
+          <h2>{{ target_product.title | default: section.settings.heading }}</h2>
+        </div>
+      </div>
+      <div class="td-single-product-showcase-price-wrapper">
+        <div class="td-prod-price-wrapper">
+        </div>
+        <div class="td-product-rating-wrapper">
+          <span class="td-rating-points">{{ section.settings.rating_points }}</span>
+          <span class="td-rating-star">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14.7372 6.78L11.1072 6.465L9.68975 3.1275C9.43475 2.52 8.56475 2.52 8.30975 3.1275L6.89225 6.4725L3.26975 6.78C2.60975 6.8325 2.33975 7.6575 2.84225 8.0925L5.59475 10.4775L4.76975 14.0175C4.61975 14.6625 5.31725 15.1725 5.88725 14.8275L8.99975 12.9525L12.1122 14.835C12.6822 15.18 13.3797 14.67 13.2297 14.025L12.4047 10.4775L15.1572 8.0925C15.6597 7.6575 15.3972 6.8325 14.7372 6.78ZM8.99975 11.55V4.575L10.2822 7.605L13.5672 7.89L11.0772 10.05L11.8272 13.26L8.99975 11.55Z"
+                fill="#F0C05A" />
+              <path d="M8.99975 11.55V4.575L10.2822 7.605L13.5672 7.89L11.0772 10.05L11.8272 13.26L8.99975 11.55Z"
+                fill="#F0C05A" />
+            </svg>
+
+          </span>
+          {{ section.settings.review_count }}
+        </div>
+        <p class="td-prod-price" id="product-price">
+          {%- if target_product != blank -%}
+            {{ target_product.selected_or_first_available_variant.price | money }}
+          {%- else -%}
+            {{ section.settings.price }}
+          {%- endif -%}
+        </p>
+        <p>
+          {%- if target_product != blank -%}
+            {{ target_product.description | strip_html | truncatewords: 30 }}
+          {%- else -%}
+            {{ section.settings.description }}
+          {%- endif -%}
+        </p>
+
+        <div class="td-single-product-showcase-swatch-wrapper">
+          <div class="td-single-product-showcase-img-color-swatch">
+            <div class="td-single-product-showcase-swatch-list">
+              <div class="td-single-product-showcase-swatch-list-item">
+                {%- if target_product != blank -%}
+                  {%- for option in target_product.options_with_values -%}
+                    {%- assign opt_name = option.name | downcase -%}
+                    {%- if opt_name contains 'color' or opt_name contains 'colour' -%}
+                      {%- for value in option.values -%}
+                        {%- assign variant_for_image = target_product.variants | where: option.position, value | first -%}
+                        <a style="background-color:{{ value }};" href="javascript:void(0);" class="td-single-product-showcase-swatch color-swatch-item {% if forloop.first %}active{% endif %}" data-color="{{ value }}" data-variant-id="{{ variant_for_image.id }}" data-media-id="{{ variant_for_image.featured_media.id }}">
+                          {% comment %} <img src="{{ variant_for_image.featured_media | image_url: width: 100 }}" alt="{{ value }}" width="" height=""> {% endcomment %}
+                        </a>
+                      {%- endfor -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch active">
+                    <img src="{{ 'product-swatch-1.png' | asset_url }}" alt="single_product" width="" height="">
+                  </a>
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch">
+                    <img src="{{ 'product-swatch-2.png' | asset_url }}" alt="single_product" width="" height="">
+                  </a>
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch">
+                    <img src="{{ 'product-swatch-3.png' | asset_url }}" alt="single_product" width="" height="">
+                  </a>
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch">
+                    <img src="{{ 'product-swatch-4.png' | asset_url }}" alt="single_product" width="" height="">
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+          <div class="td-single-product-showcase-size-swatch">
+            <div class="td-single-product-showcase-size-swatch-list">
+              <div class="td-single-product-showcase-swatch-list-item">
+                {%- if target_product != blank -%}
+                  {%- for option in target_product.options_with_values -%}
+                    {%- assign opt_name = option.name | downcase -%}
+                    {%- if opt_name contains 'size' -%}
+                      {%- for value in option.values -%}
+                        <a href="javascript:void(0);" class="td-single-product-showcase-swatch size-swatch-item {% if forloop.first %}active{% endif %}" data-size="{{ value }}">
+                          <span class="td-single-product-swatch-size">{{ value }}</span>
+                        </a>
+                      {%- endfor -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch active">
+                    <span class="td-single-product-swatch-size">S</span>
+                  </a>
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch">
+                    <span class="td-single-product-swatch-size">M</span>
+                  </a>
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch">
+                    <span class="td-single-product-swatch-size">L</span>
+                  </a>
+                  <a href="javascript:void(0);" class="td-single-product-showcase-swatch">
+                    <span class="td-single-product-swatch-size">XL</span>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="td-product-showcase-stock-wrapper">
+          <span class="td-product-showcase-stock-dot"></span>
+          <p>{{ section.settings.stock_text }}</p>
+        </div>
+        <div class="td-icon-with-text-outer">
+          <div class="td-icon-with-text-wrapper">
+            <span class="td-prod-icon-wrapper">
+              <svg width="29" height="23" viewBox="0 0 29 23" fill="none" xmlns="http://www.w3.org/2000/svg"
+                class="td-delivery-icon">
+                <path class="td-wheel" d=" M20.7507 22.0833C22.2234 22.0833 23.4173 20.8894 23.4173 19.4167C23.4173 17.9439 22.2234 16.75 20.7507
+                  16.75C19.2779 16.75 18.084 17.9439 18.084 19.4167C18.084 20.8894 19.2779 22.0833 20.7507 22.0833Z"
+                  stroke="#111111" stroke-width="1.5" />
+                <path class="td-wheel"
+                  d="M7.41667 22.0833C8.88943 22.0833 10.0833 20.8894 10.0833 19.4167C10.0833 17.9439 8.88943 16.75 7.41667 16.75C5.94391 16.75 4.75 17.9439 4.75 19.4167C4.75 20.8894 5.94391 22.0833 7.41667 22.0833Z"
+                  stroke="#111111" stroke-width="1.5" />
+                <path
+                  d="M4.75 19.3793C3.28733 19.3073 2.37667 19.09 1.726 18.4407C1.07533 17.7913 0.859333 16.8793 0.787333 15.4167M10.0833 19.4167H18.0833M23.4167 19.3793C24.8793 19.3073 25.79 19.09 26.4407 18.4407C27.4167 17.4633 27.4167 15.8927 27.4167 12.75V10.0833H21.15C20.1567 10.0833 19.6607 10.0833 19.2593 9.95267C18.8591 9.82262 18.4954 9.59971 18.1978 9.30216C17.9003 9.00461 17.6774 8.64087 17.5473 8.24067C17.4167 7.83933 17.4167 7.34333 17.4167 6.35C17.4167 4.86067 17.4167 4.11667 17.2207 3.514C17.0256 2.9137 16.6912 2.36809 16.2449 1.92176C15.7986 1.47543 15.253 1.14107 14.6527 0.946C14.05 0.75 13.306 0.75 11.8167 0.75H0.75M0.75 6.08333H8.75M0.75 10.0833H6.08333"
+                  stroke="#111111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                  d="M17.416 3.41602H19.844C21.7853 3.41602 22.7547 3.41602 23.544 3.88802C24.3347 4.35868 24.7947 5.21335 25.7147 6.92268L27.416 10.0827"
+                  stroke="#111111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <p>{{ section.settings.delivery_text }}</p>
+          </div>
+          <div class="td-icon-with-text-wrapper">
+            <span class="td-prod-icon-wrapper">
+              <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                class="td-return-icon">
+                <path class="td-wheel"
+                  d="M18.134 8.21587H24.79L20.5487 3.97187C19.1832 2.60637 17.4823 1.6244 15.6169 1.12468C13.7516 0.624963 11.7876 0.625109 9.92235 1.1251C8.0571 1.6251 6.35634 2.60732 4.99106 3.97303C3.62577 5.33874 2.64407 7.0398 2.14466 8.90521M7.40599 15.2879H0.74999V21.9439M0.74999 15.2879L4.98999 19.5319C6.35548 20.8974 8.05638 21.8793 9.92171 22.3791C11.787 22.8788 13.751 22.8786 15.6163 22.3786C17.4816 21.8786 19.1823 20.8964 20.5476 19.5307C21.9129 18.165 22.8946 16.4639 23.394 14.5985M24.79 1.55987V8.21321"
+                  stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </span>
+            <p>{{ section.settings.return_text }}</p>
+          </div>
+          <div class="td-icon-with-text-wrapper">
+            <span class="td-prod-icon-wrapper">
+              <svg class="td-gaurantee-icon" width="26" height="27" viewBox="0 0 26 27" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+
+                <path class="td-gaurantee-path"
+                  d="M12.75 0.75C9.73098 3.61698 5.71035 5.18944 1.54734 5.13133C1.01779 6.74464 0.748635 8.43201 0.750005 10.13C0.750005 17.586 5.84867 23.85 12.75 25.6273C19.6513 23.8513 24.75 17.5873 24.75 10.1313C24.75 8.38467 24.47 6.70333 23.9527 5.13H23.75C19.4887 5.13 15.6167 3.466 12.75 0.75Z"
+                  stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+                <path class="td-check" d="M8.75001 14.1313L11.75 17.1313L16.75 10.1313" stroke="black"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+
+              </svg>
+            </span>
+            <p>{{ section.settings.guarantee_text }}</p>
+          </div>
+
+        </div>
+        <div class="td-single-product-quantity-button-wrapper">
+          <a href="javascript:void(0);"
+            class="td-new-theme-btn td-border-btn td-filled-black-btn td-single-product-add-btn" data-variant-id="{{ target_product.selected_or_first_available_variant.id }}">
+            <span class="td-new-btn-text">
+              Add to Cart
+            </span>
+          </a>
+          <div class="td-single-product-quantity">
+            <button type="button" class="td-single-product-quantity-btn">
+              -
+            </button>
+            <span class="td-single-product-quantity-value">1</span>
+            <button type="button" class="td-single-product-quantity-btn">
+              +
+            </button>
+          </div>
+          <a href="{{ target_product.url | default: 'javascript:void(0);' }}"
+            class="td-new-theme-btn td-border-btn td-border-black-btn td-light-border td-view-detail-btn">
+            <span class="td-new-btn-text">
+              View Full Details
+            </span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Showcase",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Select Product"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Featured Product"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Fallback Heading",
+      "default": "The Relaxed Tailored Blazer"
+    },
+    {
+      "type": "text",
+      "id": "rating_points",
+      "label": "Rating Points",
+      "default": "5.0"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count Text",
+      "default": "(128 Reviews)"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Fallback Price",
+      "default": "$148.00"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Fallback Description",
+      "default": "A wardrobe essential with a structured silhouette. Made from lightweight wool-blend, it offers warmth without bulk. Pair with tailored trousers or layer over a tee."
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Stock Text",
+      "default": "In stock — ships in 1-2 days"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Delivery Text",
+      "default": "Free Delivery"
+    },
+    {
+      "type": "text",
+      "id": "return_text",
+      "label": "Return Text",
+      "default": "Easy 30-Day Returns"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee Text",
+      "default": "1-Year Guarantee"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Showcase"
+    }
+  ]
+}
+{% endschema %}

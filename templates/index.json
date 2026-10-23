@@ -1,62 +1,12 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "collection_list_Tiyt8N": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_QjWB6L": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "featured_collection_8f8E4p": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "featured_collection_bTn9C3": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_QjWB6L",
-        "featured_collection_8f8E4p",
-        "featured_collection_bTn9C3"
-      ],
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "title": "Collections",
-        "heading_size": "h1",
-        "image_ratio": "square",
-        "columns_desktop": 3,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "new_banner_Ry86xh": {
       "type": "new-banner",
       "blocks": {
         "slide_LaV7R8": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -88,7 +38,7 @@
         "slide_ebbCmm": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -184,16 +134,114 @@
         "collection_item_Vrpkmy",
         "collection_item_damjtX"
       ],
+      "disabled": true,
       "name": "Collection Showcase",
       "settings": {
         "button_text": "View All Collections",
         "button_url": ""
       }
+    },
+    "trending_products_jUay6y": {
+      "type": "trending-products",
+      "blocks": {
+        "tab_rWBgCP": {
+          "type": "tab",
+          "settings": {
+            "title": "All Products",
+            "collection": "best-seller",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        },
+        "tab_GrnqHP": {
+          "type": "tab",
+          "settings": {
+            "title": "New Arrivals",
+            "collection": "new-arrivals",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        },
+        "tab_gfegHa": {
+          "type": "tab",
+          "settings": {
+            "title": "Summer Collection",
+            "collection": "new-arrivals",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        },
+        "tab_YEPGTy": {
+          "type": "tab",
+          "settings": {
+            "title": "Best Sellers",
+            "collection": "best-seller",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        }
+      },
+      "block_order": [
+        "tab_rWBgCP",
+        "tab_GrnqHP",
+        "tab_gfegHa",
+        "tab_YEPGTy"
+      ],
+      "disabled": true,
+      "name": "Trending Products",
+      "settings": {
+        "heading": "Trending Right Now"
+      }
+    },
+    "countdown_banner_6E8Y4G": {
+      "type": "countdown-banner",
+      "disabled": true,
+      "name": "Countdown Banner",
+      "settings": {
+        "badge_text": "Limited Time Offer",
+        "heading": "The Weekend Style Event",
+        "description": "Enjoy up to 30% off a curated selection of seasonal styles — refresh your wardrobe with standout pieces, available for a limited time only.",
+        "button_text": "Shop Collection",
+        "button_link": "",
+        "end_date": "2026-12-31"
+      }
+    },
+    "custom_main_product_pCTNaz": {
+      "type": "custom-main-product",
+      "disabled": true,
+      "name": "Product Showcase",
+      "settings": {
+        "product": "ergonomic-baby-carrier-neutral",
+        "badge_text": "Featured Product",
+        "heading": "The Relaxed Tailored Blazer",
+        "rating_points": "5.0",
+        "review_count": "(128 Reviews)",
+        "price": "$148.00",
+        "description": "A wardrobe essential with a structured silhouette. Made from lightweight wool-blend, it offers warmth without bulk. Pair with tailored trousers or layer over a tee.",
+        "stock_text": "In stock — ships in 1-2 days",
+        "delivery_text": "Free Delivery",
+        "return_text": "Easy 30-Day Returns",
+        "guarantee_text": "1-Year Guarantee"
+      }
+    },
+    "popular_products_9PeBQ6": {
+      "type": "popular-products",
+      "name": "Popular Products",
+      "settings": {
+        "heading": "Popular Products",
+        "description": "Explore the must-have styles our customers love. From essentials to favorites, these are the pieces that return.",
+        "collection": "best-seller",
+        "product_limit": 12,
+        "tag_text": "BESTSELLERS"
+      }
     }
   },
   "order": [
     "new_banner_Ry86xh",
-    "collection_list_Tiyt8N",
-    "collection_showcase_PJDebb"
+    "collection_showcase_PJDebb",
+    "trending_products_jUay6y",
+    "countdown_banner_6E8Y4G",
+    "custom_main_product_pCTNaz",
+    "popular_products_9PeBQ6"
   ]
 }

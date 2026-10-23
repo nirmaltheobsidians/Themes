@@ -2677,83 +2677,73 @@ tdItems.forEach((item, index) => {
 
 
 // Countdown timer 
+document.addEventListener("DOMContentLoaded", function () {
+    const countdownWrapper = document.querySelector(".td-countdown");
+    if (!countdownWrapper) return;
 
-const countdownDate = "September 30, 2026";
+    const countdownDateAttr = countdownWrapper.getAttribute("data-countdown-date");
+    const targetDate = new Date(countdownDateAttr).getTime();
 
-const targetDate = new Date(countdownDate).getTime();
+    const daysElement = document.getElementById("days");
+    const hoursElement = document.getElementById("hours");
+    const minutesElement = document.getElementById("minutes");
+    const secondsTensElement = document.getElementById("seconds-tens");
+    const secondsOnesElement = document.getElementById("seconds-ones");
 
-const daysElement = document.getElementById("days");
-const hoursElement = document.getElementById("hours");
-const minutesElement = document.getElementById("minutes");
-const secondsTensElement = document.getElementById("seconds-tens");
-const secondsOnesElement = document.getElementById("seconds-ones");
+    let timer;
 
-let timer;
-
-
-function pad(value) {
-    return String(value).padStart(2, "0");
-}
-
-
-function updateCountdown() {
-    const now = Date.now();
-    const difference = targetDate - now;
-
-    // Countdown finished
-    if (difference <= 0) {
-        daysElement.textContent = "00";
-        hoursElement.textContent = "00";
-        minutesElement.textContent = "00";
-        secondsTensElement.textContent = "0";
-        secondsOnesElement.textContent = "0";
-
-        clearInterval(timer);
-        return;
+    function pad(value) {
+        return String(value).padStart(2, "0");
     }
 
-    // Calculate time
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    function updateCountdown() {
+        const now = Date.now();
+        const difference = targetDate - now;
 
-    const hours = Math.floor(
-        (difference / (1000 * 60 * 60)) % 24
-    );
+        // Countdown finished
+        if (difference <= 0) {
+            if (daysElement) daysElement.textContent = "00";
+            if (hoursElement) hoursElement.textContent = "00";
+            if (minutesElement) minutesElement.textContent = "00";
+            if (secondsTensElement) secondsTensElement.textContent = "0";
+            if (secondsOnesElement) secondsOnesElement.textContent = "0";
 
-    const minutes = Math.floor(
-        (difference / (1000 * 60)) % 60
-    );
+            clearInterval(timer);
+            return;
+        }
 
-    const seconds = Math.floor(
-        (difference / 1000) % 60
-    );
+        // Calculate time
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / (1000 * 60)) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
 
-    // Update days, hours & minutes
-    daysElement.textContent = pad(days);
-    hoursElement.textContent = pad(hours);
-    minutesElement.textContent = pad(minutes);
+        // Update days, hours & minutes
+        if (daysElement) daysElement.textContent = pad(days);
+        if (hoursElement) hoursElement.textContent = pad(hours);
+        if (minutesElement) minutesElement.textContent = pad(minutes);
 
-    // Split seconds into two digits
-    const tens = Math.floor(seconds / 10);
-    const ones = seconds % 10;
+        // Split seconds into two digits
+        const tens = Math.floor(seconds / 10);
+        const ones = seconds % 10;
 
-    secondsTensElement.textContent = tens;
-    secondsOnesElement.textContent = ones;
+        if (secondsTensElement) secondsTensElement.textContent = tens;
+        if (secondsOnesElement) {
+            secondsOnesElement.textContent = ones;
 
-    // Seconds animation
-    secondsOnesElement.classList.remove("animate");
+            // Seconds animation
+            secondsOnesElement.classList.remove("animate");
+            void secondsOnesElement.offsetWidth; // Force browser reflow
+            secondsOnesElement.classList.add("animate");
+        }
+    }
 
-    // Force browser reflow
-    void secondsOnesElement.offsetWidth;
-
-    secondsOnesElement.classList.add("animate");
-}
+    timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+});
 
 
-// Start countdown immediately
-updateCountdown();
 
-// Update every second
-timer = setInterval(updateCountdown, 1000);
 
 
 
@@ -3015,5 +3005,86 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// banner js 
+// banner product card js 
+document.addEventListener("DOMContentLoaded", function () {
+    if (typeof Swiper === 'undefined') {
+        return;
+    }
 
+    // 1. Initialize Outer Product Slider (Popular Products List/Carousel)
+    const trendProductSlider = document.querySelector(".td-trend-product-slider");
+    if (trendProductSlider && !trendProductSlider.swiper) {
+        new Swiper(trendProductSlider, {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            loop: false,
+            allowTouchMove: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                576: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
+            }
+        });
+    }
+
+    // 2. Initialize Inner Image Sliders & Swatches for each product card
+    document.querySelectorAll(".td-trend-product-box-slider").forEach(boxSlider => {
+        if (boxSlider.swiper) return;
+
+        const slides = boxSlider.querySelectorAll('.swiper-slide');
+        const paginationEl = boxSlider.querySelector('.swiper-pagination');
+
+        if (slides.length < 2) {
+            if (paginationEl) {
+                paginationEl.style.display = 'none';
+            }
+            return;
+        }
+
+        if (paginationEl) {
+            paginationEl.style.display = 'block';
+        }
+
+        const parentBox = boxSlider.closest('.td-trend-product-box') || boxSlider.closest('.td-trend-product-img-wrapper');
+        const swatches = parentBox ? parentBox.querySelectorAll('.td-trend-product-swatch-item') : [];
+
+        const cardSwiper = new Swiper(boxSlider, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            effect: 'slide',
+            loop: false,
+            allowTouchMove: true,
+            observer: true,
+            observeParents: true,
+            pagination: {
+                el: paginationEl,
+                clickable: true,
+            },
+            on: {
+                slideChange: function () {
+                    swatches.forEach((swatch, idx) => {
+                        if (idx === this.activeIndex) {
+                            swatch.classList.add('active');
+                        }
+                        if (idx !== this.activeIndex) {
+                            swatch.classList.remove('active');
+                        }
+                    });
+                }
+            }
+        });
+
+        swatches.forEach((swatch, idx) => {
+            swatch.addEventListener('click', (e) => {
+                e.preventDefault();
+                cardSwiper.slideTo(idx);
+                swatches.forEach(s => s.classList.remove('active'));
+                swatch.classList.add('active');
+            });
+        });
+    });
+});
