@@ -15,6 +15,11 @@
     --desh-ki-pasand-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
   "
 >
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    media="all"
+  >
   <div class="desh-ki-pasand__inner">
     {%- if section.settings.heading != blank -%}
       <header class="desh-ki-pasand__header">
@@ -42,9 +47,10 @@
 
     {%- if product_count > 0 -%}
       <div class="desh-ki-pasand__products" data-desh-products>
-        <div class="desh-ki-pasand__track" data-desh-track>
+        <div class="desh-ki-pasand__track swiper" data-desh-track>
+          <div class="swiper-wrapper">
           {%- for product in featured_collection.products limit: section.settings.product_limit -%}
-            <div class="desh-ki-pasand__slide" data-desh-slide>
+            <div class="desh-ki-pasand__slide swiper-slide" data-desh-slide>
               <div class="desh-ki-pasand__card">
                 {% render 'card-product',
                   card_product: product,
@@ -82,19 +88,11 @@
               </div>
             </div>
           {%- endfor -%}
+          </div>
         </div>
 
         {%- if product_count > 1 -%}
           <nav class="desh-ki-pasand__pagination" aria-label="Product slides">
-            <img
-              class="desh-ki-pasand__pagination-mark"
-              src="{{ 'product-slider-dots.svg' | asset_url }}"
-              width="13"
-              height="13"
-              alt=""
-              aria-hidden="true"
-              loading="lazy"
-            >
             <div class="desh-ki-pasand__dots">
               {%- for product in featured_collection.products limit: section.settings.product_limit -%}
                 <button
@@ -184,6 +182,10 @@
     gap: 24px;
   }
 
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track .swiper-wrapper {
+    display: contents;
+  }
+
   #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide,
   #DeshKiPasand-{{ section.id }} .desh-ki-pasand__card,
   #DeshKiPasand-{{ section.id }} .card-wrapper,
@@ -221,6 +223,7 @@
   #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider {
     height: auto;
     aspect-ratio: 0.7;
+    pointer-events: none;
   }
 
   #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider .swiper-wrapper,
@@ -392,12 +395,24 @@
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dot.is-active {
+      width: 18px;
+      height: 18px;
+      background: transparent url('{{ 'product-slider-dots.svg' | asset_url }}') center / contain no-repeat;
       opacity: 1;
-      transform: scale(1.12);
+      transform: none;
     }
-  }
 
-  @media screen and (min-width: 750px) {
+      #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track .swiper-wrapper {
+        display: flex;
+      }
+
+      #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide {
+        flex: 0 0 62%;
+        width: 62%;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
     #DeshKiPasand-{{ section.id }} {
       padding-right: 32px;
       padding-left: 32px;
@@ -411,6 +426,14 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 20px;
     }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track .swiper-wrapper {
+      display: contents;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide {
+      width: auto;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -423,60 +446,111 @@
 <script>
   (() => {
     const selector = '#DeshKiPasand-{{ section.id }}';
+    const scriptUrl = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+    let swiperLoader;
 
-    const initialize = (scope = document) => {
-      const root = scope.matches?.(selector) ? scope : scope.querySelector?.(selector);
+    const loadSwiper = () => {
+      if (window.Swiper) return Promise.resolve(window.Swiper);
+      if (swiperLoader) return swiperLoader;
+
+      swiperLoader = new Promise((resolve, reject) => {
+        const existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+        const script = existingScript || document.createElement('script');
+        const onLoad = () => window.Swiper
+          ? resolve(window.Swiper)
+          : reject(new Error('Swiper loaded but its constructor is unavailable.'));
+        const onError = () => reject(new Error('Could not load the Swiper slider library.'));
+
+        script.addEventListener('load', onLoad, { once: true });
+        script.addEventListener('error', onError, { once: true });
+
+        if (!existingScript) {
+          script.src = scriptUrl;
+          script.async = true;
+          document.head.appendChild(script);
+        }
+      });
+
+      return swiperLoader;
+    };
+
+    const initializeRoot = (root) => {
       if (!root || root.dataset.deshInitialized === 'true') return;
 
       const track = root.querySelector('[data-desh-track]');
-      const slides = Array.from(root.querySelectorAll('[data-desh-slide]'));
-      const dots = Array.from(root.querySelectorAll('[data-desh-dot]'));
+      const slides = root.querySelectorAll('[data-desh-slide]');
+      const dots = root.querySelectorAll('[data-desh-dot]');
       if (!track || !slides.length || !dots.length) return;
 
-      root.dataset.deshInitialized = 'true';
+      loadSwiper()
+        .then((SwiperConstructor) => {
+          if (!root.isConnected || root.dataset.deshInitialized === 'true') return;
 
-      const setActiveDot = (index) => {
-        dots.forEach((dot, dotIndex) => {
-          const isActive = dotIndex === index;
-          dot.classList.toggle('is-active', isActive);
-          if (isActive) {
-            dot.setAttribute('aria-current', 'true');
-          } else {
-            dot.removeAttribute('aria-current');
-          }
-        });
-      };
+          const slider = new SwiperConstructor(track, {
+            a11y: { enabled: true },
+            allowTouchMove: true,
+            breakpoints: {
+              750: {
+                allowTouchMove: false,
+                enabled: false,
+              },
+            },
+            centeredSlides: false,
+            grabCursor: true,
+            slidesPerView: 1.55,
+            spaceBetween: 22,
+            speed: 350,
+            watchOverflow: true,
+            on: {
+              slideChange(swiper) {
+                dots.forEach((dot, dotIndex) => {
+                  const isActive = dotIndex === swiper.activeIndex;
+                  dot.classList.toggle('is-active', isActive);
+                  if (isActive) {
+                    dot.setAttribute('aria-current', 'true');
+                  } else {
+                    dot.removeAttribute('aria-current');
+                  }
+                });
+              },
+            },
+          });
 
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          const slide = slides[Number(dot.dataset.deshDot)];
-          if (slide) {
-            const left = track.scrollLeft + slide.getBoundingClientRect().left - track.getBoundingClientRect().left;
-            track.scrollTo({
-              left,
-              behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+              if (slider.enabled) slider.slideTo(Number(dot.dataset.deshDot));
             });
-          }
-        });
-      });
+          });
 
-      let scrollFrame = 0;
-      track.addEventListener('scroll', () => {
-        window.cancelAnimationFrame(scrollFrame);
-        scrollFrame = window.requestAnimationFrame(() => {
-          const trackLeft = track.getBoundingClientRect().left;
-          const currentIndex = slides.reduce((closestIndex, slide, index) => {
-            const closestDistance = Math.abs(slides[closestIndex].getBoundingClientRect().left - trackLeft);
-            const slideDistance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
-            return slideDistance < closestDistance ? index : closestIndex;
-          }, 0);
-          setActiveDot(currentIndex);
+          root.dataset.deshInitialized = 'true';
+          root.deshSlider = slider;
+        })
+        .catch((error) => {
+          console.error('[Desh ki pasand] Product slider could not be initialized.', error);
         });
-      }, { passive: true });
     };
 
-    initialize();
+    const initialize = (scope = document) => {
+      if (scope.matches?.(selector)) {
+        initializeRoot(scope);
+      } else {
+        scope.querySelectorAll?.(selector).forEach(initializeRoot);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => initialize(), { once: true });
+    } else {
+      initialize();
+    }
+
     document.addEventListener('shopify:section:load', (event) => initialize(event.target));
+    document.addEventListener('shopify:section:unload', (event) => {
+      const root = event.target.matches?.(selector)
+        ? event.target
+        : event.target.querySelector?.(selector);
+      if (root?.deshSlider) root.deshSlider.destroy(true, true);
+    });
   })();
 </script>
 
