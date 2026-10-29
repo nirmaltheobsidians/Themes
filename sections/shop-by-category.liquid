@@ -97,9 +97,10 @@
       url('{{ 'category-mandala.svg' | asset_url }}'),
       url('{{ 'category-mandala.svg' | asset_url }}'),
       url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}'),
       url('{{ 'category-mandala.svg' | asset_url }}');
     background-repeat: no-repeat;
-    background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, right -82px bottom -88px;
+    background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, right -82px bottom -88px, center center;
     background-size: 202px 202px;
     content: '';
     opacity: var(--shop-by-category-pattern-opacity);
@@ -178,7 +179,7 @@
   #ShopByCategory-{{ section.id }} .shop-by-category__shade {
     position: absolute;
     inset: 45% 0 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(32, 11, 12, 0.76) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(128, 24, 20, 0.78) 100%);
     pointer-events: none;
   }
 
