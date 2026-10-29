@@ -182,6 +182,10 @@
     gap: 24px;
   }
 
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track.swiper {
+    overflow: visible;
+  }
+
   #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track .swiper-wrapper {
     display: contents;
   }
@@ -340,22 +344,13 @@
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track {
-      display: flex;
-      gap: 22px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-      scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track::-webkit-scrollbar {
-      display: none;
+      display: block;
+      overflow: hidden;
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide {
       flex: 0 0 62%;
+      width: 62%;
       scroll-snap-align: start;
     }
 
@@ -365,13 +360,6 @@
       justify-content: center;
       gap: 10px;
       margin-top: 24px;
-    }
-
-    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__pagination-mark {
-      display: block;
-      width: 13px;
-      height: 13px;
-      object-fit: contain;
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dots {
@@ -402,17 +390,9 @@
       transform: none;
     }
 
-      #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track .swiper-wrapper {
-        display: flex;
-      }
+  }
 
-      #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide {
-        flex: 0 0 62%;
-        width: 62%;
-      }
-    }
-
-    @media screen and (min-width: 750px) {
+  @media screen and (min-width: 750px) {
     #DeshKiPasand-{{ section.id }} {
       padding-right: 32px;
       padding-left: 32px;
@@ -432,15 +412,12 @@
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide {
+      flex: 0 0 auto;
       width: auto;
+      margin-right: 0 !important;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track {
-      scroll-behavior: auto;
-    }
-  }
 {% endstyle %}
 
 <script>
@@ -497,7 +474,7 @@
             },
             centeredSlides: false,
             grabCursor: true,
-            slidesPerView: 1.55,
+            slidesPerView: 'auto',
             spaceBetween: 22,
             speed: 350,
             watchOverflow: true,
