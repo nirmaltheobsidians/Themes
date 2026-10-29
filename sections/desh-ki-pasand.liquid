@@ -2,6 +2,7 @@
 {%- assign product_count = 0 -%}
 {%- if featured_collection != blank -%}
   {%- assign product_count = featured_collection.products.size | at_most: section.settings.product_limit -%}
+  {%- assign view_all_url = section.settings.view_all_link | default: featured_collection.url -%}
 {%- endif -%}
 
 <section
@@ -143,6 +144,11 @@
               {%- endfor -%}
             </div>
           </nav>
+        {%- endif -%}
+        {%- if view_all_url != blank -%}
+          <a class="desh-ki-pasand__view-all" href="{{ view_all_url }}">
+            {{ section.settings.view_all_label | escape }}
+          </a>
         {%- endif -%}
       </div>
     {%- elsif request.design_mode -%}
@@ -292,6 +298,28 @@
     font-size: 11px;
   }
 
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__view-all {
+    display: flex;
+    width: 150px;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    margin: 24px auto 0;
+    padding: 10px 18px;
+    color: #fff;
+    background: #801814;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 200ms ease;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__view-all:hover {
+    background: #64110e;
+  }
+
   #DeshKiPasand-{{ section.id }} .card-wrapper {
     position: relative;
   }
@@ -412,7 +440,7 @@
 
     #DeshKiPasand-{{ section.id }}::before {
       background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px, right -82px bottom -88px;
-      background-size: 135px 135px, 176px 176px, 205px 205px, 158px 158px;
+      background-size: 135px 135px, 176px 176px, 170px 170px, 158px 158px;
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {
@@ -627,6 +655,17 @@
       "type": "collection",
       "id": "collection",
       "label": "Product collection"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all button label",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all button link"
     },
     {
       "type": "range",
