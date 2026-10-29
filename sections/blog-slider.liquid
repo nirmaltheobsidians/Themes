@@ -1,11 +1,17 @@
+{%- assign selected_blog = section.settings.blog -%}
+{%- assign desktop_slides = section.settings.desktop_columns -%}
+{%- if selected_blog != blank and selected_blog.articles_count < desktop_slides -%}
+  {%- assign desktop_slides = selected_blog.articles_count -%}
+{%- endif -%}
 <section
   id="BlogSlider-{{ section.id }}"
   class="blog-slider"
   style="
     --blog-slider-background: {{ section.settings.background_color }};
+    --blog-slider-card-background: {{ section.settings.card_background_color }};
     --blog-slider-heading: {{ section.settings.heading_color }};
     --blog-slider-text: {{ section.settings.text_color }};
-    --blog-slider-columns: {{ section.settings.desktop_columns }};
+    --blog-slider-columns: {{ desktop_slides }};
     --blog-slider-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
     --blog-slider-top: {{ section.settings.padding_top }}px;
     --blog-slider-bottom: {{ section.settings.padding_bottom }}px;
@@ -36,7 +42,6 @@
       </header>
     {%- endif -%}
 
-    {%- assign selected_blog = section.settings.blog -%}
     {%- if selected_blog != blank and selected_blog.articles_count > 0 -%}
       <div class="blog-slider__carousel swiper" data-blog-carousel>
         <div class="swiper-wrapper">
@@ -202,7 +207,9 @@
     display: flex;
     height: 100%;
     flex-direction: column;
-    background: transparent;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--blog-slider-card-background);
   }
 
   #BlogSlider-{{ section.id }} .blog-slider__image-link {
@@ -210,8 +217,7 @@
     display: block;
     overflow: hidden;
     aspect-ratio: 1.54;
-    border-radius: 8px;
-    background: #f3eeee;
+    background: var(--blog-slider-card-background);
   }
 
   #BlogSlider-{{ section.id }} .blog-slider__image {
@@ -236,7 +242,7 @@
     flex: 1;
     flex-direction: column;
     align-items: flex-start;
-    padding-top: 20px;
+    padding: 20px 20px 22px;
     color: var(--blog-slider-text);
   }
 
@@ -353,7 +359,7 @@
     }
 
     #BlogSlider-{{ section.id }} .blog-slider__content {
-      padding-top: 18px;
+      padding: 18px 16px 20px;
     }
 
     #BlogSlider-{{ section.id }} .blog-slider__date {
@@ -440,12 +446,12 @@
         allowTouchMove: true,
         breakpoints: {
           750: {
-            slidesPerView: {{ section.settings.desktop_columns }},
+            slidesPerView: {{ desktop_slides }},
             spaceBetween: 28,
           },
         },
         grabCursor: true,
-        loop: slides.length > 2,
+        loop: slides.length > {{ desktop_slides }},
         loopAddBlankSlides: false,
         observeParents: true,
         observer: true,
@@ -588,6 +594,12 @@
       "id": "background_color",
       "label": "Background color",
       "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Blog card color",
+      "default": "#f7f1f1"
     },
     {
       "type": "color",
