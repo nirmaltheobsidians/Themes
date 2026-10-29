@@ -11,6 +11,8 @@
   "
   data-autoplay="{{ section.settings.autoplay }}"
   data-autoplay-delay="{{ section.settings.autoplay_delay }}"
+  data-video-autoplay="{{ section.settings.video_autoplay }}"
+  data-video-loop="{{ section.settings.video_loop }}"
 >
   <link
     rel="stylesheet"
@@ -66,7 +68,7 @@
                       image_size: '1200x',
                       controls: false,
                       autoplay: false,
-                      loop: false,
+                      loop: section.settings.video_loop,
                       muted: true,
                       playsinline: true,
                       preload: 'none'
@@ -195,6 +197,10 @@
     font-weight: 500;
     line-height: 1.2;
     text-transform: uppercase;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__carousel {
+    overflow: hidden;
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
@@ -348,9 +354,12 @@
       margin-bottom: 20px;
     }
 
-    #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__carousel {
       width: 100vw;
       margin-left: calc(50% - 50vw);
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
       padding: 0;
     }
 
@@ -414,6 +423,7 @@
       const dots = Array.from(root.querySelectorAll('[data-reel-dot]'));
       if (!track) return;
       const slides = track.querySelectorAll('.swiper-slide');
+      const videos = Array.from(root.querySelectorAll('video'));
 
       loadSwiper()
         .then((SwiperConstructor) => {
@@ -447,6 +457,7 @@
               },
               slideChange(swiper) {
                 updateDots(swiper);
+                updateActiveVideo(swiper);
               },
               touchStart(swiper) {
                 swiper.slides.forEach((slide) => {
@@ -464,6 +475,34 @@
               if (isActive) dot.setAttribute('aria-current', 'true');
               else dot.removeAttribute('aria-current');
             });
+          }
+
+          function updateActiveVideo(swiper) {
+            if (root.dataset.videoAutoplay !== 'true') {
+              videos.forEach((video) => {
+                if (!video.paused) video.pause();
+              });
+              return;
+            }
+
+            const activeSlide = swiper.slides[swiper.activeIndex];
+            videos.forEach((video) => {
+              if (!activeSlide?.contains(video)) {
+                video.pause();
+                video.currentTime = 0;
+              }
+            });
+
+            const activeVideo = activeSlide?.querySelector('video');
+            if (!activeVideo) return;
+            activeVideo.muted = true;
+            activeVideo.playsInline = true;
+            const playback = activeVideo.play();
+            if (playback) {
+              playback.catch((error) => {
+                console.error('[Reel video slider] Active video autoplay could not start.', error);
+              });
+            }
           }
 
           dots.forEach((dot) => {
@@ -494,15 +533,12 @@
             video.addEventListener('play', () => {
               button.hidden = true;
               if (cover) cover.hidden = true;
-              slider.autoplay?.stop();
+              if (root.dataset.videoAutoplay !== 'true') slider.autoplay?.stop();
             });
             video.addEventListener('pause', () => {
               button.hidden = false;
               if (cover && video.currentTime === 0) cover.hidden = false;
-              if (
-                root.dataset.autoplay === 'true'
-                && card.closest('.swiper-slide')?.classList.contains('swiper-slide-active')
-              ) {
+              if (root.dataset.autoplay === 'true' && card.closest('.swiper-slide')?.classList.contains('swiper-slide-active')) {
                 slider.autoplay?.start();
               }
             });
@@ -516,6 +552,7 @@
 
           root.dataset.reelInitialized = 'true';
           root.reelSlider = slider;
+          updateActiveVideo(slider);
         })
         .catch((error) => {
           console.error('[Reel video slider] Slider could not be initialized.', error);
@@ -592,6 +629,19 @@
       "unit": "s",
       "label": "Autoplay interval",
       "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "label": "Autoplay active video",
+      "info": "Plays the centered video muted and pauses other slides.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "Loop videos",
+      "default": true
     },
     {
       "type": "range",
