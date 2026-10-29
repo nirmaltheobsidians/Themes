@@ -281,26 +281,68 @@
         "reel_video_one": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
             "caption": ""
           }
         },
-        "reel_video_two": {
+        "reel_afCY3H": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
             "caption": ""
           }
         },
-        "reel_video_three": {
+        "reel_aPQ96F": {
           "type": "reel",
           "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "caption": ""
+          }
+        },
+        "reel_NqGL4x": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "caption": ""
+          }
+        },
+        "reel_mPUUJj": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "caption": ""
+          }
+        },
+        "reel_7NEJgQ": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "caption": ""
+          }
+        },
+        "reel_yyHf6z": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
             "caption": ""
           }
         }
       },
       "block_order": [
         "reel_video_one",
-        "reel_video_two",
-        "reel_video_three"
+        "reel_afCY3H",
+        "reel_aPQ96F",
+        "reel_NqGL4x",
+        "reel_mPUUJj",
+        "reel_7NEJgQ",
+        "reel_yyHf6z"
       ],
       "settings": {
         "heading": "REELS",
