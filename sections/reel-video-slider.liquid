@@ -380,169 +380,145 @@
 <script>
   (() => {
     const rootId = 'ReelVideoSlider-{{ section.id }}';
-    const initialize = (root) => {
+    const scriptUrl = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+    let swiperLoader;
+
+    const loadSwiper = () => {
+      if (window.Swiper) return Promise.resolve(window.Swiper);
+      if (swiperLoader) return swiperLoader;
+
+      swiperLoader = new Promise((resolve, reject) => {
+        const existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+        const script = existingScript || document.createElement('script');
+        const onLoad = () => window.Swiper
+          ? resolve(window.Swiper)
+          : reject(new Error('Swiper loaded but its constructor is unavailable.'));
+        const onError = () => reject(new Error('Could not load the Swiper slider library.'));
+
+        script.addEventListener('load', onLoad, { once: true });
+        script.addEventListener('error', onError, { once: true });
+        if (!existingScript) {
+          script.src = scriptUrl;
+          script.async = true;
+          document.head.appendChild(script);
+        }
+      });
+
+      return swiperLoader;
+    };
+
+    const initializeRoot = (root) => {
       if (!root || root.dataset.reelInitialized === 'true') return;
 
       const track = root.querySelector('[data-reel-track]');
-      const slides = Array.from(root.querySelectorAll('[data-reel-slide]'));
       const dots = Array.from(root.querySelectorAll('[data-reel-dot]'));
-      if (!track || !slides.length) return;
-      const autoplayEnabled = root.dataset.autoplay === 'true';
-      const autoplayDelay = Number(root.dataset.autoplayDelay) * 1000;
+      if (!track || !dots.length) return;
 
-      let scrollFrame = 0;
-      let activeIndex = 0;
-      let autoplayTimer;
-      let isPointerDown = false;
-      let dragStartX = 0;
-      let dragStartScroll = 0;
-      const sectionVisible = 'IntersectionObserver' in window
-        ? new IntersectionObserver(([entry]) => {
-            if (entry.isIntersecting) scheduleAutoplay();
-            else clearTimeout(autoplayTimer);
-          }, { threshold: 0.25 })
-        : null;
+      loadSwiper()
+        .then((SwiperConstructor) => {
+          if (!root.isConnected || root.dataset.reelInitialized === 'true') return;
 
-      const goToSlide = (index, behavior = 'smooth') => {
-        const targetIndex = (index + slides.length) % slides.length;
-        const target = slides[targetIndex];
-        if (!target) return;
-        activeIndex = targetIndex;
-        slides.forEach((slide, slideIndex) => slide.classList.toggle('is-active', slideIndex === activeIndex));
-        dots.forEach((dot, dotIndex) => {
-          const active = dotIndex === activeIndex;
-          dot.classList.toggle('is-active', active);
-          if (active) dot.setAttribute('aria-current', 'true');
-          else dot.removeAttribute('aria-current');
-        });
-        const trackRect = track.getBoundingClientRect();
-        const slideRect = target.getBoundingClientRect();
-        const left = track.scrollLeft + slideRect.left - trackRect.left - (track.clientWidth - slideRect.width) / 2;
-        track.scrollTo({ left, behavior });
-        scheduleAutoplay();
-      };
+          const slider = new SwiperConstructor(track, {
+            a11y: { enabled: true },
+            allowTouchMove: true,
+            autoplay: root.dataset.autoplay === 'true'
+              ? {
+                  delay: Number(root.dataset.autoplayDelay) * 1000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }
+              : false,
+            centeredSlides: true,
+            grabCursor: true,
+            loop: true,
+            slidesPerView: 'auto',
+            spaceBetween: 18,
+            speed: 500,
+            watchSlidesProgress: true,
+            breakpoints: {
+              750: {
+                spaceBetween: 24,
+              },
+            },
+            on: {
+              init(swiper) {
+                updateDots(swiper);
+              },
+              slideChange(swiper) {
+                updateDots(swiper);
+              },
+              touchStart(swiper) {
+                swiper.slides.forEach((slide) => {
+                  slide.querySelector('video')?.pause();
+                });
+              },
+            },
+          });
 
-      const scheduleAutoplay = () => {
-        clearTimeout(autoplayTimer);
-        if (!autoplayEnabled || slides.length < 2 || isPointerDown || document.hidden) return;
-        autoplayTimer = window.setTimeout(() => goToSlide(activeIndex + 1), autoplayDelay);
-      };
-
-      const updateActiveSlide = () => {
-        scrollFrame = 0;
-        const trackCenter = track.getBoundingClientRect().left + track.clientWidth / 2;
-        let closestIndex = activeIndex;
-        let closestDistance = Number.POSITIVE_INFINITY;
-
-        slides.forEach((slide, index) => {
-          const rect = slide.getBoundingClientRect();
-          const distance = Math.abs(rect.left + rect.width / 2 - trackCenter);
-          if (distance < closestDistance) {
-            closestIndex = index;
-            closestDistance = distance;
-          }
-        });
-
-        activeIndex = closestIndex;
-        slides.forEach((slide, index) => slide.classList.toggle('is-active', index === activeIndex));
-        dots.forEach((dot, index) => {
-          const active = index === activeIndex;
-          dot.classList.toggle('is-active', active);
-          if (active) dot.setAttribute('aria-current', 'true');
-          else dot.removeAttribute('aria-current');
-        });
-        scheduleAutoplay();
-      };
-
-      track.addEventListener('scroll', () => {
-        if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateActiveSlide);
-      }, { passive: true });
-      track.addEventListener('pointerdown', () => {
-        isPointerDown = true;
-        clearTimeout(autoplayTimer);
-      });
-      track.addEventListener('pointerdown', (event) => {
-        if (event.pointerType !== 'mouse' || event.target.closest('button, video, a')) return;
-        dragStartX = event.clientX;
-        dragStartScroll = track.scrollLeft;
-        track.classList.add('is-dragging');
-        track.setPointerCapture(event.pointerId);
-      });
-      track.addEventListener('pointermove', (event) => {
-        if (!track.classList.contains('is-dragging')) return;
-        track.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
-      });
-      window.addEventListener('pointerup', () => {
-        if (!isPointerDown) return;
-        isPointerDown = false;
-        track.classList.remove('is-dragging');
-        scheduleAutoplay();
-      });
-      track.addEventListener('pointercancel', () => {
-        isPointerDown = false;
-        track.classList.remove('is-dragging');
-        scheduleAutoplay();
-      });
-      track.addEventListener('mouseenter', () => clearTimeout(autoplayTimer));
-      track.addEventListener('mouseleave', scheduleAutoplay);
-      document.addEventListener('visibilitychange', scheduleAutoplay);
-
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          goToSlide(Number(dot.dataset.reelDot));
-        });
-      });
-
-      root.querySelectorAll('video').forEach((video) => {
-        video.addEventListener('play', () => clearTimeout(autoplayTimer));
-        video.addEventListener('pause', scheduleAutoplay);
-        video.addEventListener('ended', scheduleAutoplay);
-      });
-
-      root.querySelectorAll('[data-reel-play]').forEach((button) => {
-        const card = button.closest('.reel-video-slider__card');
-        const video = card?.querySelector('video');
-        const cover = card?.querySelector('.reel-video-slider__cover');
-        if (!video) return;
-
-        button.addEventListener('click', () => {
-          video.controls = true;
-          video.muted = false;
-          const playback = video.play();
-          if (playback) {
-            playback.catch((error) => {
-              console.error('[Reel video slider] Video playback could not start.', error);
-              video.controls = false;
-              button.hidden = false;
+          function updateDots(swiper) {
+            const activeIndex = swiper.realIndex;
+            dots.forEach((dot, index) => {
+              const isActive = index === activeIndex;
+              dot.classList.toggle('is-active', isActive);
+              if (isActive) dot.setAttribute('aria-current', 'true');
+              else dot.removeAttribute('aria-current');
             });
           }
-        });
 
-        video.addEventListener('play', () => {
-          button.hidden = true;
-          if (cover) cover.hidden = true;
-        });
-        video.addEventListener('pause', () => {
-          button.hidden = false;
-          if (cover && video.currentTime === 0) cover.hidden = false;
-        });
-        video.addEventListener('ended', () => {
-          video.controls = false;
-          button.hidden = false;
-          if (cover) cover.hidden = false;
-        });
-      });
+          dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+              slider.slideToLoop(Number(dot.dataset.reelDot));
+            });
+          });
 
-      root.dataset.reelInitialized = 'true';
-      track.scrollLeft = 0;
-      updateActiveSlide();
-      if (sectionVisible) sectionVisible.observe(root);
-      else scheduleAutoplay();
+          root.querySelectorAll('[data-reel-play]').forEach((button) => {
+            const card = button.closest('.reel-video-slider__card');
+            const video = card?.querySelector('video');
+            const cover = card?.querySelector('.reel-video-slider__cover');
+            if (!video) return;
+
+            button.addEventListener('click', () => {
+              video.controls = true;
+              video.muted = false;
+              const playback = video.play();
+              if (playback) {
+                playback.catch((error) => {
+                  console.error('[Reel video slider] Video playback could not start.', error);
+                  video.controls = false;
+                  button.hidden = false;
+                });
+              }
+            });
+
+            video.addEventListener('play', () => {
+              button.hidden = true;
+              if (cover) cover.hidden = true;
+              slider.autoplay?.stop();
+            });
+            video.addEventListener('pause', () => {
+              button.hidden = false;
+              if (cover && video.currentTime === 0) cover.hidden = false;
+              if (root.dataset.autoplay === 'true') slider.autoplay?.start();
+            });
+            video.addEventListener('ended', () => {
+              video.controls = false;
+              button.hidden = false;
+              if (cover) cover.hidden = false;
+              if (root.dataset.autoplay === 'true') slider.autoplay?.start();
+            });
+          });
+
+          root.dataset.reelInitialized = 'true';
+          root.reelSlider = slider;
+        })
+        .catch((error) => {
+          console.error('[Reel video slider] Slider could not be initialized.', error);
+        });
     };
 
     const initializeWithin = (scope = document) => {
-      if (scope.id === rootId) initialize(scope);
-      else scope.querySelectorAll?.(`#${rootId}`).forEach(initialize);
+      if (scope.id === rootId) initializeRoot(scope);
+      else scope.querySelectorAll?.(`#${rootId}`).forEach(initializeRoot);
     };
 
     if (document.readyState === 'loading') {
@@ -550,7 +526,14 @@
     } else {
       initializeWithin();
     }
+
     document.addEventListener('shopify:section:load', (event) => initializeWithin(event.target));
+    document.addEventListener('shopify:section:unload', (event) => {
+      const root = event.target.matches?.(`#${rootId}`)
+        ? event.target
+        : event.target.querySelector?.(`#${rootId}`);
+      if (root?.reelSlider) root.reelSlider.destroy(true, true);
+    });
   })();
 </script>
 
