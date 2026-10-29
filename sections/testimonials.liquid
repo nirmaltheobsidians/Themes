@@ -1,0 +1,493 @@
+<section
+  id="Testimonials-{{ section.id }}"
+  class="testimonials"
+  style="
+    --testimonials-background: {{ section.settings.background_color }};
+    --testimonials-card-background: {{ section.settings.card_background_color }};
+    --testimonials-heading: {{ section.settings.heading_color }};
+    --testimonials-text: {{ section.settings.text_color }};
+    --testimonials-accent: {{ section.settings.accent_color }};
+    --testimonials-columns: {{ section.settings.desktop_columns }};
+    --testimonials-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
+    --testimonials-top: {{ section.settings.padding_top }}px;
+    --testimonials-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="testimonials__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <header class="testimonials__header">
+        <img
+          class="testimonials__divider"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+        <h2 class="testimonials__heading">{{ section.settings.heading | escape }}</h2>
+        <img
+          class="testimonials__divider testimonials__divider--flipped"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="testimonials__carousel swiper" data-testimonials-carousel>
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            <article class="testimonials__slide swiper-slide" {{ block.shopify_attributes }}>
+              <div class="testimonials__card">
+                <span class="testimonials__quote" aria-hidden="true">“</span>
+                <h3 class="testimonials__name">{{ block.settings.name | escape }}</h3>
+                <p class="testimonials__copy">{{ block.settings.review | escape }}</p>
+                <div
+                  class="testimonials__rating"
+                  role="img"
+                  aria-label="{{ block.settings.rating }} out of 5 stars"
+                >
+                  {%- for star in (1..5) -%}
+                    <span{% if star > block.settings.rating %} class="testimonials__star--empty"{% endif %} aria-hidden="true">★</span>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- elsif request.design_mode -%}
+      <p class="testimonials__empty">Add testimonial blocks to display customer reviews.</p>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+      <div class="testimonials__footer">
+        <a class="testimonials__button" href="{{ section.settings.button_link }}">
+          {{ section.settings.button_label | escape }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #Testimonials-{{ section.id }} {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-top: var(--testimonials-top);
+    padding-bottom: var(--testimonials-bottom);
+    background-color: var(--testimonials-background);
+  }
+
+  #Testimonials-{{ section.id }}::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}');
+    background-repeat: no-repeat;
+    background-position: right -78px top -88px, left -84px bottom -86px;
+    background-size: 210px 210px, 250px 250px;
+    content: '';
+    opacity: var(--testimonials-pattern-opacity);
+    pointer-events: none;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__inner {
+    width: 100%;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+    text-align: center;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__divider {
+    display: block;
+    width: 90px;
+    height: 23px;
+    object-fit: contain;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__divider--flipped {
+    transform: rotate(180deg);
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__heading {
+    margin: 4px 0;
+    color: var(--testimonials-heading);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__carousel {
+    width: 100%;
+    overflow: visible;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__carousel .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(var(--testimonials-columns), minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__slide {
+    box-sizing: border-box;
+    width: auto;
+    height: auto;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__card {
+    display: flex;
+    min-height: 294px;
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 30px 26px;
+    border-radius: 8px;
+    background: var(--testimonials-card-background);
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__quote {
+    display: block;
+    height: 48px;
+    color: var(--testimonials-accent);
+    font-family: Georgia, serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__name {
+    margin: 10px 0 14px;
+    color: var(--testimonials-text);
+    font-family: var(--font-body-family, sans-serif);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__copy {
+    margin: 0 0 20px;
+    color: var(--testimonials-text);
+    font-family: var(--font-body-family, sans-serif);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__rating {
+    display: flex;
+    gap: 2px;
+    margin-top: auto;
+    color: var(--testimonials-accent);
+    font-size: 21px;
+    letter-spacing: 0;
+    line-height: 1;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__star--empty {
+    opacity: 0.28;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__button {
+    display: inline-flex;
+    min-width: 168px;
+    min-height: 54px;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    color: #fff;
+    background: var(--testimonials-accent);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 180ms ease, transform 180ms ease;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__button:hover {
+    background: var(--testimonials-heading);
+    transform: translateY(-1px);
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__button:focus-visible {
+    outline: 2px solid var(--testimonials-heading);
+    outline-offset: 3px;
+  }
+
+  #Testimonials-{{ section.id }} .testimonials__empty {
+    padding: 24px;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    #Testimonials-{{ section.id }}::before {
+      background-position: right -72px top -76px, left -76px bottom -72px;
+      background-size: 170px 170px, 220px 220px;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__header {
+      margin-bottom: 20px;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__carousel {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      overflow: hidden;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__carousel .swiper-wrapper {
+      display: flex;
+      gap: 0;
+      padding: 0 20px;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__slide {
+      width: min(82vw, 360px);
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__card {
+      min-height: 294px;
+      padding: 24px 20px 22px;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__name {
+      font-size: 16px;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__copy {
+      font-size: 15px;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__footer {
+      margin-top: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #Testimonials-{{ section.id }} .testimonials__button {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    const rootId = 'Testimonials-{{ section.id }}';
+
+    const initializeRoot = (root) => {
+      if (!root || root.dataset.testimonialsInitialized === 'true') return;
+
+      const carousel = root.querySelector('[data-testimonials-carousel]');
+      const slides = carousel?.querySelectorAll('.swiper-slide');
+      if (!carousel || !slides || slides.length < 2) return;
+      if (!window.Swiper) {
+        console.error('[Testimonials] Swiper is unavailable; the review carousel could not be initialized.');
+        return;
+      }
+
+      root.testimonialsSlider = new window.Swiper(carousel, {
+        a11y: { enabled: true },
+        allowTouchMove: true,
+        breakpoints: {
+          750: {
+            enabled: false,
+          },
+        },
+        grabCursor: true,
+        loop: slides.length > 2,
+        slidesPerView: 'auto',
+        spaceBetween: 16,
+        watchOverflow: true,
+      });
+      root.dataset.testimonialsInitialized = 'true';
+    };
+
+    const initializeWithin = (scope = document) => {
+      if (scope.id === rootId) initializeRoot(scope);
+      else scope.querySelectorAll?.(`#${rootId}`).forEach(initializeRoot);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => initializeWithin(), { once: true });
+    } else {
+      initializeWithin();
+    }
+
+    document.addEventListener('shopify:section:load', (event) => initializeWithin(event.target));
+    document.addEventListener('shopify:section:unload', (event) => {
+      const root = event.target.matches?.(`#${rootId}`)
+        ? event.target
+        : event.target.querySelector?.(`#${rootId}`);
+      if (root?.testimonialsSlider) root.testimonialsSlider.destroy(true, true);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "TESTIMONIALS"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Review card color",
+      "default": "#f7f1f1"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#801814"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#801814"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Desktop columns",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background motif opacity",
+      "default": 35
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "VIEW ALL"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 36
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "Customer name"
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review",
+          "default": "Share what made this shopping experience special."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star rating",
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "name": "Shruti Sharma",
+            "review": "Laxmipati Sarees’ collection is amazing! I bought one for my anniversary and felt special. Quality and fit are great."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "name": "Anushka Sarkar",
+            "review": "My go-to fabric store is Laxmipati Sarees! I get everything that I want to wear, right from my favorite Kurtis, shirts for office."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
