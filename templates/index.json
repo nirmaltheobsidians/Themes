@@ -344,7 +344,7 @@
         "autoplay_delay": 4,
         "video_autoplay": false,
         "video_loop": true,
-        "pattern_opacity": 35,
+        "pattern_opacity": 100,
         "padding_top": 24,
         "padding_bottom": 32
       }
