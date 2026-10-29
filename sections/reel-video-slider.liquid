@@ -321,26 +321,28 @@
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__dot {
     position: relative;
     display: block;
-    width: 8px;
-    height: 8px;
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
     padding: 0;
     border: 0;
-    border-radius: 50%;
-    background: #801814;
+    border-radius: 0;
+    background: transparent;
     cursor: pointer;
   }
 
-  #ReelVideoSlider-{{ section.id }} .reel-video-slider__dot.is-active {
-    width: 16px;
-    height: 16px;
-    background: transparent;
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__dot::before {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: #801814;
+    content: '';
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__dot.is-active::before {
-    position: absolute;
     inset: 0;
+    border-radius: 0;
     background: url('{{ 'reels-slider-active-dot.png' | asset_url }}') center / contain no-repeat;
-    content: '';
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__empty {
