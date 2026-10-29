@@ -587,7 +587,7 @@
       "name": "Blog slider",
       "settings": {
         "heading": "BLOGS",
-        "blog": "",
+        "blog": "news",
         "post_limit": 6,
         "desktop_columns": 2,
         "show_date": true,
