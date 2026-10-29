@@ -176,11 +176,15 @@
     background-image:
       url('{{ 'category-mandala.svg' | asset_url }}'),
       url('{{ 'category-mandala.svg' | asset_url }}'),
-      url('{{ 'category-mandala.svg' | asset_url }}'),
-      url('{{ 'category-mandala.svg' | asset_url }}');
+      url('{{ 'category-mandala.svg' | asset_url }}')
+      {%- if section.settings.show_bottom_right_motif -%},
+        url('{{ 'category-mandala.svg' | asset_url }}')
+      {%- endif -%};
     background-repeat: no-repeat;
-    background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px, right -82px bottom -88px;
-    background-size: 154px 154px, 196px 196px, 320px 320px, 178px 178px;
+    background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px
+      {%- if section.settings.show_bottom_right_motif -%}, right -82px bottom -88px{%- endif -%};
+    background-size: 154px 154px, 196px 196px, 320px 320px
+      {%- if section.settings.show_bottom_right_motif -%}, 178px 178px{%- endif -%};
     content: '';
     opacity: var(--desh-ki-pasand-pattern-opacity);
     pointer-events: none;
@@ -443,8 +447,10 @@
     }
 
     #DeshKiPasand-{{ section.id }}::before {
-      background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px, right -82px bottom -88px;
-      background-size: 135px 135px, 176px 176px, 300px 300px, 158px 158px;
+      background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px
+        {%- if section.settings.show_bottom_right_motif -%}, right -82px bottom -88px{%- endif -%};
+      background-size: 135px 135px, 176px 176px, 300px 300px
+        {%- if section.settings.show_bottom_right_motif -%}, 158px 158px{%- endif -%};
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {
@@ -709,6 +715,12 @@
       "unit": "%",
       "label": "Background motif opacity",
       "default": 35
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_right_motif",
+      "label": "Show bottom-right background motif",
+      "default": false
     },
     {
       "type": "range",
