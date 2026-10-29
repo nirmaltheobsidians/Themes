@@ -502,6 +502,46 @@
         "product_limit": 12,
         "tag_text": "BESTSELLERS"
       }
+    },
+    "testimonials_qBYG3W": {
+      "type": "testimonials",
+      "blocks": {
+        "review_RLwdqQ": {
+          "type": "review",
+          "settings": {
+            "name": "Shruti Sharma",
+            "review": "Laxmipati Sarees’ collection is amazing! I bought one for my anniversary and felt special. Quality and fit are great.",
+            "rating": 5
+          }
+        },
+        "review_kgAb9j": {
+          "type": "review",
+          "settings": {
+            "name": "Anushka Sarkar",
+            "review": "My go-to fabric store is Laxmipati Sarees! I get everything that I want to wear, right from my favorite Kurtis, shirts for office.",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "review_RLwdqQ",
+        "review_kgAb9j"
+      ],
+      "name": "Testimonials",
+      "settings": {
+        "heading": "TESTIMONIALS",
+        "background_color": "#ffffff",
+        "card_background_color": "#f7f1f1",
+        "heading_color": "#801814",
+        "text_color": "#111111",
+        "accent_color": "#801814",
+        "desktop_columns": 2,
+        "pattern_opacity": 100,
+        "button_label": "VIEW ALL",
+        "button_link": "",
+        "padding_top": 32,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -515,6 +555,7 @@
     "trending_products_jUay6y",
     "countdown_banner_6E8Y4G",
     "custom_main_product_pCTNaz",
-    "popular_products_9PeBQ6"
+    "popular_products_9PeBQ6",
+    "testimonials_qBYG3W"
   ]
 }
