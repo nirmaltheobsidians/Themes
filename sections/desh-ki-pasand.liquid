@@ -20,7 +20,7 @@
     href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     media="all"
   >
-  <div class="desh-ki-pasand__inner">
+  <div class="desh-ki-pasand__inner page-width">
     {%- if section.settings.heading != blank -%}
       <header class="desh-ki-pasand__header">
         <img
@@ -120,7 +120,8 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding: var(--desh-ki-pasand-top) 24px var(--desh-ki-pasand-bottom);
+    padding-top: var(--desh-ki-pasand-top);
+    padding-bottom: var(--desh-ki-pasand-bottom);
     background-color: var(--desh-ki-pasand-background);
   }
 
@@ -143,8 +144,6 @@
 
   #DeshKiPasand-{{ section.id }} .desh-ki-pasand__inner {
     width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
   }
 
   #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {
@@ -330,8 +329,8 @@
 
   @media screen and (max-width: 749px) {
     #DeshKiPasand-{{ section.id }} {
-      padding-right: 24px;
-      padding-left: 24px;
+      padding-right: 0;
+      padding-left: 0;
     }
 
     #DeshKiPasand-{{ section.id }}::before {
@@ -399,8 +398,8 @@
 
   @media screen and (min-width: 750px) {
     #DeshKiPasand-{{ section.id }} {
-      padding-right: 32px;
-      padding-left: 32px;
+      padding-right: 0;
+      padding-left: 0;
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {

@@ -12,7 +12,7 @@
     --shop-by-category-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
   "
 >
-  <div class="shop-by-category__inner">
+  <div class="shop-by-category__inner page-width">
     {%- if section.settings.heading != blank -%}
       <header class="shop-by-category__header">
         <img
@@ -85,7 +85,8 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding: var(--shop-by-category-top) 24px var(--shop-by-category-bottom);
+    padding-top: var(--shop-by-category-top);
+    padding-bottom: var(--shop-by-category-bottom);
     background-color: var(--shop-by-category-background);
   }
 
@@ -108,8 +109,6 @@
 
   #ShopByCategory-{{ section.id }} .shop-by-category__inner {
     width: 100%;
-    max-width: 1280px;
-    margin: 0 auto;
   }
 
   #ShopByCategory-{{ section.id }} .shop-by-category__header {

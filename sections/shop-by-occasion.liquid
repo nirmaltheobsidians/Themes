@@ -12,7 +12,7 @@
     --shop-by-occasion-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
   "
 >
-  <div class="shop-by-occasion__inner">
+  <div class="shop-by-occasion__inner page-width">
     {%- if section.settings.heading != blank -%}
       <header class="shop-by-occasion__header">
         <img
@@ -92,7 +92,8 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding: var(--shop-by-occasion-top) 24px var(--shop-by-occasion-bottom);
+    padding-top: var(--shop-by-occasion-top);
+    padding-bottom: var(--shop-by-occasion-bottom);
     background-color: var(--shop-by-occasion-background);
   }
 
@@ -115,8 +116,6 @@
 
   #ShopByOccasion-{{ section.id }} .shop-by-occasion__inner {
     width: 100%;
-    max-width: 1120px;
-    margin: 0 auto;
   }
 
   #ShopByOccasion-{{ section.id }} .shop-by-occasion__header {
@@ -217,8 +216,8 @@
 
   @media screen and (min-width: 750px) {
     #ShopByOccasion-{{ section.id }} {
-      padding-right: 32px;
-      padding-left: 32px;
+      padding-right: 0;
+      padding-left: 0;
     }
 
     #ShopByOccasion-{{ section.id }} .shop-by-occasion__header {
