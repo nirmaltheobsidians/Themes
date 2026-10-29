@@ -153,6 +153,7 @@
       "name": "Occasion image feature",
       "settings": {
         "heading": "READY TO WEAR",
+        "banner_link": "",
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "label_color": "#ffffff",
@@ -202,6 +203,7 @@
       "name": "Occasion image feature",
       "settings": {
         "heading": "New Arrivals",
+        "banner_link": "",
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "label_color": "#ffffff",
@@ -251,6 +253,7 @@
       "name": "Occasion image feature",
       "settings": {
         "heading": "vivah sanskar",
+        "banner_link": "",
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "label_color": "#ffffff",
@@ -279,6 +282,47 @@
         "padding_top": 0,
         "padding_bottom": 40
       }
+    },
+    "reel_video_slider_aqC6gP": {
+      "type": "reel-video-slider",
+      "blocks": {
+        "reel_PWgKLm": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "caption": ""
+          }
+        },
+        "reel_6jhEdk": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "caption": ""
+          }
+        },
+        "reel_cWw7iH": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "caption": ""
+          }
+        }
+      },
+      "block_order": [
+        "reel_PWgKLm",
+        "reel_6jhEdk",
+        "reel_cWw7iH"
+      ],
+      "name": "Reel video slider",
+      "settings": {
+        "heading": "REELS",
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "card_ratio": "0.5625",
+        "pattern_opacity": 35,
+        "padding_top": 24,
+        "padding_bottom": 32
+      }
     }
   },
   "order": [
@@ -290,6 +334,7 @@
     "occasion_image_feature_NakypG",
     "desh_ki_pasand_7G49BV",
     "occasion_image_feature_A7Vw7A",
-    "desh_ki_pasand_WYtEcD"
+    "desh_ki_pasand_WYtEcD",
+    "reel_video_slider_aqC6gP"
   ]
 }
