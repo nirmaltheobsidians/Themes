@@ -15,7 +15,7 @@
         "slide_LaV7R8": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -47,7 +47,7 @@
         "slide_ebbCmm": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -94,7 +94,7 @@
         "collection_item_eVGHgg": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify:\/\/shop_images\/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "showcase_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
             "title": "New Arrivals",
             "item_count": "120",
             "collection_url": ""
@@ -103,7 +103,7 @@
         "collection_item_fbk39R": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify:\/\/shop_images\/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
+            "showcase_image": "shopify://shop_images/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
             "title": "Summer Collection",
             "item_count": "125",
             "collection_url": ""
@@ -112,7 +112,7 @@
         "collection_item_BeHPEd": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify:\/\/shop_images\/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
+            "showcase_image": "shopify://shop_images/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
             "title": "Best Sellers",
             "item_count": "99",
             "collection_url": ""
@@ -121,7 +121,7 @@
         "collection_item_Vrpkmy": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify:\/\/shop_images\/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "showcase_image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
             "title": "Winter Collection",
             "item_count": "143",
             "collection_url": ""
@@ -130,7 +130,7 @@
         "collection_item_damjtX": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify:\/\/shop_images\/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
+            "showcase_image": "shopify://shop_images/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
             "title": "Autumn Edit",
             "item_count": "88",
             "collection_url": ""
@@ -149,98 +149,6 @@
       "settings": {
         "button_text": "View All Collections",
         "button_url": ""
-      }
-    },
-    "shop_by_category_home": {
-      "type": "shop-by-category",
-      "blocks": {
-        "category_bridal": {
-          "type": "category",
-          "settings": {
-            "title": "Bridal"
-          }
-        },
-        "category_sarees": {
-          "type": "category",
-          "settings": {
-            "title": "Sarees"
-          }
-        },
-        "category_suits": {
-          "type": "category",
-          "settings": {
-            "title": "Suits"
-          }
-        },
-        "category_plus_size": {
-          "type": "category",
-          "settings": {
-            "title": "Plus Size"
-          }
-        }
-      },
-      "block_order": [
-        "category_bridal",
-        "category_sarees",
-        "category_suits",
-        "category_plus_size"
-      ],
-      "settings": {
-        "heading": "Shop by category",
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "label_color": "#ffffff",
-        "pattern_opacity": 35,
-        "desktop_columns": 4,
-        "card_gap": 24,
-        "padding_top": 24,
-        "padding_bottom": 40
-      }
-    },
-    "shop_by_occasion_home": {
-      "type": "shop-by-occasion",
-      "blocks": {
-        "occasion_daily_wear": {
-          "type": "occasion",
-          "settings": {
-            "title": "daily wear"
-          }
-        },
-        "occasion_festive": {
-          "type": "occasion",
-          "settings": {
-            "title": "festive"
-          }
-        },
-        "occasion_party_wear": {
-          "type": "occasion",
-          "settings": {
-            "title": "party wear"
-          }
-        },
-        "occasion_all_time": {
-          "type": "occasion",
-          "settings": {
-            "title": "all time"
-          }
-        }
-      },
-      "block_order": [
-        "occasion_daily_wear",
-        "occasion_festive",
-        "occasion_party_wear",
-        "occasion_all_time"
-      ],
-      "settings": {
-        "heading": "AVSAR ANUSAAR",
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "label_color": "#ffffff",
-        "pattern_opacity": 35,
-        "card_gap": 6,
-        "stagger_offset": 34,
-        "padding_top": 0,
-        "padding_bottom": 32
       }
     },
     "trending_products_jUay6y": {
@@ -337,16 +245,74 @@
         "product_limit": 12,
         "tag_text": "BESTSELLERS"
       }
+    },
+    "shop_by_category_LTyYzG": {
+      "type": "shop-by-category",
+      "blocks": {
+        "category_HxGpQ7": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "title": "Category 1",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "category_KFgw49": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
+            "title": "Category 2",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "category_YJ8HJC": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "title": "Category 3",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "category_UwQPAK": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
+            "title": "Plus Size",
+            "link": "",
+            "image_position": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "category_HxGpQ7",
+        "category_KFgw49",
+        "category_YJ8HJC",
+        "category_UwQPAK"
+      ],
+      "name": "Shop by category",
+      "settings": {
+        "heading": "Shop by category",
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "label_color": "#ffffff",
+        "pattern_opacity": 100,
+        "desktop_columns": 4,
+        "card_gap": 24,
+        "padding_top": 24,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
     "new_banner_Ry86xh",
     "collection_showcase_PJDebb",
-    "shop_by_category_home",
-    "shop_by_occasion_home",
     "trending_products_jUay6y",
     "countdown_banner_6E8Y4G",
     "custom_main_product_pCTNaz",
-    "popular_products_9PeBQ6"
+    "popular_products_9PeBQ6",
+    "shop_by_category_LTyYzG"
   ]
 }
