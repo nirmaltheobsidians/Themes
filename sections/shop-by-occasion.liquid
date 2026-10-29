@@ -15,6 +15,15 @@
   <div class="shop-by-occasion__inner">
     {%- if section.settings.heading != blank -%}
       <header class="shop-by-occasion__header">
+        <img
+          class="shop-by-occasion__divider"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
         <h2 class="shop-by-occasion__heading">{{ section.settings.heading | escape }}</h2>
         <img
           class="shop-by-occasion__divider shop-by-occasion__divider--flipped"
