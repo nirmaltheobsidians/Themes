@@ -136,8 +136,6 @@
   }
 
   #ShopByCategory-{{ section.id }} .shop-by-category__heading {
-    position: relative;
-    isolation: isolate;
     margin: 4px 0;
     color: var(--shop-by-category-heading);
     font-family: var(--font-heading-family, Georgia, serif);
@@ -145,28 +143,6 @@
     font-weight: 500;
     line-height: 1.2;
     text-transform: uppercase;
-  }
-
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::before,
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::after {
-    position: absolute;
-    z-index: -1;
-    left: 50%;
-    width: 198px;
-    height: 6px;
-    background: #fff;
-    box-shadow: 0 0 20px rgba(180, 0, 0, 0.25);
-    content: '';
-    transform: translateX(-50%);
-    pointer-events: none;
-  }
-
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::before {
-    top: 0;
-  }
-
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::after {
-    bottom: 0;
   }
 
   #ShopByCategory-{{ section.id }} .shop-by-category__grid {
