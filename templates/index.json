@@ -245,6 +245,61 @@
         "product_limit": 12,
         "tag_text": "BESTSELLERS"
       }
+    },
+    "shop_by_category_LTyYzG": {
+      "type": "shop-by-category",
+      "blocks": {
+        "category_HxGpQ7": {
+          "type": "category",
+          "settings": {
+            "title": "Category 1",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "category_KFgw49": {
+          "type": "category",
+          "settings": {
+            "title": "Category 2",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "category_YJ8HJC": {
+          "type": "category",
+          "settings": {
+            "title": "Category 3",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "category_UwQPAK": {
+          "type": "category",
+          "settings": {
+            "title": "Plus Size",
+            "link": "",
+            "image_position": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "category_HxGpQ7",
+        "category_KFgw49",
+        "category_YJ8HJC",
+        "category_UwQPAK"
+      ],
+      "name": "Shop by category",
+      "settings": {
+        "heading": "Shop by category",
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "label_color": "#ffffff",
+        "pattern_opacity": 35,
+        "desktop_columns": 4,
+        "card_gap": 24,
+        "padding_top": 24,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
@@ -253,6 +308,7 @@
     "trending_products_jUay6y",
     "countdown_banner_6E8Y4G",
     "custom_main_product_pCTNaz",
-    "popular_products_9PeBQ6"
+    "popular_products_9PeBQ6",
+    "shop_by_category_LTyYzG"
   ]
 }
