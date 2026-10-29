@@ -188,6 +188,7 @@
           "type": "feature",
           "settings": {
             "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "desktop_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "title": "ready to wear",
             "link": "",
             "image_position": "center center"
