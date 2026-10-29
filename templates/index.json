@@ -128,6 +128,7 @@
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "pattern_opacity": 100,
+        "show_bottom_right_motif": false,
         "padding_top": 24,
         "padding_bottom": 40
       }
@@ -175,6 +176,7 @@
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "pattern_opacity": 100,
+        "show_bottom_right_motif": false,
         "padding_top": 0,
         "padding_bottom": 40
       }
@@ -222,21 +224,7 @@
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "pattern_opacity": 100,
-        "padding_top": 0,
-        "padding_bottom": 40
-      }
-    },
-    "desh_ki_pasand_WYtEcD": {
-      "type": "desh-ki-pasand",
-      "settings": {
-        "heading": "",
-        "collection": "new-arrivals",
-        "view_all_label": "View all",
-        "view_all_link": "",
-        "product_limit": 8,
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "pattern_opacity": 100,
+        "show_bottom_right_motif": false,
         "padding_top": 0,
         "padding_bottom": 40
       }
@@ -248,6 +236,7 @@
           "type": "feature",
           "settings": {
             "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "desktop_image": "shopify://shop_images/new-this-week.webp",
             "title": "ready to wear",
             "link": "",
             "image_position": "center center"
@@ -270,6 +259,22 @@
         "motif_opacity": 100,
         "motif_size": 500,
         "padding_top": 24,
+        "padding_bottom": 40
+      }
+    },
+    "desh_ki_pasand_WYtEcD": {
+      "type": "desh-ki-pasand",
+      "settings": {
+        "heading": "",
+        "collection": "new-arrivals",
+        "view_all_label": "View all",
+        "view_all_link": "",
+        "product_limit": 8,
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "pattern_opacity": 100,
+        "show_bottom_right_motif": false,
+        "padding_top": 0,
         "padding_bottom": 40
       }
     }
