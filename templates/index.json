@@ -9,39 +9,173 @@
  */
 {
   "sections": {
+    "new_banner_Ry86xh": {
+      "type": "new-banner",
+      "blocks": {
+        "slide_LaV7R8": {
+          "type": "slide",
+          "settings": {
+            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "top_text": "NEW SEASON",
+            "heading": "Elevate Your Everyday Style",
+            "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
+            "show_buttons": true,
+            "btn_1_label": "Shop Women",
+            "btn_1_link": "",
+            "btn_2_label": "Shop Men",
+            "btn_2_link": "",
+            "show_product_1": true,
+            "product_1": "ergonomic-baby-carrier-neutral",
+            "prod_1_title": "Red Co-ord Set",
+            "prod_1_price": "$89",
+            "prod_1_rating": "5.0",
+            "prod_1_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_2": true,
+            "product_2": "baby-white-noise-machine",
+            "prod_2_title": "Red Co-ord Set",
+            "prod_2_price": "$89",
+            "prod_2_rating": "5.0",
+            "prod_2_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_3": true,
+            "product_3": "insulated-baby-bottle-steel",
+            "prod_3_title": "Red Co-ord Set",
+            "prod_3_price": "$89",
+            "prod_3_rating": "5.0",
+            "prod_3_desc": "A refined blazer and trousers in stretch fabric — designed to move with you."
+          }
+        },
+        "slide_ebbCmm": {
+          "type": "slide",
+          "settings": {
+            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "top_text": "NEW SEASON",
+            "heading": "Elevate Your Everyday Style",
+            "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
+            "show_buttons": true,
+            "btn_1_label": "Shop Women",
+            "btn_1_link": "",
+            "btn_2_label": "Shop Men",
+            "btn_2_link": "",
+            "show_product_1": true,
+            "product_1": "silicone-baby-teether-set",
+            "prod_1_title": "Red Co-ord Set",
+            "prod_1_price": "$89",
+            "prod_1_rating": "5.0",
+            "prod_1_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_2": true,
+            "product_2": "foldable-waterproof-play-mat",
+            "prod_2_title": "Red Co-ord Set",
+            "prod_2_price": "$89",
+            "prod_2_rating": "5.0",
+            "prod_2_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_3": true,
+            "product_3": "crib-mattress-protector",
+            "prod_3_title": "Red Co-ord Set",
+            "prod_3_price": "$89",
+            "prod_3_rating": "5.0",
+            "prod_3_desc": "A refined blazer and trousers in stretch fabric — designed to move with you."
+          }
+        }
+      },
+      "block_order": [
+        "slide_LaV7R8",
+        "slide_ebbCmm"
+      ],
+      "disabled": true,
+      "name": "Custom Hero Banner",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "collection_showcase_PJDebb": {
+      "type": "collection-showcase",
+      "blocks": {
+        "collection_item_eVGHgg": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "title": "New Arrivals",
+            "item_count": "120",
+            "collection_url": ""
+          }
+        },
+        "collection_item_fbk39R": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
+            "title": "Summer Collection",
+            "item_count": "125",
+            "collection_url": ""
+          }
+        },
+        "collection_item_BeHPEd": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
+            "title": "Best Sellers",
+            "item_count": "99",
+            "collection_url": ""
+          }
+        },
+        "collection_item_Vrpkmy": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "title": "Winter Collection",
+            "item_count": "143",
+            "collection_url": ""
+          }
+        },
+        "collection_item_damjtX": {
+          "type": "collection_item",
+          "settings": {
+            "showcase_image": "shopify:\/\/shop_images\/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
+            "title": "Autumn Edit",
+            "item_count": "88",
+            "collection_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_eVGHgg",
+        "collection_item_fbk39R",
+        "collection_item_BeHPEd",
+        "collection_item_Vrpkmy",
+        "collection_item_damjtX"
+      ],
+      "disabled": true,
+      "name": "Collection Showcase",
+      "settings": {
+        "button_text": "View All Collections",
+        "button_url": ""
+      }
+    },
     "shop_by_category_home": {
       "type": "shop-by-category",
       "blocks": {
         "category_bridal": {
           "type": "category",
           "settings": {
-            "title": "Bridal",
-            "link": "",
-            "image_position": "center center"
+            "title": "Bridal"
           }
         },
         "category_sarees": {
           "type": "category",
           "settings": {
-            "title": "Sarees",
-            "link": "",
-            "image_position": "center center"
+            "title": "Sarees"
           }
         },
         "category_suits": {
           "type": "category",
           "settings": {
-            "title": "Suits",
-            "link": "",
-            "image_position": "center center"
+            "title": "Suits"
           }
         },
         "category_plus_size": {
           "type": "category",
           "settings": {
-            "title": "Plus Size",
-            "link": "",
-            "image_position": "center center"
+            "title": "Plus Size"
           }
         }
       },
@@ -69,33 +203,25 @@
         "occasion_daily_wear": {
           "type": "occasion",
           "settings": {
-            "title": "daily wear",
-            "link": "",
-            "image_position": "center center"
+            "title": "daily wear"
           }
         },
         "occasion_festive": {
           "type": "occasion",
           "settings": {
-            "title": "festive",
-            "link": "",
-            "image_position": "center center"
+            "title": "festive"
           }
         },
         "occasion_party_wear": {
           "type": "occasion",
           "settings": {
-            "title": "party wear",
-            "link": "",
-            "image_position": "center center"
+            "title": "party wear"
           }
         },
         "occasion_all_time": {
           "type": "occasion",
           "settings": {
-            "title": "all time",
-            "link": "",
-            "image_position": "center center"
+            "title": "all time"
           }
         }
       },
@@ -121,252 +247,155 @@
       "type": "desh-ki-pasand",
       "settings": {
         "heading": "DESH KI PASAND",
-        "collection": "new-arrivals",
-        "view_all_label": "View all",
-        "view_all_link": "",
+        "collection": "best-seller",
         "product_limit": 8,
         "background_color": "#ffffff",
         "heading_color": "#801814",
-        "pattern_opacity": 100,
-        "show_bottom_right_motif": false,
+        "pattern_opacity": 35,
         "padding_top": 24,
         "padding_bottom": 40
       }
     },
-    "occasion_image_feature_By78re": {
-      "type": "occasion-image-feature",
-      "blocks": {
-        "feature_C8KnVF": {
-          "type": "feature",
-          "settings": {
-            "image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
-            "mobile_image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
-            "title": "ready to wear",
-            "link": "",
-            "image_position": "center center"
-          }
-        }
-      },
-      "block_order": [
-        "feature_C8KnVF"
-      ],
-      "name": "Occasion image feature",
-      "settings": {
-        "heading": "READY TO WEAR",
-        "banner_link": "",
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "label_color": "#ffffff",
-        "card_ratio": "0.76",
-        "desktop_columns": 2,
-        "label_size": 36,
-        "card_gap": 12,
-        "motif_opacity": 100,
-        "motif_size": 500,
-        "padding_top": 24,
-        "padding_bottom": 40
-      }
-    },
-    "desh_ki_pasand_n9yWmr": {
-      "type": "desh-ki-pasand",
-      "settings": {
-        "heading": "",
-        "collection": "new-arrivals",
-        "view_all_label": "View all",
-        "view_all_link": "",
-        "product_limit": 8,
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "pattern_opacity": 100,
-        "show_bottom_right_motif": false,
-        "padding_top": 0,
-        "padding_bottom": 40
-      }
-    },
-    "occasion_image_feature_NakypG": {
-      "type": "occasion-image-feature",
-      "blocks": {
-        "feature_AaUztY": {
-          "type": "feature",
-          "settings": {
-            "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
-            "desktop_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
-            "title": "ready to wear",
-            "link": "",
-            "image_position": "center center"
-          }
-        }
-      },
-      "block_order": [
-        "feature_AaUztY"
-      ],
-      "name": "Occasion image feature",
-      "settings": {
-        "heading": "New Arrivals",
-        "banner_link": "",
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "label_color": "#ffffff",
-        "card_ratio": "0.76",
-        "desktop_columns": 2,
-        "label_size": 36,
-        "card_gap": 12,
-        "motif_opacity": 100,
-        "motif_size": 500,
-        "padding_top": 24,
-        "padding_bottom": 40
-      }
-    },
-    "desh_ki_pasand_7G49BV": {
-      "type": "desh-ki-pasand",
-      "settings": {
-        "heading": "",
-        "collection": "new-arrivals",
-        "view_all_label": "View all",
-        "view_all_link": "",
-        "product_limit": 8,
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "pattern_opacity": 100,
-        "show_bottom_right_motif": false,
-        "padding_top": 0,
-        "padding_bottom": 40
-      }
-    },
-    "occasion_image_feature_A7Vw7A": {
-      "type": "occasion-image-feature",
-      "blocks": {
-        "feature_rLwmcN": {
-          "type": "feature",
-          "settings": {
-            "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
-            "desktop_image": "shopify://shop_images/new-this-week.webp",
-            "title": "ready to wear",
-            "link": "",
-            "image_position": "center center"
-          }
-        }
-      },
-      "block_order": [
-        "feature_rLwmcN"
-      ],
-      "name": "Occasion image feature",
-      "settings": {
-        "heading": "vivah sanskar",
-        "banner_link": "",
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "label_color": "#ffffff",
-        "card_ratio": "0.76",
-        "desktop_columns": 2,
-        "label_size": 36,
-        "card_gap": 12,
-        "motif_opacity": 100,
-        "motif_size": 500,
-        "padding_top": 24,
-        "padding_bottom": 40
-      }
-    },
-    "desh_ki_pasand_WYtEcD": {
-      "type": "desh-ki-pasand",
-      "settings": {
-        "heading": "",
-        "collection": "new-arrivals",
-        "view_all_label": "View all",
-        "view_all_link": "",
-        "product_limit": 8,
-        "background_color": "#ffffff",
-        "heading_color": "#801814",
-        "pattern_opacity": 100,
-        "show_bottom_right_motif": false,
-        "padding_top": 0,
-        "padding_bottom": 40
-      }
-    },
-    "reel_video_slider_aqC6gP": {
+    "reel_video_slider_home": {
       "type": "reel-video-slider",
       "blocks": {
-        "reel_PWgKLm": {
+        "reel_video_one": {
           "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
+          "settings": {}
         },
-        "reel_7PP6T9": {
+        "reel_video_two": {
           "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
+          "settings": {}
         },
-        "reel_3DJkBd": {
+        "reel_video_three": {
           "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
-        },
-        "reel_LRkWU3": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
-        },
-        "reel_6jhEdk": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
-            "caption": ""
-          }
-        },
-        "reel_cWw7iH": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
-            "caption": ""
-          }
+          "settings": {}
         }
       },
       "block_order": [
-        "reel_PWgKLm",
-        "reel_7PP6T9",
-        "reel_3DJkBd",
-        "reel_LRkWU3",
-        "reel_6jhEdk",
-        "reel_cWw7iH"
+        "reel_video_one",
+        "reel_video_two",
+        "reel_video_three"
       ],
-      "name": "Reel video slider",
       "settings": {
-        "heading": "REELS",
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "card_ratio": "0.5625",
         "autoplay": false,
         "autoplay_delay": 4,
-        "pattern_opacity": 100,
+        "video_autoplay": false,
+        "video_loop": true,
+        "pattern_opacity": 35,
         "padding_top": 24,
         "padding_bottom": 32
+      }
+    },
+    "trending_products_jUay6y": {
+      "type": "trending-products",
+      "blocks": {
+        "tab_rWBgCP": {
+          "type": "tab",
+          "settings": {
+            "title": "All Products",
+            "collection": "best-seller",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        },
+        "tab_GrnqHP": {
+          "type": "tab",
+          "settings": {
+            "title": "New Arrivals",
+            "collection": "new-arrivals",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        },
+        "tab_gfegHa": {
+          "type": "tab",
+          "settings": {
+            "title": "Summer Collection",
+            "collection": "new-arrivals",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        },
+        "tab_YEPGTy": {
+          "type": "tab",
+          "settings": {
+            "title": "Best Sellers",
+            "collection": "best-seller",
+            "product_limit": 12,
+            "tag_text": "BESTSELLERS"
+          }
+        }
+      },
+      "block_order": [
+        "tab_rWBgCP",
+        "tab_GrnqHP",
+        "tab_gfegHa",
+        "tab_YEPGTy"
+      ],
+      "disabled": true,
+      "name": "Trending Products",
+      "settings": {
+        "heading": "Trending Right Now"
+      }
+    },
+    "countdown_banner_6E8Y4G": {
+      "type": "countdown-banner",
+      "disabled": true,
+      "name": "Countdown Banner",
+      "settings": {
+        "badge_text": "Limited Time Offer",
+        "heading": "The Weekend Style Event",
+        "description": "Enjoy up to 30% off a curated selection of seasonal styles — refresh your wardrobe with standout pieces, available for a limited time only.",
+        "button_text": "Shop Collection",
+        "button_link": "",
+        "end_date": "2026-12-31"
+      }
+    },
+    "custom_main_product_pCTNaz": {
+      "type": "custom-main-product",
+      "disabled": true,
+      "name": "Product Showcase",
+      "settings": {
+        "product": "ergonomic-baby-carrier-neutral",
+        "badge_text": "Featured Product",
+        "heading": "The Relaxed Tailored Blazer",
+        "rating_points": "5.0",
+        "review_count": "(128 Reviews)",
+        "price": "$148.00",
+        "description": "A wardrobe essential with a structured silhouette. Made from lightweight wool-blend, it offers warmth without bulk. Pair with tailored trousers or layer over a tee.",
+        "stock_text": "In stock — ships in 1-2 days",
+        "delivery_text": "Free Delivery",
+        "return_text": "Easy 30-Day Returns",
+        "guarantee_text": "1-Year Guarantee"
+      }
+    },
+    "popular_products_9PeBQ6": {
+      "type": "popular-products",
+      "disabled": true,
+      "name": "Popular Products",
+      "settings": {
+        "heading": "Popular Products",
+        "description": "Explore the must-have styles our customers love. From essentials to favorites, these are the pieces that return.",
+        "collection": "best-seller",
+        "product_limit": 12,
+        "tag_text": "BESTSELLERS"
       }
     }
   },
   "order": [
+    "new_banner_Ry86xh",
+    "collection_showcase_PJDebb",
     "shop_by_category_home",
     "shop_by_occasion_home",
     "desh_ki_pasand_home",
-    "occasion_image_feature_By78re",
-    "desh_ki_pasand_n9yWmr",
-    "occasion_image_feature_NakypG",
-    "desh_ki_pasand_7G49BV",
-    "occasion_image_feature_A7Vw7A",
-    "desh_ki_pasand_WYtEcD",
-    "reel_video_slider_aqC6gP"
+    "reel_video_slider_home",
+    "trending_products_jUay6y",
+    "countdown_banner_6E8Y4G",
+    "custom_main_product_pCTNaz",
+    "popular_products_9PeBQ6"
   ]
 }
