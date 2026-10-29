@@ -294,6 +294,30 @@
             "caption": ""
           }
         },
+        "reel_7PP6T9": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "caption": ""
+          }
+        },
+        "reel_3DJkBd": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "caption": ""
+          }
+        },
+        "reel_LRkWU3": {
+          "type": "reel",
+          "settings": {
+            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "caption": ""
+          }
+        },
         "reel_6jhEdk": {
           "type": "reel",
           "settings": {
@@ -313,6 +337,9 @@
       },
       "block_order": [
         "reel_PWgKLm",
+        "reel_7PP6T9",
+        "reel_3DJkBd",
+        "reel_LRkWU3",
         "reel_6jhEdk",
         "reel_cWw7iH"
       ],
