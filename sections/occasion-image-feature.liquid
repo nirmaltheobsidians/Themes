@@ -22,7 +22,6 @@
     --occasion-image-feature-label-size: {{ section.settings.label_size }}px;
     --occasion-image-feature-motif-opacity: {{ section.settings.motif_opacity | divided_by: 100.0 }};
     --occasion-image-feature-motif-size: {{ section.settings.motif_size }}px;
-    --occasion-image-feature-heading-image: url('{{ heading_decoration_url }}');
     --occasion-image-feature-background-image: url('{{ background_motif_url }}');
   "
 >
@@ -32,8 +31,8 @@
         <img
           class="occasion-image-feature__divider"
           src="{{ heading_decoration_url }}"
-          width="180"
-          height="46"
+          width="110"
+          height="29"
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -42,8 +41,8 @@
         <img
           class="occasion-image-feature__divider occasion-image-feature__divider--flipped"
           src="{{ heading_decoration_url }}"
-          width="180"
-          height="46"
+          width="110"
+          height="29"
           alt=""
           aria-hidden="true"
           loading="lazy"
@@ -138,7 +137,7 @@
 
   #OccasionImageFeature-{{ section.id }} .occasion-image-feature__divider {
     display: block;
-    width: min(180px, 42vw);
+    width: min(110px, 42vw);
     height: auto;
     object-fit: contain;
   }
@@ -346,7 +345,7 @@
       "step": 10,
       "unit": "px",
       "label": "Background motif size",
-      "default": 230
+      "default": 190
     },
     {
       "type": "range",
