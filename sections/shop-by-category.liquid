@@ -1,0 +1,358 @@
+<section
+  id="ShopByCategory-{{ section.id }}"
+  class="shop-by-category"
+  style="
+    --shop-by-category-background: {{ section.settings.background_color }};
+    --shop-by-category-heading: {{ section.settings.heading_color }};
+    --shop-by-category-label: {{ section.settings.label_color }};
+    --shop-by-category-columns: {{ section.settings.desktop_columns }};
+    --shop-by-category-gap: {{ section.settings.card_gap }}px;
+    --shop-by-category-top: {{ section.settings.padding_top }}px;
+    --shop-by-category-bottom: {{ section.settings.padding_bottom }}px;
+    --shop-by-category-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
+  "
+>
+  <div class="shop-by-category__inner">
+    {%- if section.settings.heading != blank -%}
+      <header class="shop-by-category__header">
+        <img
+          class="shop-by-category__divider"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+        <h2 class="shop-by-category__heading">{{ section.settings.heading | escape }}</h2>
+        <img
+          class="shop-by-category__divider shop-by-category__divider--flipped"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="shop-by-category__grid">
+        {%- for block in section.blocks -%}
+          {%- assign category_title = block.settings.title | default: 'Category' -%}
+          {%- assign category_image_alt = block.settings.image.alt | default: category_title -%}
+          <div
+            class="shop-by-category__item"
+            style="--shop-by-category-image-position: {{ block.settings.image_position }};"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.link != blank -%}
+              <a class="shop-by-category__card" href="{{ block.settings.link }}">
+            {%- else -%}
+              <div class="shop-by-category__card">
+            {%- endif -%}
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1000
+                  | image_tag:
+                    class: 'shop-by-category__image',
+                    widths: '240, 360, 540, 720, 1000',
+                    sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 46vw',
+                    loading: 'lazy',
+                    alt: category_image_alt
+                }}
+              {%- else -%}
+                {{ 'collection-apparel-1' | placeholder_svg_tag: 'shop-by-category__image shop-by-category__placeholder' }}
+              {%- endif -%}
+              <span class="shop-by-category__shade" aria-hidden="true"></span>
+              <span class="shop-by-category__label">{{ category_title | escape }}</span>
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #ShopByCategory-{{ section.id }} {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: var(--shop-by-category-top) 24px var(--shop-by-category-bottom);
+    background-color: var(--shop-by-category-background);
+  }
+
+  #ShopByCategory-{{ section.id }}::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}');
+    background-repeat: no-repeat;
+    background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, right -82px bottom -88px;
+    background-size: 202px 202px;
+    content: '';
+    opacity: var(--shop-by-category-pattern-opacity);
+    pointer-events: none;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__inner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+    text-align: center;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__divider {
+    display: block;
+    width: 90px;
+    height: 23px;
+    object-fit: contain;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__divider--flipped {
+    transform: rotate(180deg);
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__heading {
+    margin: 4px 0;
+    color: var(--shop-by-category-heading);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--shop-by-category-gap);
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__item {
+    min-width: 0;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 0.935;
+    color: var(--shop-by-category-label);
+    text-decoration: none;
+    background: #e8d9cb;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--shop-by-category-image-position, center center);
+    transition: transform 350ms ease;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__placeholder {
+    padding: 14%;
+    opacity: 0.48;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__shade {
+    position: absolute;
+    inset: 45% 0 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(32, 11, 12, 0.76) 100%);
+    pointer-events: none;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__label {
+    position: absolute;
+    right: 8px;
+    bottom: 8%;
+    left: 8px;
+    color: var(--shop-by-category-label);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(18px, 2vw, 28px);
+    font-weight: 400;
+    line-height: 1.1;
+    text-align: center;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.22);
+  }
+
+  @media screen and (min-width: 750px) {
+    #ShopByCategory-{{ section.id }} .shop-by-category__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #ShopByCategory-{{ section.id }} .shop-by-category__header {
+      margin-bottom: 32px;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #ShopByCategory-{{ section.id }} .shop-by-category__grid {
+      grid-template-columns: repeat(var(--shop-by-category-columns), minmax(0, 1fr));
+      gap: max(var(--shop-by-category-gap), 24px);
+    }
+  }
+
+  @media (hover: hover) {
+    #ShopByCategory-{{ section.id }} .shop-by-category__card:hover .shop-by-category__image {
+      transform: scale(1.035);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #ShopByCategory-{{ section.id }} .shop-by-category__image {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Shop by category",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by category"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#801814"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Category label color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background motif opacity",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "label": "Desktop columns",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Card spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 40
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category name",
+          "default": "Category"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Category link"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image focal point",
+          "options": [
+            { "value": "center center", "label": "Center" },
+            { "value": "center top", "label": "Top" },
+            { "value": "center bottom", "label": "Bottom" },
+            { "value": "left center", "label": "Left" },
+            { "value": "right center", "label": "Right" }
+          ],
+          "default": "center center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by category",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Category 1" } },
+        { "type": "category", "settings": { "title": "Category 2" } },
+        { "type": "category", "settings": { "title": "Category 3" } },
+        { "type": "category", "settings": { "title": "Plus Size" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
