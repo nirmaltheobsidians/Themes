@@ -304,6 +304,61 @@
         "padding_top": 24,
         "padding_bottom": 40
       }
+    },
+    "shop_by_occasion_p6mpqV": {
+      "type": "shop-by-occasion",
+      "blocks": {
+        "occasion_HRNzne": {
+          "type": "occasion",
+          "settings": {
+            "title": "daily wear",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "occasion_76WGqF": {
+          "type": "occasion",
+          "settings": {
+            "title": "festive",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "occasion_MqHzGr": {
+          "type": "occasion",
+          "settings": {
+            "title": "party wear",
+            "link": "",
+            "image_position": "center center"
+          }
+        },
+        "occasion_rDXxzB": {
+          "type": "occasion",
+          "settings": {
+            "title": "all time",
+            "link": "",
+            "image_position": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "occasion_HRNzne",
+        "occasion_76WGqF",
+        "occasion_MqHzGr",
+        "occasion_rDXxzB"
+      ],
+      "name": "Shop by occasion",
+      "settings": {
+        "heading": "AVSAR ANUSAAR",
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "label_color": "#ffffff",
+        "pattern_opacity": 100,
+        "card_gap": 6,
+        "stagger_offset": 34,
+        "padding_top": 0,
+        "padding_bottom": 32
+      }
     }
   },
   "order": [
@@ -313,6 +368,7 @@
     "countdown_banner_6E8Y4G",
     "custom_main_product_pCTNaz",
     "popular_products_9PeBQ6",
-    "shop_by_category_LTyYzG"
+    "shop_by_category_LTyYzG",
+    "shop_by_occasion_p6mpqV"
   ]
 }
