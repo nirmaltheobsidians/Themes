@@ -576,13 +576,37 @@
         "image_override_aTBYGW": {
           "type": "image_override",
           "settings": {
-            "article": "",
+            "article": "news/test",
+            "image": "shopify://shop_images/Story_Embroidery.avif"
+          }
+        },
+        "image_override_zAcRji": {
+          "type": "image_override",
+          "settings": {
+            "article": "news/test",
+            "image": "shopify://shop_images/Story_Embroidery.avif"
+          }
+        },
+        "image_override_PhNMNV": {
+          "type": "image_override",
+          "settings": {
+            "article": "news/test",
+            "image": "shopify://shop_images/Story_Embroidery.avif"
+          }
+        },
+        "image_override_wRF3HX": {
+          "type": "image_override",
+          "settings": {
+            "article": "news/test",
             "image": "shopify://shop_images/Story_Embroidery.avif"
           }
         }
       },
       "block_order": [
-        "image_override_aTBYGW"
+        "image_override_aTBYGW",
+        "image_override_zAcRji",
+        "image_override_PhNMNV",
+        "image_override_wRF3HX"
       ],
       "name": "Blog slider",
       "settings": {
