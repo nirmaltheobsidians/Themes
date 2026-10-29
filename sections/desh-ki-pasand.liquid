@@ -1,0 +1,547 @@
+{%- assign featured_collection = section.settings.collection -%}
+{%- assign product_count = 0 -%}
+{%- if featured_collection != blank -%}
+  {%- assign product_count = featured_collection.products.size | at_most: section.settings.product_limit -%}
+{%- endif -%}
+
+<section
+  id="DeshKiPasand-{{ section.id }}"
+  class="desh-ki-pasand"
+  style="
+    --desh-ki-pasand-background: {{ section.settings.background_color }};
+    --desh-ki-pasand-heading: {{ section.settings.heading_color }};
+    --desh-ki-pasand-top: {{ section.settings.padding_top }}px;
+    --desh-ki-pasand-bottom: {{ section.settings.padding_bottom }}px;
+    --desh-ki-pasand-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
+  "
+>
+  <div class="desh-ki-pasand__inner">
+    {%- if section.settings.heading != blank -%}
+      <header class="desh-ki-pasand__header">
+        <img
+          class="desh-ki-pasand__divider"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+        <h2 class="desh-ki-pasand__heading">{{ section.settings.heading | escape }}</h2>
+        <img
+          class="desh-ki-pasand__divider desh-ki-pasand__divider--flipped"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+      </header>
+    {%- endif -%}
+
+    {%- if product_count > 0 -%}
+      <div class="desh-ki-pasand__products" data-desh-products>
+        <div class="desh-ki-pasand__track" data-desh-track>
+          {%- for product in featured_collection.products limit: section.settings.product_limit -%}
+            <div class="desh-ki-pasand__slide" data-desh-slide>
+              <div class="desh-ki-pasand__card">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'portrait',
+                  image_shape: false,
+                  lazy_load: true,
+                  show_secondary_image: false,
+                  show_vendor: false,
+                  show_rating: true,
+                  skip_styles: false,
+                  section_id: section.id,
+                  quick_add: 'none',
+                  product_view_context: 'collection'
+                %}
+                <button
+                  class="desh-ki-pasand__wishlist"
+                  type="button"
+                  data-td-wishlist-toggle
+                  data-product-id="{{ product.id }}"
+                  data-product-handle="{{ product.handle }}"
+                  data-product-title="{{ product.title | escape }}"
+                  data-product-vendor="{{ product.vendor | escape }}"
+                  data-product-price="{{ product.price | money_without_currency | escape }}"
+                  data-product-compare-price="{{ product.compare_at_price | money_without_currency | escape }}"
+                  data-product-image="{{ product.featured_image | image_url: width: 600 }}"
+                  data-product-url="{{ product.url }}"
+                  data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  data-product-default-variant="{{ product.selected_or_first_available_variant.title | escape }}"
+                  aria-label="Add to wishlist"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-7.3 1.2-1.2a5.4 5.4 0 0 0 0-7.6Z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if product_count > 1 -%}
+          <nav class="desh-ki-pasand__pagination" aria-label="Product slides">
+            <img
+              class="desh-ki-pasand__pagination-mark"
+              src="{{ 'product-slider-dots.svg' | asset_url }}"
+              width="13"
+              height="13"
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+            >
+            <div class="desh-ki-pasand__dots">
+              {%- for product in featured_collection.products limit: section.settings.product_limit -%}
+                <button
+                  class="desh-ki-pasand__dot{% if forloop.first %} is-active{% endif %}"
+                  type="button"
+                  data-desh-dot="{{ forloop.index0 }}"
+                  aria-label="Go to product {{ forloop.index }}"
+                  {% if forloop.first %}aria-current="true"{% endif %}
+                ></button>
+              {%- endfor -%}
+            </div>
+          </nav>
+        {%- endif -%}
+      </div>
+    {%- elsif request.design_mode -%}
+      <div class="desh-ki-pasand__empty">
+        Select a collection with products in the section settings to display product cards.
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #DeshKiPasand-{{ section.id }} {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: var(--desh-ki-pasand-top) 24px var(--desh-ki-pasand-bottom);
+    background-color: var(--desh-ki-pasand-background);
+  }
+
+  #DeshKiPasand-{{ section.id }}::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}');
+    background-repeat: no-repeat;
+    background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px, right -82px bottom -88px;
+    background-size: 154px 154px, 196px 196px, 220px 220px, 178px 178px;
+    content: '';
+    opacity: var(--desh-ki-pasand-pattern-opacity);
+    pointer-events: none;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__inner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+    text-align: center;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__divider {
+    display: block;
+    width: 90px;
+    height: 23px;
+    object-fit: contain;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__divider--flipped {
+    transform: rotate(180deg);
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__heading {
+    margin: 4px 0;
+    color: var(--desh-ki-pasand-heading);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide,
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__card,
+  #DeshKiPasand-{{ section.id }} .card-wrapper,
+  #DeshKiPasand-{{ section.id }} .card {
+    min-width: 0;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__card {
+    position: relative;
+  }
+
+  #DeshKiPasand-{{ section.id }} .card,
+  #DeshKiPasand-{{ section.id }} .card__inner {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  #DeshKiPasand-{{ section.id }} .td-trend-product-img-inner {
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider {
+    height: auto;
+    aspect-ratio: 0.7;
+  }
+
+  #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider .swiper-wrapper,
+  #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider .swiper-slide,
+  #DeshKiPasand-{{ section.id }} .td-trend-product-img {
+    height: 100%;
+  }
+
+  #DeshKiPasand-{{ section.id }} .td-trend-product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    transform: none;
+    opacity: 1;
+  }
+
+  #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider .swiper-pagination {
+    display: none;
+  }
+
+  #DeshKiPasand-{{ section.id }} .card__content,
+  #DeshKiPasand-{{ section.id }} .card__information,
+  #DeshKiPasand-{{ section.id }} .card-information {
+    padding: 0;
+    text-align: center;
+  }
+
+  #DeshKiPasand-{{ section.id }} .card__content {
+    padding-top: 12px;
+  }
+
+  #DeshKiPasand-{{ section.id }} .card__heading {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  #DeshKiPasand-{{ section.id }} .card__heading a {
+    text-decoration: none;
+  }
+
+  #DeshKiPasand-{{ section.id }} .price {
+    justify-content: center;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  #DeshKiPasand-{{ section.id }} .rating {
+    vertical-align: middle;
+  }
+
+  #DeshKiPasand-{{ section.id }} .rating-star {
+    --color-rating-star: #8d1915;
+  }
+
+  #DeshKiPasand-{{ section.id }} .rating-count {
+    margin-left: 4px;
+    color: #8d1915;
+    font-size: 11px;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__wishlist {
+    position: absolute;
+    z-index: 3;
+    right: 8px;
+    bottom: 8px;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    place-items: center;
+    color: #8d1915;
+    background: #fff;
+    border: 1px solid rgba(141, 25, 21, 0.12);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__wishlist svg {
+    width: 19px;
+    height: 19px;
+    fill: transparent;
+    stroke: currentColor;
+    stroke-width: 1.6;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__wishlist.TD_wishlist--active svg {
+    fill: currentColor;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__pagination,
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__empty {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    #DeshKiPasand-{{ section.id }} {
+      padding-right: 24px;
+      padding-left: 24px;
+    }
+
+    #DeshKiPasand-{{ section.id }}::before {
+      background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px, right -82px bottom -88px;
+      background-size: 135px 135px, 176px 176px, 205px 205px, 158px 158px;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {
+      margin-bottom: 20px;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide {
+      flex: 0 0 62%;
+      scroll-snap-align: start;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__pagination-mark {
+      display: block;
+      width: 13px;
+      height: 13px;
+      object-fit: contain;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dot {
+      display: block;
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      background: #101010;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0.38;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dot.is-active {
+      opacity: 1;
+      transform: scale(1.12);
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    #DeshKiPasand-{{ section.id }} {
+      padding-right: 32px;
+      padding-left: 32px;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {
+      margin-bottom: 32px;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track {
+      scroll-behavior: auto;
+    }
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    const selector = '#DeshKiPasand-{{ section.id }}';
+
+    const initialize = (scope = document) => {
+      const root = scope.matches?.(selector) ? scope : scope.querySelector?.(selector);
+      if (!root || root.dataset.deshInitialized === 'true') return;
+
+      const track = root.querySelector('[data-desh-track]');
+      const slides = Array.from(root.querySelectorAll('[data-desh-slide]'));
+      const dots = Array.from(root.querySelectorAll('[data-desh-dot]'));
+      if (!track || !slides.length || !dots.length) return;
+
+      root.dataset.deshInitialized = 'true';
+
+      const setActiveDot = (index) => {
+        dots.forEach((dot, dotIndex) => {
+          const isActive = dotIndex === index;
+          dot.classList.toggle('is-active', isActive);
+          if (isActive) {
+            dot.setAttribute('aria-current', 'true');
+          } else {
+            dot.removeAttribute('aria-current');
+          }
+        });
+      };
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const slide = slides[Number(dot.dataset.deshDot)];
+          if (slide) {
+            track.scrollTo({
+              left: slide.offsetLeft - track.offsetLeft,
+              behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+            });
+          }
+        });
+      });
+
+      let scrollFrame = 0;
+      track.addEventListener('scroll', () => {
+        window.cancelAnimationFrame(scrollFrame);
+        scrollFrame = window.requestAnimationFrame(() => {
+          const currentIndex = slides.reduce((closestIndex, slide, index) => {
+            const closestDistance = Math.abs(slides[closestIndex].offsetLeft - track.offsetLeft - track.scrollLeft);
+            const slideDistance = Math.abs(slide.offsetLeft - track.offsetLeft - track.scrollLeft);
+            return slideDistance < closestDistance ? index : closestIndex;
+          }, 0);
+          setActiveDot(currentIndex);
+        });
+      }, { passive: true });
+    };
+
+    initialize();
+    document.addEventListener('shopify:section:load', (event) => initialize(event.target));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Desh ki pasand",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "DESH KI PASAND"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Product collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#801814"
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background motif opacity",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Desh ki pasand"
+    }
+  ]
+}
+{% endschema %}
