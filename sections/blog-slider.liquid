@@ -17,6 +17,11 @@
     --blog-slider-bottom: {{ section.settings.padding_bottom }}px;
   "
 >
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    media="all"
+  >
   <div class="blog-slider__inner page-width">
     {%- if section.settings.heading != blank -%}
       <header class="blog-slider__header">
@@ -441,6 +446,32 @@
 <script>
   (() => {
     const rootId = 'BlogSlider-{{ section.id }}';
+    const scriptUrl = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+    let swiperLoader;
+
+    const loadSwiper = () => {
+      if (window.Swiper) return Promise.resolve(window.Swiper);
+      if (swiperLoader) return swiperLoader;
+
+      swiperLoader = new Promise((resolve, reject) => {
+        const existingScript = document.querySelector(`script[src="${scriptUrl}"]`);
+        const script = existingScript || document.createElement('script');
+        const onLoad = () => window.Swiper
+          ? resolve(window.Swiper)
+          : reject(new Error('Swiper loaded but its constructor is unavailable.'));
+        const onError = () => reject(new Error('Could not load the Swiper slider library.'));
+
+        script.addEventListener('load', onLoad, { once: true });
+        script.addEventListener('error', onError, { once: true });
+        if (!existingScript) {
+          script.src = scriptUrl;
+          script.async = true;
+          document.head.appendChild(script);
+        }
+      });
+
+      return swiperLoader;
+    };
 
     const initializeRoot = (root) => {
       if (!root || root.dataset.blogInitialized === 'true') return;
@@ -448,10 +479,6 @@
       const carousel = root.querySelector('[data-blog-carousel]');
       const slides = carousel?.querySelectorAll('.swiper-slide');
       if (!carousel || !slides || slides.length < 2) return;
-      if (!window.Swiper) {
-        console.error('[Blog slider] Swiper is unavailable; the blog carousel could not be initialized.');
-        return;
-      }
 
       const dots = Array.from(root.querySelectorAll('[data-blog-dot]'));
       const updateDots = (swiper) => {
@@ -463,46 +490,54 @@
         });
       };
 
-      root.blogSlider = new window.Swiper(carousel, {
-        a11y: { enabled: true },
-        allowTouchMove: true,
-        breakpoints: {
-          750: {
-            slidesPerView: {{ desktop_slides }},
-            spaceBetween: 28,
-          },
-        },
-        grabCursor: true,
-        loop: slides.length > {{ desktop_slides }},
-        loopAddBlankSlides: false,
-        observeParents: true,
-        observer: true,
-        resizeObserver: true,
-        slidesPerView: 'auto',
-        spaceBetween: 16,
-        watchOverflow: true,
-        on: {
-          init(swiper) {
-            updateDots(swiper);
-            requestAnimationFrame(() => {
-              if (!swiper.destroyed) swiper.update();
+      loadSwiper()
+        .then((SwiperConstructor) => {
+          if (!root.isConnected || root.dataset.blogInitialized === 'true') return;
+
+          root.blogSlider = new SwiperConstructor(carousel, {
+            a11y: { enabled: true },
+            allowTouchMove: true,
+            breakpoints: {
+              750: {
+                slidesPerView: {{ desktop_slides }},
+                spaceBetween: 28,
+              },
+            },
+            grabCursor: true,
+            loop: slides.length > {{ desktop_slides }},
+            loopAddBlankSlides: false,
+            observeParents: true,
+            observer: true,
+            resizeObserver: true,
+            slidesPerView: 'auto',
+            spaceBetween: 16,
+            watchOverflow: true,
+            on: {
+              init(swiper) {
+                updateDots(swiper);
+                requestAnimationFrame(() => {
+                  if (!swiper.destroyed) swiper.update();
+                });
+              },
+              slideChange(swiper) {
+                updateDots(swiper);
+              },
+            },
+          });
+
+          dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+              const targetIndex = Number(dot.dataset.blogDot);
+              if (root.blogSlider.params.loop) root.blogSlider.slideToLoop(targetIndex);
+              else root.blogSlider.slideTo(targetIndex);
             });
-          },
-          slideChange(swiper) {
-            updateDots(swiper);
-          },
-        },
-      });
+          });
 
-      dots.forEach((dot) => {
-        dot.addEventListener('click', () => {
-          const targetIndex = Number(dot.dataset.blogDot);
-          if (root.blogSlider.params.loop) root.blogSlider.slideToLoop(targetIndex);
-          else root.blogSlider.slideTo(targetIndex);
+          root.dataset.blogInitialized = 'true';
+        })
+        .catch((error) => {
+          console.error('[Blog slider] Carousel could not be initialized.', error);
         });
-      });
-
-      root.dataset.blogInitialized = 'true';
     };
 
     const initializeWithin = (scope = document) => {
