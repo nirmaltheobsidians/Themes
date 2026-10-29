@@ -104,15 +104,26 @@
 
       {%- if selected_blog.articles_count > 1 -%}
         <nav class="blog-slider__pagination" aria-label="Blog posts">
-          {%- for article in selected_blog.articles limit: section.settings.post_limit -%}
-            <button
-              class="blog-slider__dot{% if forloop.first %} is-active{% endif %}"
-              type="button"
-              data-blog-dot="{{ forloop.index0 }}"
-              aria-label="Go to blog post {{ forloop.index }}"
-              {% if forloop.first %}aria-current="true"{% endif %}
-            ></button>
-          {%- endfor -%}
+          <img
+            class="blog-slider__pagination-divider"
+            src="{{ 'category-divider.svg' | asset_url }}"
+            width="90"
+            height="23"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          >
+          <div class="blog-slider__dots">
+            {%- for article in selected_blog.articles limit: section.settings.post_limit -%}
+              <button
+                class="blog-slider__dot{% if forloop.first %} is-active{% endif %}"
+                type="button"
+                data-blog-dot="{{ forloop.index0 }}"
+                aria-label="Go to blog post {{ forloop.index }}"
+                {% if forloop.first %}aria-current="true"{% endif %}
+              ></button>
+            {%- endfor -%}
+          </div>
         </nav>
       {%- endif -%}
     {%- elsif request.design_mode -%}
@@ -381,10 +392,24 @@
 
     #BlogSlider-{{ section.id }} .blog-slider__pagination {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    #BlogSlider-{{ section.id }} .blog-slider__pagination-divider {
+      display: block;
+      width: 90px;
+      height: 23px;
+      object-fit: contain;
+    }
+
+    #BlogSlider-{{ section.id }} .blog-slider__dots {
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 7px;
-      margin-top: 16px;
     }
 
     #BlogSlider-{{ section.id }} .blog-slider__dot {

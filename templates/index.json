@@ -617,7 +617,7 @@
         "show_date": true,
         "date_format": "%b %d, %Y",
         "show_excerpt": true,
-        "excerpt_length": 150,
+        "excerpt_length": 60,
         "show_read_more": true,
         "read_more_label": "Read more",
         "show_view_all": true,
