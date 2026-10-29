@@ -326,7 +326,7 @@
             "title": "SAREES",
             "eyebrow": "UNDER",
             "price": "₹ 2,199",
-            "text_side": "right",
+            "text_side": "left",
             "image_position": "center center",
             "text_color": "#801814",
             "card_background": "#fff2a6",
@@ -341,7 +341,7 @@
             "title": "KURTIS",
             "eyebrow": "UNDER",
             "price": "₹ 1,299",
-            "text_side": "left",
+            "text_side": "right",
             "image_position": "center center",
             "text_color": "#801814",
             "card_background": "#fff2a6",
@@ -361,7 +361,7 @@
         "card_ratio": "1.78",
         "card_gap": 12,
         "card_radius": 14,
-        "pattern_opacity": 25,
+        "pattern_opacity": 100,
         "padding_top": 32,
         "padding_bottom": 32
       }
