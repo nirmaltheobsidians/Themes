@@ -56,14 +56,15 @@
           {%- assign card_title = block.settings.title | default: 'Occasion' -%}
           {%- assign desktop_image = block.settings.desktop_image | default: block.settings.image | default: block.settings.mobile_image -%}
           {%- assign mobile_image = block.settings.mobile_image | default: block.settings.image | default: block.settings.desktop_image -%}
+          {%- assign card_link = block.settings.link | default: section.settings.banner_link -%}
           {%- assign card_image_alt = desktop_image.alt | default: card_title -%}
           <div
             class="occasion-image-feature__item"
             style="--occasion-image-feature-image-position: {{ block.settings.image_position }};"
             {{ block.shopify_attributes }}
           >
-            {%- if block.settings.link != blank -%}
-              <a class="occasion-image-feature__card" href="{{ block.settings.link }}">
+            {%- if card_link != blank -%}
+              <a class="occasion-image-feature__card" href="{{ card_link }}" aria-label="{{ card_title | escape }}">
             {%- else -%}
               <div class="occasion-image-feature__card">
             {%- endif -%}
@@ -99,7 +100,7 @@
                 <span class="occasion-image-feature__shade" aria-hidden="true"></span>
                 <span class="occasion-image-feature__label">{{ card_title | escape }}</span>
               {%- endif -%}
-            {%- if block.settings.link != blank -%}
+            {%- if card_link != blank -%}
               </a>
             {%- else -%}
               </div>
@@ -255,8 +256,12 @@
 
   @media screen and (min-width: 750px) {
     #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid {
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
+      position: relative;
+      left: 50%;
+      width: calc(100vw - 80px);
+      max-width: 1440px;
+      margin-left: 0;
+      transform: translateX(-50%);
     }
 
     #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid--single {
@@ -274,6 +279,10 @@
     #OccasionImageFeature-{{ section.id }} .occasion-image-feature__image {
       height: auto;
       aspect-ratio: auto;
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__card[href] {
+      cursor: pointer;
     }
   }
 
@@ -312,6 +321,12 @@
       "id": "background_motif",
       "label": "Background motif image",
       "info": "Leave blank to use the theme's mandala artwork."
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Default banner link",
+      "info": "Used when an image block does not have its own link."
     },
     {
       "type": "color",
