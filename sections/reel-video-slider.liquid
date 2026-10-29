@@ -198,11 +198,18 @@
     width: 100%;
     gap: 24px;
     overflow-x: auto;
-    padding: 18px 0;
+    padding: 18px calc((100% - clamp(180px, 28vw, 360px)) / 2);
     scrollbar-width: none;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
     touch-action: pan-y;
+    cursor: grab;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__track.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__track::-webkit-scrollbar {
@@ -211,7 +218,7 @@
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__slide {
     position: relative;
-    flex: 0 0 28%;
+    flex: 0 0 clamp(180px, 28vw, 360px);
     min-width: 0;
     opacity: 0.48;
     transform: scale(0.9);
@@ -370,8 +377,7 @@
 
   @media screen and (min-width: 750px) {
     #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
-      padding-right: 36%;
-      padding-left: 36%;
+      gap: 24px;
     }
   }
 
@@ -405,6 +411,8 @@
       let activeIndex = 0;
       let autoplayTimer;
       let isPointerDown = false;
+      let dragStartX = 0;
+      let dragStartScroll = 0;
       const sectionVisible = 'IntersectionObserver' in window
         ? new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) scheduleAutoplay();
@@ -470,9 +478,26 @@
         isPointerDown = true;
         clearTimeout(autoplayTimer);
       });
+      track.addEventListener('pointerdown', (event) => {
+        if (event.pointerType !== 'mouse' || event.target.closest('button, video, a')) return;
+        dragStartX = event.clientX;
+        dragStartScroll = track.scrollLeft;
+        track.classList.add('is-dragging');
+        track.setPointerCapture(event.pointerId);
+      });
+      track.addEventListener('pointermove', (event) => {
+        if (!track.classList.contains('is-dragging')) return;
+        track.scrollLeft = dragStartScroll - (event.clientX - dragStartX);
+      });
       window.addEventListener('pointerup', () => {
         if (!isPointerDown) return;
         isPointerDown = false;
+        track.classList.remove('is-dragging');
+        scheduleAutoplay();
+      });
+      track.addEventListener('pointercancel', () => {
+        isPointerDown = false;
+        track.classList.remove('is-dragging');
         scheduleAutoplay();
       });
       track.addEventListener('mouseenter', () => clearTimeout(autoplayTimer));
