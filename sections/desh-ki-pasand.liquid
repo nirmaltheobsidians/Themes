@@ -586,6 +586,78 @@
       const dots = root.querySelectorAll('[data-desh-dot]');
       if (!track || !slides.length || !dots.length) return;
 
+      const initializeWishlist = () => {
+        if (window.TD_Wishlist || root.dataset.deshWishlistInitialized === 'true') return;
+
+        const wishlistButtons = Array.from(root.querySelectorAll('[data-td-wishlist-toggle]'));
+        const readWishlist = () => {
+          try {
+            const storedWishlist = window.localStorage.getItem('TD_wishlist_v1');
+            const wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
+            if (!Array.isArray(wishlist)) throw new Error('Stored wishlist must be an array.');
+            return wishlist;
+          } catch (error) {
+            console.error('[Desh ki pasand] Wishlist could not be read.', error);
+            return null;
+          }
+        };
+
+        const updateWishlistButtons = (wishlist) => {
+          wishlistButtons.forEach((button) => {
+            const isActive = wishlist.some((item) => String(item.id) === button.dataset.productId);
+            button.classList.toggle('TD_wishlist--active', isActive);
+            button.setAttribute('aria-label', isActive ? 'Remove from wishlist' : 'Add to wishlist');
+            button.setAttribute('aria-pressed', String(isActive));
+          });
+        };
+
+        const initialWishlist = readWishlist();
+        if (initialWishlist) updateWishlistButtons(initialWishlist);
+
+        wishlistButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            const wishlist = readWishlist();
+            if (!wishlist) return;
+
+            const productId = button.dataset.productId;
+            const existingIndex = wishlist.findIndex((item) => String(item.id) === productId);
+            if (existingIndex >= 0) {
+              wishlist.splice(existingIndex, 1);
+            } else {
+              wishlist.push({
+                id: productId,
+                handle: button.dataset.productHandle,
+                title: button.dataset.productTitle,
+                vendor: button.dataset.productVendor,
+                price: button.dataset.productPrice,
+                comparePrice: button.dataset.productComparePrice,
+                image: button.dataset.productImage,
+                url: button.dataset.productUrl,
+                variantId: button.dataset.productVariantId,
+                defaultVariant: button.dataset.productDefaultVariant,
+              });
+            }
+
+            try {
+              window.localStorage.setItem('TD_wishlist_v1', JSON.stringify(wishlist));
+            } catch (error) {
+              console.error('[Desh ki pasand] Wishlist could not be saved.', error);
+              return;
+            }
+
+            updateWishlistButtons(wishlist);
+            document.querySelectorAll('[data-td-wishlist-count]').forEach((badge) => {
+              badge.textContent = String(wishlist.length);
+              badge.hidden = wishlist.length === 0;
+            });
+          });
+        });
+
+        root.dataset.deshWishlistInitialized = 'true';
+      };
+
+      initializeWishlist();
+
       loadSwiper()
         .then((SwiperConstructor) => {
           if (!root.isConnected || root.dataset.deshInitialized === 'true') return;
