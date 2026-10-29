@@ -83,11 +83,11 @@
                   {%- endif -%}
                   {{
                     desktop_image
-                    | image_url: width: 1800
+                    | image_url: width: 2400
                     | image_tag:
                       class: 'occasion-image-feature__image',
-                      widths: '360, 540, 720, 1000, 1400, 1800',
-                      sizes: '(min-width: 1200px) 50vw, (min-width: 750px) 70vw, 100vw',
+                      widths: '360, 540, 720, 1000, 1400, 1800, 2400',
+                      sizes: '100vw',
                       loading: 'lazy',
                       alt: card_image_alt
                   }}
@@ -178,11 +178,6 @@
     gap: var(--occasion-image-feature-gap);
   }
 
-  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid--single {
-    grid-template-columns: minmax(0, min(100%, 820px));
-    justify-content: center;
-  }
-
   #OccasionImageFeature-{{ section.id }} .occasion-image-feature__item {
     min-width: 0;
   }
@@ -242,6 +237,30 @@
     #OccasionImageFeature-{{ section.id }}::before {
       right: -12%;
       width: min(var(--occasion-image-feature-motif-size), 46vw);
+    }
+
+    @media screen and (min-width: 750px) {
+      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid {
+        width: 100vw;
+        margin-left: calc(50% - 50vw);
+      }
+
+      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid--single {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__card {
+        aspect-ratio: auto;
+      }
+
+      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__picture {
+        height: auto;
+      }
+
+      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__image {
+        height: auto;
+        aspect-ratio: auto;
+      }
     }
 
     #OccasionImageFeature-{{ section.id }} .occasion-image-feature__header {
