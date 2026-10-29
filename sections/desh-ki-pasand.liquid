@@ -584,7 +584,7 @@
       const track = root.querySelector('[data-desh-track]');
       const slides = root.querySelectorAll('[data-desh-slide]');
       const dots = root.querySelectorAll('[data-desh-dot]');
-      if (!track || !slides.length || !dots.length) return;
+      if (!track || !slides.length) return;
 
       const initializeWishlist = () => {
         if (window.TD_Wishlist || root.dataset.deshWishlistInitialized === 'true') return;
@@ -657,6 +657,7 @@
       };
 
       initializeWishlist();
+      if (!dots.length) return;
 
       loadSwiper()
         .then((SwiperConstructor) => {
