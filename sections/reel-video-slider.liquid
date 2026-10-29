@@ -211,11 +211,14 @@
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__track .swiper-wrapper {
+    display: flex;
+    box-sizing: content-box;
     align-items: center;
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__slide {
     position: relative;
+    flex-shrink: 0;
     width: clamp(180px, 28vw, 360px);
     min-width: 0;
     opacity: 0.48;
@@ -425,6 +428,7 @@
         .then((SwiperConstructor) => {
           if (!root.isConnected || root.dataset.reelInitialized === 'true') return;
 
+          let videos = [];
           const slider = new SwiperConstructor(track, {
             a11y: { enabled: true },
             allowTouchMove: true,
@@ -467,7 +471,7 @@
               },
             },
           });
-          const videos = Array.from(root.querySelectorAll('video'));
+          videos = Array.from(root.querySelectorAll('video'));
 
           function updateDots(swiper) {
             const activeIndex = swiper.realIndex;
