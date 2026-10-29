@@ -131,11 +131,44 @@
         "padding_top": 24,
         "padding_bottom": 40
       }
+    },
+    "occasion_image_feature_By78re": {
+      "type": "occasion-image-feature",
+      "blocks": {
+        "feature_C8KnVF": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "title": "ready to wear",
+            "link": "",
+            "image_position": "center center"
+          }
+        }
+      },
+      "block_order": [
+        "feature_C8KnVF"
+      ],
+      "name": "Occasion image feature",
+      "settings": {
+        "heading": "READY TO WEAR",
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "label_color": "#ffffff",
+        "card_ratio": "0.76",
+        "desktop_columns": 2,
+        "label_size": 36,
+        "card_gap": 12,
+        "motif_opacity": 35,
+        "motif_size": 190,
+        "padding_top": 24,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
     "shop_by_category_home",
     "shop_by_occasion_home",
-    "desh_ki_pasand_home"
+    "desh_ki_pasand_home",
+    "occasion_image_feature_By78re"
   ]
 }
