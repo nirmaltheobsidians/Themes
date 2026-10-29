@@ -12,6 +12,11 @@
   data-autoplay="{{ section.settings.autoplay }}"
   data-autoplay-delay="{{ section.settings.autoplay_delay }}"
 >
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    media="all"
+  >
   <div class="reel-video-slider__inner page-width">
     {%- if section.settings.heading != blank -%}
       <header class="reel-video-slider__header">
@@ -40,16 +45,15 @@
     {%- if section.blocks.size > 0 -%}
       <div class="reel-video-slider__carousel" data-reel-carousel>
         <div
-          class="reel-video-slider__track"
+          class="reel-video-slider__track swiper"
           data-reel-track
-          role="region"
-          aria-label="{{ section.settings.heading | default: 'Videos' | escape }}"
         >
+          <div class="swiper-wrapper">
           {%- for block in section.blocks -%}
             {%- assign reel_video = block.settings.video -%}
             {%- assign reel_poster = block.settings.cover_image | default: reel_video.preview_image -%}
             <article
-              class="reel-video-slider__slide{% if forloop.first %} is-active{% endif %}"
+              class="reel-video-slider__slide swiper-slide"
               data-reel-slide
               {{ block.shopify_attributes }}
             >
@@ -110,6 +114,7 @@
               </div>
             </article>
           {%- endfor -%}
+          </div>
         </div>
 
         {%- if section.blocks.size > 1 -%}
