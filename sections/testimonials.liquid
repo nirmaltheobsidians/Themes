@@ -139,14 +139,12 @@
   }
 
   #Testimonials-{{ section.id }} .testimonials__carousel .swiper-wrapper {
-    display: grid;
-    grid-template-columns: repeat(var(--testimonials-columns), minmax(0, 1fr));
-    gap: 28px;
+    display: flex;
   }
 
   #Testimonials-{{ section.id }} .testimonials__slide {
     box-sizing: border-box;
-    width: auto;
+    width: calc((100% - (28px * (var(--testimonials-columns) - 1))) / var(--testimonials-columns));
     height: auto;
   }
 
@@ -313,7 +311,7 @@
         allowTouchMove: true,
         breakpoints: {
           750: {
-            enabled: false,
+            spaceBetween: 28,
           },
         },
         grabCursor: true,
