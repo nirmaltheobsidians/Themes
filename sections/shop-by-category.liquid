@@ -15,25 +15,29 @@
   <div class="shop-by-category__inner">
     {%- if section.settings.heading != blank -%}
       <header class="shop-by-category__header">
-        <img
-          class="shop-by-category__divider"
-          src="{{ 'category-divider.svg' | asset_url }}"
-          width="90"
-          height="23"
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-        >
+        <span class="shop-by-category__divider-wrap shop-by-category__divider-wrap--top">
+          <img
+            class="shop-by-category__divider"
+            src="{{ 'category-divider.svg' | asset_url }}"
+            width="90"
+            height="23"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          >
+        </span>
         <h2 class="shop-by-category__heading">{{ section.settings.heading | escape }}</h2>
-        <img
-          class="shop-by-category__divider shop-by-category__divider--flipped"
-          src="{{ 'category-divider.svg' | asset_url }}"
-          width="90"
-          height="23"
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-        >
+        <span class="shop-by-category__divider-wrap shop-by-category__divider-wrap--bottom">
+          <img
+            class="shop-by-category__divider shop-by-category__divider--flipped"
+            src="{{ 'category-divider.svg' | asset_url }}"
+            width="90"
+            height="23"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+          >
+        </span>
       </header>
     {%- endif -%}
 
@@ -124,7 +128,38 @@
     text-align: center;
   }
 
+  #ShopByCategory-{{ section.id }} .shop-by-category__divider-wrap {
+    position: relative;
+    display: block;
+    isolation: isolate;
+    line-height: 0;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__divider-wrap::before,
+  #ShopByCategory-{{ section.id }} .shop-by-category__divider-wrap::after {
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    display: none;
+    width: 198px;
+    max-width: calc(100vw - 48px);
+    height: 6px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(180, 0, 0, 0.25);
+    content: '';
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  #ShopByCategory-{{ section.id }} .shop-by-category__divider-wrap--top::before,
+  #ShopByCategory-{{ section.id }} .shop-by-category__divider-wrap--bottom::after {
+    display: block;
+  }
+
   #ShopByCategory-{{ section.id }} .shop-by-category__divider {
+    position: relative;
+    z-index: 1;
     display: block;
     width: 90px;
     height: 23px;
@@ -136,8 +171,6 @@
   }
 
   #ShopByCategory-{{ section.id }} .shop-by-category__heading {
-    position: relative;
-    isolation: isolate;
     margin: 4px 0;
     color: var(--shop-by-category-heading);
     font-family: var(--font-heading-family, Georgia, serif);
@@ -145,28 +178,6 @@
     font-weight: 500;
     line-height: 1.2;
     text-transform: uppercase;
-  }
-
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::before,
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::after {
-    position: absolute;
-    z-index: -1;
-    left: 50%;
-    width: 198px;
-    height: 6px;
-    background: #fff;
-    box-shadow: 0 0 20px rgba(180, 0, 0, 0.25);
-    content: '';
-    transform: translateX(-50%);
-    pointer-events: none;
-  }
-
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::before {
-    top: 0;
-  }
-
-  #ShopByCategory-{{ section.id }} .shop-by-category__heading::after {
-    bottom: 0;
   }
 
   #ShopByCategory-{{ section.id }} .shop-by-category__grid {
