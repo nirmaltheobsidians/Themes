@@ -195,6 +195,10 @@
     position: relative;
   }
 
+  #DeshKiPasand-{{ section.id }} .card-wrapper {
+    position: relative;
+  }
+
   #DeshKiPasand-{{ section.id }} .card,
   #DeshKiPasand-{{ section.id }} .card__inner {
     background: transparent;
@@ -283,7 +287,7 @@
     position: absolute;
     z-index: 3;
     right: 8px;
-    bottom: 8px;
+    bottom: 92px;
     display: grid;
     width: 36px;
     height: 36px;
@@ -445,7 +449,7 @@
           if (slide) {
             track.scrollTo({
               left: slide.offsetLeft - track.offsetLeft,
-              behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+              behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
             });
           }
         });
