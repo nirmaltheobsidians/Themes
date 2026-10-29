@@ -514,6 +514,30 @@
             "rating": 5
           }
         },
+        "review_awKC7b": {
+          "type": "review",
+          "settings": {
+            "name": "Shruti Sharma",
+            "review": "Laxmipati Sarees’ collection is amazing! I bought one for my anniversary and felt special. Quality and fit are great.",
+            "rating": 5
+          }
+        },
+        "review_zrPF7c": {
+          "type": "review",
+          "settings": {
+            "name": "Shruti Sharma",
+            "review": "Laxmipati Sarees’ collection is amazing! I bought one for my anniversary and felt special. Quality and fit are great.",
+            "rating": 5
+          }
+        },
+        "review_mbgXmN": {
+          "type": "review",
+          "settings": {
+            "name": "Shruti Sharma",
+            "review": "Laxmipati Sarees’ collection is amazing! I bought one for my anniversary and felt special. Quality and fit are great.",
+            "rating": 5
+          }
+        },
         "review_kgAb9j": {
           "type": "review",
           "settings": {
@@ -525,6 +549,9 @@
       },
       "block_order": [
         "review_RLwdqQ",
+        "review_awKC7b",
+        "review_zrPF7c",
+        "review_mbgXmN",
         "review_kgAb9j"
       ],
       "name": "Testimonials",
