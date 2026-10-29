@@ -163,12 +163,28 @@
         "padding_top": 24,
         "padding_bottom": 40
       }
+    },
+    "desh_ki_pasand_n9yWmr": {
+      "type": "desh-ki-pasand",
+      "settings": {
+        "heading": "DESH KI PASAND",
+        "collection": "new-arrivals",
+        "view_all_label": "View all",
+        "view_all_link": "",
+        "product_limit": 8,
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "pattern_opacity": 100,
+        "padding_top": 24,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
     "shop_by_category_home",
     "shop_by_occasion_home",
     "desh_ki_pasand_home",
-    "occasion_image_feature_By78re"
+    "occasion_image_feature_By78re",
+    "desh_ki_pasand_n9yWmr"
   ]
 }
