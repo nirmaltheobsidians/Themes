@@ -51,7 +51,7 @@
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="occasion-image-feature__grid">
+      <div class="occasion-image-feature__grid{% if section.blocks.size == 1 %} occasion-image-feature__grid--single{% endif %}">
         {%- for block in section.blocks -%}
           {%- assign card_title = block.settings.title | default: 'Occasion' -%}
           {%- assign card_image_alt = block.settings.image.alt | default: card_title -%}
@@ -160,6 +160,11 @@
     display: grid;
     grid-template-columns: repeat(var(--occasion-image-feature-columns), minmax(0, 1fr));
     gap: var(--occasion-image-feature-gap);
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid--single {
+    grid-template-columns: minmax(0, min(100%, 820px));
+    justify-content: center;
   }
 
   #OccasionImageFeature-{{ section.id }} .occasion-image-feature__item {
