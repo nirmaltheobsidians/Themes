@@ -423,7 +423,6 @@
       const dots = Array.from(root.querySelectorAll('[data-reel-dot]'));
       if (!track) return;
       const slides = track.querySelectorAll('.swiper-slide');
-      const videos = Array.from(root.querySelectorAll('video'));
 
       loadSwiper()
         .then((SwiperConstructor) => {
@@ -466,6 +465,7 @@
               },
             },
           });
+          const videos = Array.from(root.querySelectorAll('video'));
 
           function updateDots(swiper) {
             const activeIndex = swiper.realIndex;
@@ -497,6 +497,7 @@
             if (!activeVideo) return;
             activeVideo.muted = true;
             activeVideo.playsInline = true;
+            activeVideo.controls = true;
             const playback = activeVideo.play();
             if (playback) {
               playback.catch((error) => {
