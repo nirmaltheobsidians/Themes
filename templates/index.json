@@ -322,7 +322,7 @@
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "card_ratio": "0.5625",
-        "pattern_opacity": 35,
+        "pattern_opacity": 100,
         "padding_top": 24,
         "padding_bottom": 32
       }
