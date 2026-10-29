@@ -44,11 +44,10 @@
           {%- assign banner_image = block.settings.desktop_image | default: block.settings.mobile_image -%}
           {%- assign banner_alt = banner_image.alt | default: block.settings.title -%}
           <div
-            class="offer-banner-cards__item"
+            class="offer-banner-cards__item{% if block.settings.text_side == 'right' %} offer-banner-cards__item--text-right{% endif %}"
             style="
               --offer-banner-cards-card-background: {{ block.settings.card_background }};
               --offer-banner-cards-text-color: {{ block.settings.text_color }};
-              --offer-banner-cards-text-side: {{ block.settings.text_side }};
               --offer-banner-cards-image-position: {{ block.settings.image_position }};
             "
             {{ block.shopify_attributes }}
@@ -244,7 +243,7 @@
     transform: translateY(-50%);
   }
 
-  #OfferBannerCards-{{ section.id }} .offer-banner-cards__item[style*='--offer-banner-cards-text-side: right'] .offer-banner-cards__copy {
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__item--text-right .offer-banner-cards__copy {
     right: 7%;
     left: auto;
   }
