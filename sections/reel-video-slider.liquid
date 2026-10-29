@@ -1,0 +1,578 @@
+<section
+  id="ReelVideoSlider-{{ section.id }}"
+  class="reel-video-slider"
+  style="
+    --reel-video-slider-background: {{ section.settings.background_color }};
+    --reel-video-slider-heading: {{ section.settings.heading_color }};
+    --reel-video-slider-top: {{ section.settings.padding_top }}px;
+    --reel-video-slider-bottom: {{ section.settings.padding_bottom }}px;
+    --reel-video-slider-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
+    --reel-video-slider-card-ratio: {{ section.settings.card_ratio }};
+  "
+>
+  <div class="reel-video-slider__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <header class="reel-video-slider__header">
+        <img
+          class="reel-video-slider__divider"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+        <h2 class="reel-video-slider__heading">{{ section.settings.heading | escape }}</h2>
+        <img
+          class="reel-video-slider__divider reel-video-slider__divider--flipped"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="90"
+          height="23"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="reel-video-slider__carousel" data-reel-carousel>
+        <div
+          class="reel-video-slider__track"
+          data-reel-track
+          role="region"
+          aria-label="{{ section.settings.heading | default: 'Videos' | escape }}"
+        >
+          {%- for block in section.blocks -%}
+            {%- assign reel_video = block.settings.video -%}
+            {%- assign reel_poster = block.settings.cover_image | default: reel_video.preview_image -%}
+            <article
+              class="reel-video-slider__slide{% if forloop.first %} is-active{% endif %}"
+              data-reel-slide
+              {{ block.shopify_attributes }}
+            >
+              <div class="reel-video-slider__card">
+                {%- if reel_video != blank -%}
+                  {{
+                    reel_video
+                    | video_tag:
+                      class: 'reel-video-slider__video',
+                      image_size: '1200x',
+                      controls: false,
+                      autoplay: false,
+                      loop: false,
+                      muted: true,
+                      playsinline: true,
+                      preload: 'none'
+                  }}
+                  {%- if block.settings.cover_image != blank -%}
+                    {{
+                      block.settings.cover_image
+                      | image_url: width: 1200
+                      | image_tag:
+                        class: 'reel-video-slider__cover',
+                        widths: '320, 480, 640, 800, 1000, 1200',
+                        sizes: '(min-width: 750px) 25vw, 58vw',
+                        loading: 'lazy',
+                        alt: ''
+                    }}
+                  {%- endif -%}
+                  <button
+                    class="reel-video-slider__play"
+                    type="button"
+                    data-reel-play
+                    aria-label="Play video {{ forloop.index }}"
+                  >
+                    <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                      <circle cx="24" cy="24" r="23" fill="rgba(255,255,255,.82)" />
+                      <path d="M20 15.5v17l13-8.5-13-8.5Z" fill="#801814" />
+                    </svg>
+                  </button>
+                {%- elsif reel_poster != blank -%}
+                  {{
+                    reel_poster
+                    | image_url: width: 1200
+                    | image_tag:
+                      class: 'reel-video-slider__poster',
+                      widths: '320, 480, 640, 800, 1000, 1200',
+                      sizes: '(min-width: 750px) 25vw, 58vw',
+                      loading: 'lazy',
+                      alt: block.settings.caption | default: section.settings.heading
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'reel-video-slider__poster reel-video-slider__placeholder' }}
+                {%- endif -%}
+                {%- if block.settings.caption != blank -%}
+                  <span class="reel-video-slider__caption">{{ block.settings.caption | escape }}</span>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.blocks.size > 1 -%}
+          <nav class="reel-video-slider__pagination" aria-label="Video slides">
+            {%- for block in section.blocks -%}
+              <button
+                class="reel-video-slider__dot{% if forloop.first %} is-active{% endif %}"
+                type="button"
+                data-reel-dot="{{ forloop.index0 }}"
+                aria-label="Go to video {{ forloop.index }}"
+                {% if forloop.first %}aria-current="true"{% endif %}
+              ></button>
+            {%- endfor -%}
+          </nav>
+        {%- endif -%}
+      </div>
+    {%- elsif request.design_mode -%}
+      <div class="reel-video-slider__empty">
+        Add video blocks to display the reel slider.
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #ReelVideoSlider-{{ section.id }} {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-top: var(--reel-video-slider-top);
+    padding-bottom: var(--reel-video-slider-bottom);
+    background-color: var(--reel-video-slider-background);
+  }
+
+  #ReelVideoSlider-{{ section.id }}::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}');
+    background-repeat: no-repeat;
+    background-position: right -78px top -88px, left -84px bottom -86px;
+    background-size: 210px 210px, 250px 250px;
+    content: '';
+    opacity: var(--reel-video-slider-pattern-opacity);
+    pointer-events: none;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__inner {
+    width: 100%;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+    text-align: center;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__divider {
+    display: block;
+    width: 90px;
+    height: 23px;
+    object-fit: contain;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__divider--flipped {
+    transform: rotate(180deg);
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__heading {
+    margin: 4px 0;
+    color: var(--reel-video-slider-heading);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__slide {
+    min-width: 0;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--reel-video-slider-card-ratio);
+    border-radius: 6px;
+    background: #e8d9cb;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__video,
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__poster {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__video {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__cover {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__cover[hidden] {
+    display: none;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__play {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__play svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__play[hidden] {
+    display: none;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__caption {
+    position: absolute;
+    right: 12px;
+    bottom: 14px;
+    left: 12px;
+    color: #fff;
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: 16px;
+    line-height: 1.25;
+    text-align: center;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.75);
+    pointer-events: none;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__pagination {
+    display: none;
+  }
+
+  #ReelVideoSlider-{{ section.id }} .reel-video-slider__empty {
+    padding: 24px;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    #ReelVideoSlider-{{ section.id }}::before {
+      background-position: right -72px top -76px, left -76px bottom -72px;
+      background-size: 170px 170px, 220px 220px;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__header {
+      margin-bottom: 20px;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
+      display: flex;
+      width: 100vw;
+      gap: 18px;
+      overflow-x: auto;
+      padding: 0 calc((100vw - 42vw) / 2);
+      margin-left: calc(50% - 50vw);
+      scroll-padding-inline: calc((100vw - 42vw) / 2);
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__slide {
+      position: relative;
+      flex: 0 0 42vw;
+      scroll-snap-align: center;
+      transition: opacity 300ms ease, transform 300ms ease;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__slide:not(.is-active) {
+      opacity: 0.46;
+      transform: scale(0.94);
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__card {
+      border-radius: 6px;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__dot {
+      position: relative;
+      display: block;
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #801814;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__dot.is-active {
+      width: 16px;
+      height: 16px;
+      background: transparent;
+    }
+
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__dot.is-active::before {
+      position: absolute;
+      inset: 0;
+      background: url('{{ 'reels-slider-active-dot.png' | asset_url }}') center / contain no-repeat;
+      content: '';
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #ReelVideoSlider-{{ section.id }} .reel-video-slider__slide {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+<script>
+  (() => {
+    const rootId = 'ReelVideoSlider-{{ section.id }}';
+    const initialize = (root) => {
+      if (!root || root.dataset.reelInitialized === 'true') return;
+
+      const track = root.querySelector('[data-reel-track]');
+      const slides = Array.from(root.querySelectorAll('[data-reel-slide]'));
+      const dots = Array.from(root.querySelectorAll('[data-reel-dot]'));
+      if (!track || !slides.length) return;
+      const isMobile = window.matchMedia('(max-width: 749px)');
+
+      let scrollFrame = 0;
+      const updateActiveSlide = () => {
+        scrollFrame = 0;
+        if (!isMobile.matches) return;
+        const trackCenter = track.getBoundingClientRect().left + track.clientWidth / 2;
+        let closestIndex = 0;
+        let closestDistance = Number.POSITIVE_INFINITY;
+
+        slides.forEach((slide, index) => {
+          const rect = slide.getBoundingClientRect();
+          const distance = Math.abs(rect.left + rect.width / 2 - trackCenter);
+          if (distance < closestDistance) {
+            closestIndex = index;
+            closestDistance = distance;
+          }
+        });
+
+        slides.forEach((slide, index) => slide.classList.toggle('is-active', index === closestIndex));
+        dots.forEach((dot, index) => {
+          const active = index === closestIndex;
+          dot.classList.toggle('is-active', active);
+          if (active) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+      };
+
+      track.addEventListener('scroll', () => {
+        if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateActiveSlide);
+      }, { passive: true });
+      isMobile.addEventListener('change', updateActiveSlide);
+
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const slide = slides[Number(dot.dataset.reelDot)];
+          if (slide) slide.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        });
+      });
+
+      root.querySelectorAll('[data-reel-play]').forEach((button) => {
+        const card = button.closest('.reel-video-slider__card');
+        const video = card?.querySelector('video');
+        const cover = card?.querySelector('.reel-video-slider__cover');
+        if (!video) return;
+
+        button.addEventListener('click', () => {
+          video.controls = true;
+          video.muted = false;
+          const playback = video.play();
+          if (playback) {
+            playback.catch((error) => {
+              console.error('[Reel video slider] Video playback could not start.', error);
+              video.controls = false;
+              button.hidden = false;
+            });
+          }
+        });
+
+        video.addEventListener('play', () => {
+          button.hidden = true;
+          if (cover) cover.hidden = true;
+        });
+        video.addEventListener('pause', () => {
+          button.hidden = false;
+          if (cover && video.currentTime === 0) cover.hidden = false;
+        });
+        video.addEventListener('ended', () => {
+          video.controls = false;
+          button.hidden = false;
+          if (cover) cover.hidden = false;
+        });
+      });
+
+      root.dataset.reelInitialized = 'true';
+      updateActiveSlide();
+    };
+
+    const initializeWithin = (scope = document) => {
+      if (scope.id === rootId) initialize(scope);
+      else scope.querySelectorAll?.(`#${rootId}`).forEach(initialize);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => initializeWithin(), { once: true });
+    } else {
+      initializeWithin();
+    }
+    document.addEventListener('shopify:section:load', (event) => initializeWithin(event.target));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Reel video slider",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "REELS"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#801814"
+    },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Video card ratio",
+      "options": [
+        { "value": "0.52", "label": "Tall reel" },
+        { "value": "0.5625", "label": "Portrait video" },
+        { "value": "0.75", "label": "Classic portrait" }
+      ],
+      "default": "0.5625"
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background motif opacity",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 32
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Video reel",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify-hosted video"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Video cover image",
+          "info": "Optional poster image shown before playback."
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reel video slider",
+      "blocks": [
+        { "type": "reel" },
+        { "type": "reel" },
+        { "type": "reel" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+ 
