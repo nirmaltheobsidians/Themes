@@ -442,8 +442,9 @@
             centeredSlides: true,
             centeredSlidesBounds: false,
             grabCursor: true,
+            initialSlide: 0,
             loop: slides.length > 1,
-            loopAdditionalSlides: 2,
+            loopAddBlankSlides: false,
             observer: true,
             observeParents: true,
             resizeObserver: true,
@@ -458,6 +459,8 @@
             },
             on: {
               init(swiper) {
+                if (swiper.params.loop) swiper.slideToLoop(0, 0, false);
+                else swiper.slideTo(0, 0, false);
                 updateDots(swiper);
               },
               slideChange(swiper) {
