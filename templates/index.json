@@ -15,7 +15,7 @@
         "slide_LaV7R8": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -47,7 +47,7 @@
         "slide_ebbCmm": {
           "type": "slide",
           "settings": {
-            "banner_image": "shopify://shop_images/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
+            "banner_image": "shopify:\/\/shop_images\/Gemini_Generated_Image_mzkdiwmzkdiwmzkd.png",
             "top_text": "NEW SEASON",
             "heading": "Elevate Your Everyday Style",
             "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
@@ -94,7 +94,7 @@
         "collection_item_eVGHgg": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
+            "showcase_image": "shopify:\/\/shop_images\/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
             "title": "New Arrivals",
             "item_count": "120",
             "collection_url": ""
@@ -103,7 +103,7 @@
         "collection_item_fbk39R": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify://shop_images/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
+            "showcase_image": "shopify:\/\/shop_images\/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
             "title": "Summer Collection",
             "item_count": "125",
             "collection_url": ""
@@ -112,7 +112,7 @@
         "collection_item_BeHPEd": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify://shop_images/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
+            "showcase_image": "shopify:\/\/shop_images\/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
             "title": "Best Sellers",
             "item_count": "99",
             "collection_url": ""
@@ -121,7 +121,7 @@
         "collection_item_Vrpkmy": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
+            "showcase_image": "shopify:\/\/shop_images\/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
             "title": "Winter Collection",
             "item_count": "143",
             "collection_url": ""
@@ -130,7 +130,7 @@
         "collection_item_damjtX": {
           "type": "collection_item",
           "settings": {
-            "showcase_image": "shopify://shop_images/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
+            "showcase_image": "shopify:\/\/shop_images\/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
             "title": "Autumn Edit",
             "item_count": "88",
             "collection_url": ""
@@ -157,33 +157,25 @@
         "category_bridal": {
           "type": "category",
           "settings": {
-            "title": "Bridal",
-            "link": "",
-            "image_position": "center center"
+            "title": "Bridal"
           }
         },
         "category_sarees": {
           "type": "category",
           "settings": {
-            "title": "Sarees",
-            "link": "",
-            "image_position": "center center"
+            "title": "Sarees"
           }
         },
         "category_suits": {
           "type": "category",
           "settings": {
-            "title": "Suits",
-            "link": "",
-            "image_position": "center center"
+            "title": "Suits"
           }
         },
         "category_plus_size": {
           "type": "category",
           "settings": {
-            "title": "Plus Size",
-            "link": "",
-            "image_position": "center center"
+            "title": "Plus Size"
           }
         }
       },
@@ -211,33 +203,25 @@
         "occasion_daily_wear": {
           "type": "occasion",
           "settings": {
-            "title": "daily wear",
-            "link": "",
-            "image_position": "center center"
+            "title": "daily wear"
           }
         },
         "occasion_festive": {
           "type": "occasion",
           "settings": {
-            "title": "festive",
-            "link": "",
-            "image_position": "center center"
+            "title": "festive"
           }
         },
         "occasion_party_wear": {
           "type": "occasion",
           "settings": {
-            "title": "party wear",
-            "link": "",
-            "image_position": "center center"
+            "title": "party wear"
           }
         },
         "occasion_all_time": {
           "type": "occasion",
           "settings": {
-            "title": "all time",
-            "link": "",
-            "image_position": "center center"
+            "title": "all time"
           }
         }
       },
@@ -264,13 +248,10 @@
       "settings": {
         "heading": "DESH KI PASAND",
         "collection": "best-seller",
-        "view_all_label": "View all",
-        "view_all_link": "",
         "product_limit": 8,
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "pattern_opacity": 35,
-        "show_bottom_right_motif": false,
         "padding_top": 24,
         "padding_bottom": 40
       }
@@ -280,63 +261,23 @@
       "blocks": {
         "reel_video_one": {
           "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
+          "settings": {}
         },
-        "reel_rFEmxx": {
+        "reel_video_two": {
           "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
+          "settings": {}
         },
-        "reel_wMAHKz": {
+        "reel_video_three": {
           "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
-        },
-        "reel_HhBbUy": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
-        },
-        "reel_KBLff6": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
-        },
-        "reel_ymJhCE": {
-          "type": "reel",
-          "settings": {
-            "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
-            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
-            "caption": ""
-          }
+          "settings": {}
         }
       },
       "block_order": [
         "reel_video_one",
-        "reel_rFEmxx",
-        "reel_wMAHKz",
-        "reel_HhBbUy",
-        "reel_KBLff6",
-        "reel_ymJhCE"
+        "reel_video_two",
+        "reel_video_three"
       ],
       "settings": {
-        "heading": "REELS",
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "card_ratio": "0.5625",
@@ -344,8 +285,51 @@
         "autoplay_delay": 4,
         "video_autoplay": false,
         "video_loop": true,
-        "pattern_opacity": 100,
+        "pattern_opacity": 35,
         "padding_top": 24,
+        "padding_bottom": 32
+      }
+    },
+    "offer_banner_cards_home": {
+      "type": "offer-banner-cards",
+      "blocks": {
+        "sarees_under_2199": {
+          "type": "offer",
+          "settings": {
+            "title": "SAREES",
+            "eyebrow": "UNDER",
+            "price": "₹ 2,199",
+            "text_side": "right",
+            "text_color": "#801814",
+            "card_background": "#fff2a6"
+          }
+        },
+        "kurtis_under_1299": {
+          "type": "offer",
+          "settings": {
+            "title": "KURTIS",
+            "eyebrow": "UNDER",
+            "price": "₹ 1,299",
+            "text_side": "left",
+            "text_color": "#801814",
+            "card_background": "#fff2a6"
+          }
+        }
+      },
+      "block_order": [
+        "sarees_under_2199",
+        "kurtis_under_1299"
+      ],
+      "settings": {
+        "heading": "SHOP BY PRICE",
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "desktop_columns": 2,
+        "card_ratio": "1.78",
+        "card_gap": 12,
+        "card_radius": 14,
+        "pattern_opacity": 25,
+        "padding_top": 32,
         "padding_bottom": 32
       }
     },
@@ -452,6 +436,7 @@
     "shop_by_occasion_home",
     "desh_ki_pasand_home",
     "reel_video_slider_home",
+    "offer_banner_cards_home",
     "trending_products_jUay6y",
     "countdown_banner_6E8Y4G",
     "custom_main_product_pCTNaz",

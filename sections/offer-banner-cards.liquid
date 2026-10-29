@@ -1,0 +1,508 @@
+<section
+  id="OfferBannerCards-{{ section.id }}"
+  class="offer-banner-cards"
+  style="
+    --offer-banner-cards-background: {{ section.settings.background_color }};
+    --offer-banner-cards-heading: {{ section.settings.heading_color }};
+    --offer-banner-cards-top: {{ section.settings.padding_top }}px;
+    --offer-banner-cards-bottom: {{ section.settings.padding_bottom }}px;
+    --offer-banner-cards-gap: {{ section.settings.card_gap }}px;
+    --offer-banner-cards-columns: {{ section.settings.desktop_columns }};
+    --offer-banner-cards-ratio: {{ section.settings.card_ratio }};
+    --offer-banner-cards-radius: {{ section.settings.card_radius }}px;
+    --offer-banner-cards-pattern-opacity: {{ section.settings.pattern_opacity | divided_by: 100.0 }};
+  "
+>
+  <div class="offer-banner-cards__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <header class="offer-banner-cards__header">
+        <img
+          class="offer-banner-cards__divider"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="110"
+          height="29"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+        <h2 class="offer-banner-cards__heading">{{ section.settings.heading | escape }}</h2>
+        <img
+          class="offer-banner-cards__divider offer-banner-cards__divider--flipped"
+          src="{{ 'category-divider.svg' | asset_url }}"
+          width="110"
+          height="29"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="offer-banner-cards__grid">
+        {%- for block in section.blocks -%}
+          {%- assign banner_image = block.settings.desktop_image | default: block.settings.mobile_image -%}
+          {%- assign banner_alt = banner_image.alt | default: block.settings.title -%}
+          <div
+            class="offer-banner-cards__item"
+            style="
+              --offer-banner-cards-card-background: {{ block.settings.card_background }};
+              --offer-banner-cards-text-color: {{ block.settings.text_color }};
+              --offer-banner-cards-text-side: {{ block.settings.text_side }};
+              --offer-banner-cards-image-position: {{ block.settings.image_position }};
+            "
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.link != blank -%}
+              <a
+                class="offer-banner-cards__card"
+                href="{{ block.settings.link }}"
+                {% if block.settings.title != blank %}
+                  aria-label="{{ block.settings.title | escape }}{% if block.settings.price != blank %}, {{ block.settings.price | escape }}{% endif %}"
+                {% endif %}
+              >
+            {%- else -%}
+              <div class="offer-banner-cards__card">
+            {%- endif -%}
+              {%- if banner_image != blank -%}
+                <picture class="offer-banner-cards__picture">
+                  {%- if block.settings.mobile_image != blank and block.settings.desktop_image != blank -%}
+                    <source
+                      media="(max-width: 749px)"
+                      srcset="
+                        {{ block.settings.mobile_image | image_url: width: 540 }} 540w,
+                        {{ block.settings.mobile_image | image_url: width: 750 }} 750w,
+                        {{ block.settings.mobile_image | image_url: width: 1000 }} 1000w
+                      "
+                      sizes="calc(100vw - 48px)"
+                    >
+                  {%- endif -%}
+                  {{
+                    banner_image
+                    | image_url: width: 1800
+                    | image_tag:
+                      class: 'offer-banner-cards__image',
+                      widths: '360, 540, 750, 1000, 1400, 1800',
+                      sizes: '(min-width: 990px) 46vw, (min-width: 750px) 44vw, calc(100vw - 48px)',
+                      loading: 'lazy',
+                      alt: banner_alt
+                  }}
+                </picture>
+              {%- else -%}
+                {{ 'collection-apparel-1' | placeholder_svg_tag: 'offer-banner-cards__image offer-banner-cards__placeholder' }}
+              {%- endif -%}
+
+              {%- if block.settings.title != blank or block.settings.eyebrow != blank or block.settings.price != blank -%}
+                <span class="offer-banner-cards__shade" aria-hidden="true"></span>
+                <span class="offer-banner-cards__copy">
+                  {%- if block.settings.title != blank -%}
+                    <span class="offer-banner-cards__title">{{ block.settings.title | escape }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.eyebrow != blank -%}
+                    <span class="offer-banner-cards__eyebrow">{{ block.settings.eyebrow | escape }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.price != blank -%}
+                    <span class="offer-banner-cards__price">{{ block.settings.price | escape }}</span>
+                  {%- endif -%}
+                </span>
+              {%- endif -%}
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #OfferBannerCards-{{ section.id }} {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-top: var(--offer-banner-cards-top);
+    padding-bottom: var(--offer-banner-cards-bottom);
+    background-color: var(--offer-banner-cards-background);
+  }
+
+  #OfferBannerCards-{{ section.id }}::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+      url('{{ 'category-mandala.svg' | asset_url }}'),
+      url('{{ 'category-mandala.svg' | asset_url }}');
+    background-repeat: no-repeat;
+    background-position: left -78px top -88px, right -84px bottom -86px;
+    background-size: 210px 210px, 250px 250px;
+    content: '';
+    opacity: var(--offer-banner-cards-pattern-opacity);
+    pointer-events: none;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__inner {
+    width: 100%;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+    text-align: center;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__divider {
+    display: block;
+    width: min(110px, 42vw);
+    height: auto;
+    object-fit: contain;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__divider--flipped {
+    transform: rotate(180deg);
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__heading {
+    margin: 4px 0;
+    color: var(--offer-banner-cards-heading);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(22px, 2.5vw, 36px);
+    font-weight: 500;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--offer-banner-cards-columns), minmax(0, 1fr));
+    gap: var(--offer-banner-cards-gap);
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__item {
+    min-width: 0;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: var(--offer-banner-cards-ratio);
+    border-radius: var(--offer-banner-cards-radius);
+    color: var(--offer-banner-cards-text-color);
+    background: var(--offer-banner-cards-card-background);
+    text-decoration: none;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__picture {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--offer-banner-cards-image-position, center center);
+    transition: transform 650ms cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__placeholder {
+    padding: 18%;
+    opacity: 0.2;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.04) 0%,
+      transparent 22%,
+      transparent 62%,
+      rgba(0, 0, 0, 0.04) 100%
+    );
+    pointer-events: none;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__copy {
+    position: absolute;
+    top: 50%;
+    left: 7%;
+    display: flex;
+    width: 39%;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: var(--offer-banner-cards-text-color);
+    text-align: center;
+    transform: translateY(-50%);
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__item[style*='--offer-banner-cards-text-side: right'] .offer-banner-cards__copy {
+    right: 7%;
+    left: auto;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__title,
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__price {
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-weight: 600;
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-shadow: 0 1px 10px rgba(255, 255, 255, 0.28);
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__title {
+    font-size: clamp(24px, 3.2vw, 48px);
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__eyebrow {
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(15px, 1.75vw, 26px);
+    font-weight: 500;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #OfferBannerCards-{{ section.id }} .offer-banner-cards__price {
+    font-family: var(--font-body-family, Arial, sans-serif);
+    font-size: clamp(22px, 2.7vw, 40px);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 749px) {
+    #OfferBannerCards-{{ section.id }}::before {
+      background-position: left -68px top -68px, right -68px bottom -68px;
+      background-size: 170px 170px, 210px 210px;
+    }
+
+    #OfferBannerCards-{{ section.id }} .offer-banner-cards__header {
+      margin-bottom: 20px;
+    }
+
+    #OfferBannerCards-{{ section.id }} .offer-banner-cards__grid {
+      grid-template-columns: 1fr;
+    }
+
+    #OfferBannerCards-{{ section.id }} .offer-banner-cards__title {
+      font-size: clamp(22px, 7vw, 36px);
+    }
+
+    #OfferBannerCards-{{ section.id }} .offer-banner-cards__eyebrow {
+      font-size: clamp(14px, 4vw, 22px);
+    }
+
+    #OfferBannerCards-{{ section.id }} .offer-banner-cards__price {
+      font-size: clamp(20px, 6vw, 32px);
+    }
+  }
+
+  @media (hover: hover) {
+    #OfferBannerCards-{{ section.id }} .offer-banner-cards__card[href]:hover .offer-banner-cards__image {
+      transform: scale(1.025);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #OfferBannerCards-{{ section.id }} .offer-banner-cards__image {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Offer banner cards",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SHOP BY PRICE"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#801814"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Banner shape",
+      "options": [
+        { "value": "1.5", "label": "Tall" },
+        { "value": "1.78", "label": "Wide" },
+        { "value": "2.2", "label": "Extra wide" }
+      ],
+      "default": "1.78"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Space between banners",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Banner corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "pattern_opacity",
+      "label": "Background motif opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer",
+      "name": "Offer banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop banner image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile banner image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "SAREES"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Supporting text",
+          "default": "UNDER"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price text",
+          "default": "₹ 2,199"
+        },
+        {
+          "type": "select",
+          "id": "text_side",
+          "label": "Text position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "right"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image focal point",
+          "options": [
+            { "value": "center center", "label": "Center" },
+            { "value": "left center", "label": "Left" },
+            { "value": "right center", "label": "Right" },
+            { "value": "center top", "label": "Top" }
+          ],
+          "default": "center center"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#801814"
+        },
+        {
+          "type": "color",
+          "id": "card_background",
+          "label": "Banner background",
+          "default": "#fff2a6"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Banner link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Offer banner cards",
+      "blocks": [
+        { "type": "offer" },
+        {
+          "type": "offer",
+          "settings": {
+            "title": "KURTIS",
+            "eyebrow": "UNDER",
+            "price": "₹ 1,299",
+            "text_side": "left"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
