@@ -290,6 +290,7 @@
           "type": "reel",
           "settings": {
             "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
             "caption": ""
           }
         },
@@ -297,6 +298,7 @@
           "type": "reel",
           "settings": {
             "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
             "caption": ""
           }
         },
@@ -304,6 +306,7 @@
           "type": "reel",
           "settings": {
             "video": "shopify://files/videos/Recording - DIY Skin Care .mp4",
+            "cover_image": "shopify://shop_images/download_184ec0d5-f5a3-46fe-8c11-b7b9ccdab6e9.jpg",
             "caption": ""
           }
         }
