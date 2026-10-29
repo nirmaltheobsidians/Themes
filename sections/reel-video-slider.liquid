@@ -200,12 +200,13 @@
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__carousel {
-    overflow: hidden;
+    width: 100%;
+    overflow: visible;
   }
 
   #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
     width: 100%;
-    overflow: visible;
+    overflow: hidden;
     padding: 18px 0;
   }
 
@@ -360,6 +361,8 @@
     }
 
     #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
+      width: 100%;
+      overflow: hidden;
       padding: 0;
     }
 
@@ -371,12 +374,6 @@
       border-radius: 6px;
     }
 
-  }
-
-  @media screen and (min-width: 750px) {
-    #ReelVideoSlider-{{ section.id }} .reel-video-slider__track {
-      overflow: visible;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -439,8 +436,13 @@
                 }
               : false,
             centeredSlides: true,
+            centeredSlidesBounds: false,
             grabCursor: true,
-            loop: slides.length > 2,
+            loop: slides.length > 1,
+            loopAdditionalSlides: 2,
+            observer: true,
+            observeParents: true,
+            resizeObserver: true,
             slidesPerView: 'auto',
             spaceBetween: 18,
             speed: 500,
@@ -508,7 +510,9 @@
 
           dots.forEach((dot) => {
             dot.addEventListener('click', () => {
-              slider.slideToLoop(Number(dot.dataset.reelDot));
+              const targetIndex = Number(dot.dataset.reelDot);
+              if (slider.params.loop) slider.slideToLoop(targetIndex);
+              else slider.slideTo(targetIndex);
             });
           });
 
