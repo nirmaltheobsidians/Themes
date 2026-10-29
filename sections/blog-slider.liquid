@@ -104,15 +104,6 @@
 
       {%- if selected_blog.articles_count > 1 -%}
         <nav class="blog-slider__pagination" aria-label="Blog posts">
-          <img
-            class="blog-slider__pagination-divider"
-            src="{{ 'category-divider.svg' | asset_url }}"
-            width="90"
-            height="23"
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-          >
           <div class="blog-slider__dots">
             {%- for article in selected_blog.articles limit: section.settings.post_limit -%}
               <button
@@ -392,27 +383,20 @@
 
     #BlogSlider-{{ section.id }} .blog-slider__pagination {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
       margin-top: 16px;
-    }
-
-    #BlogSlider-{{ section.id }} .blog-slider__pagination-divider {
-      display: block;
-      width: 90px;
-      height: 23px;
-      object-fit: contain;
     }
 
     #BlogSlider-{{ section.id }} .blog-slider__dots {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      gap: 8px;
     }
 
     #BlogSlider-{{ section.id }} .blog-slider__dot {
+      position: relative;
       display: block;
       flex: 0 0 8px;
       width: 8px;
@@ -420,12 +404,25 @@
       padding: 0;
       border: 0;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.3);
+      background: #101010;
       cursor: pointer;
+      opacity: 0.38;
+      transition: opacity 180ms ease, transform 180ms ease;
     }
 
     #BlogSlider-{{ section.id }} .blog-slider__dot.is-active {
-      background: #000;
+      flex-basis: 18px;
+      width: 18px;
+      height: 18px;
+      background: transparent;
+      opacity: 1;
+    }
+
+    #BlogSlider-{{ section.id }} .blog-slider__dot.is-active::before {
+      position: absolute;
+      inset: 0;
+      background: url('{{ 'product-slider-dots.svg' | asset_url }}') center / contain no-repeat;
+      content: '';
     }
 
     #BlogSlider-{{ section.id }} .blog-slider__footer {
