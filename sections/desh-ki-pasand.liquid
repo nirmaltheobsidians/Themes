@@ -346,6 +346,12 @@
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track {
       display: block;
       overflow: hidden;
+      touch-action: pan-y;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__track .swiper-wrapper {
+      display: flex;
+      align-items: stretch;
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__slide {
