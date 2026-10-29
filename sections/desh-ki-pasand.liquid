@@ -238,22 +238,33 @@
     position: relative;
   }
 
-  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__image-link {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    display: block;
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__media {
+    position: relative;
     width: 100%;
     aspect-ratio: 0.7;
     overflow: hidden;
   }
 
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__image-link {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__primary-image,
   #DeshKiPasand-{{ section.id }} .desh-ki-pasand__secondary-image {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  #DeshKiPasand-{{ section.id }} .desh-ki-pasand__secondary-image {
+    z-index: 1;
     opacity: 0;
     transition: opacity 240ms ease;
   }
@@ -290,35 +301,7 @@
   }
 
   #DeshKiPasand-{{ section.id }} .card__inner {
-    --ratio-percent: 142.857% !important;
-  }
-
-  #DeshKiPasand-{{ section.id }} .td-trend-product-img-inner {
-    overflow: hidden;
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-  }
-
-  #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider {
-    height: auto;
-    aspect-ratio: 0.7;
-    pointer-events: none;
-  }
-
-  #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider .swiper-wrapper,
-  #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider .swiper-slide,
-  #DeshKiPasand-{{ section.id }} .td-trend-product-img {
-    height: 100%;
-  }
-
-  #DeshKiPasand-{{ section.id }} .td-trend-product-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0;
-    transform: none;
-    opacity: 1;
+    display: none;
   }
 
   #DeshKiPasand-{{ section.id }} .td-trend-product-box-slider .swiper-pagination {
@@ -372,9 +355,9 @@
 
   #DeshKiPasand-{{ section.id }} .desh-ki-pasand__wishlist {
     position: absolute;
-    z-index: 3;
+    z-index: 2;
     right: 8px;
-    bottom: 92px;
+    top: 8px;
     display: grid;
     width: 36px;
     height: 36px;
