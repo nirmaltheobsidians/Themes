@@ -180,7 +180,7 @@
       url('{{ 'category-mandala.svg' | asset_url }}');
     background-repeat: no-repeat;
     background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px, right -82px bottom -88px;
-    background-size: 154px 154px, 196px 196px, 220px 220px, 178px 178px;
+    background-size: 154px 154px, 196px 196px, 250px 250px, 178px 178px;
     content: '';
     opacity: var(--desh-ki-pasand-pattern-opacity);
     pointer-events: none;
@@ -371,6 +371,10 @@
     font-weight: 600;
   }
 
+  #DeshKiPasand-{{ section.id }} .price__sale s {
+    display: none;
+  }
+
   #DeshKiPasand-{{ section.id }} .rating {
     vertical-align: middle;
   }
@@ -440,7 +444,7 @@
 
     #DeshKiPasand-{{ section.id }}::before {
       background-position: left -74px top -88px, right -82px top 28px, left -84px bottom -86px, right -82px bottom -88px;
-      background-size: 135px 135px, 176px 176px, 170px 170px, 158px 158px;
+      background-size: 135px 135px, 176px 176px, 230px 230px, 158px 158px;
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__header {
@@ -479,6 +483,7 @@
     }
 
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dot {
+      position: relative;
       display: block;
       width: 8px;
       height: 8px;
@@ -494,9 +499,16 @@
     #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dot.is-active {
       width: 18px;
       height: 18px;
-      background: transparent url('{{ 'product-slider-dots.svg' | asset_url }}') center / contain no-repeat;
+      background: transparent;
       opacity: 1;
       transform: none;
+    }
+
+    #DeshKiPasand-{{ section.id }} .desh-ki-pasand__dot.is-active::before {
+      position: absolute;
+      inset: 0;
+      background: url('{{ 'product-slider-dots.svg' | asset_url }}') center / contain no-repeat;
+      content: '';
     }
 
   }
