@@ -52,12 +52,66 @@
           {%- for product in featured_collection.products limit: section.settings.product_limit -%}
             <div class="desh-ki-pasand__slide swiper-slide" data-desh-slide>
               <div class="desh-ki-pasand__card{% if product.images.size > 1 %} desh-ki-pasand__card--has-secondary{% endif %}">
+                <div class="desh-ki-pasand__media">
+                  <a
+                    class="desh-ki-pasand__image-link"
+                    href="{{ product.url }}"
+                    aria-label="{{ product.title | escape }}"
+                  >
+                    {%- if product.featured_image != blank -%}
+                      {{
+                        product.featured_image
+                        | image_url: width: 900
+                        | image_tag:
+                          class: 'desh-ki-pasand__primary-image',
+                          widths: '320, 480, 640, 900',
+                          sizes: '(min-width: 990px) 25vw, 62vw',
+                          loading: 'lazy',
+                          alt: product.featured_image.alt | default: product.title
+                      }}
+                    {%- else -%}
+                      {{ 'product-apparel-1' | placeholder_svg_tag: 'desh-ki-pasand__primary-image' }}
+                    {%- endif -%}
+                    {%- if product.images.size > 1 -%}
+                      {{
+                        product.images[1]
+                        | image_url: width: 900
+                        | image_tag:
+                          class: 'desh-ki-pasand__secondary-image',
+                          widths: '320, 480, 640, 900',
+                          sizes: '(min-width: 990px) 25vw, 62vw',
+                          loading: 'lazy',
+                          alt: product.images[1].alt | default: product.title
+                      }}
+                    {%- endif -%}
+                  </a>
+                  <button
+                    class="desh-ki-pasand__wishlist"
+                    type="button"
+                    data-td-wishlist-toggle
+                    data-product-id="{{ product.id }}"
+                    data-product-handle="{{ product.handle }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-vendor="{{ product.vendor | escape }}"
+                    data-product-price="{{ product.price | money_without_currency | escape }}"
+                    data-product-compare-price="{{ product.compare_at_price | money_without_currency | escape }}"
+                    data-product-image="{{ product.featured_image | image_url: width: 600 }}"
+                    data-product-url="{{ product.url }}"
+                    data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                    data-product-default-variant="{{ product.selected_or_first_available_variant.title | escape }}"
+                    aria-label="Add to wishlist"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-7.3 1.2-1.2a5.4 5.4 0 0 0 0-7.6Z" />
+                    </svg>
+                  </button>
+                </div>
                 {% render 'card-product',
                   card_product: product,
                   media_aspect_ratio: 'portrait',
                   image_shape: false,
                   lazy_load: true,
-                  show_secondary_image: true,
+                  show_secondary_image: false,
                   show_vendor: false,
                   show_rating: false,
                   skip_styles: false,
@@ -65,48 +119,10 @@
                   quick_add: 'none',
                   product_view_context: 'collection'
                 %}
-                <a
-                  class="desh-ki-pasand__image-link"
-                  href="{{ product.url }}"
-                  aria-label="{{ product.title | escape }}"
-                >
-                  {%- if product.images.size > 1 -%}
-                    {{
-                      product.images[1]
-                      | image_url: width: 900
-                      | image_tag:
-                        class: 'desh-ki-pasand__secondary-image',
-                        widths: '320, 480, 640, 900',
-                        sizes: '(min-width: 990px) 25vw, 62vw',
-                        loading: 'lazy',
-                        alt: product.images[1].alt
-                    }}
-                  {%- endif -%}
-                </a>
                 <div class="desh-ki-pasand__rating" role="img" aria-label="Rated 5 out of 5 stars, 52 reviews">
                   <span class="desh-ki-pasand__rating-stars" aria-hidden="true">★★★★★</span>
                   <span class="desh-ki-pasand__rating-count" aria-hidden="true">(52)</span>
                 </div>
-                <button
-                  class="desh-ki-pasand__wishlist"
-                  type="button"
-                  data-td-wishlist-toggle
-                  data-product-id="{{ product.id }}"
-                  data-product-handle="{{ product.handle }}"
-                  data-product-title="{{ product.title | escape }}"
-                  data-product-vendor="{{ product.vendor | escape }}"
-                  data-product-price="{{ product.price | money_without_currency | escape }}"
-                  data-product-compare-price="{{ product.compare_at_price | money_without_currency | escape }}"
-                  data-product-image="{{ product.featured_image | image_url: width: 600 }}"
-                  data-product-url="{{ product.url }}"
-                  data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                  data-product-default-variant="{{ product.selected_or_first_available_variant.title | escape }}"
-                  aria-label="Add to wishlist"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <path d="M20.8 4.9a5.4 5.4 0 0 0-7.6 0L12 6.1l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6l1.2 1.2L12 21l7.6-7.3 1.2-1.2a5.4 5.4 0 0 0 0-7.6Z" />
-                  </svg>
-                </button>
               </div>
             </div>
           {%- endfor -%}
