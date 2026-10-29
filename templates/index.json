@@ -179,6 +179,21 @@
         "padding_bottom": 40
       }
     },
+    "desh_ki_pasand_7G49BV": {
+      "type": "desh-ki-pasand",
+      "settings": {
+        "heading": "",
+        "collection": "new-arrivals",
+        "view_all_label": "View all",
+        "view_all_link": "",
+        "product_limit": 8,
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "pattern_opacity": 100,
+        "padding_top": 0,
+        "padding_bottom": 40
+      }
+    },
     "occasion_image_feature_NakypG": {
       "type": "occasion-image-feature",
       "blocks": {
@@ -218,6 +233,7 @@
     "desh_ki_pasand_home",
     "occasion_image_feature_By78re",
     "desh_ki_pasand_n9yWmr",
-    "occasion_image_feature_NakypG"
+    "occasion_image_feature_NakypG",
+    "desh_ki_pasand_7G49BV"
   ]
 }
