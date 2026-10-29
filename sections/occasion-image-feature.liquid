@@ -1,0 +1,419 @@
+{%- assign heading_decoration_url = section.settings.heading_decoration | image_url: width: 500 -%}
+{%- if section.settings.heading_decoration == blank -%}
+  {%- assign heading_decoration_url = 'category-divider.svg' | asset_url -%}
+{%- endif -%}
+{%- assign background_motif_url = section.settings.background_motif | image_url: width: 800 -%}
+{%- if section.settings.background_motif == blank -%}
+  {%- assign background_motif_url = 'category-mandala.svg' | asset_url -%}
+{%- endif -%}
+
+<section
+  id="OccasionImageFeature-{{ section.id }}"
+  class="occasion-image-feature"
+  style="
+    --occasion-image-feature-background: {{ section.settings.background_color }};
+    --occasion-image-feature-heading: {{ section.settings.heading_color }};
+    --occasion-image-feature-label: {{ section.settings.label_color }};
+    --occasion-image-feature-top: {{ section.settings.padding_top }}px;
+    --occasion-image-feature-bottom: {{ section.settings.padding_bottom }}px;
+    --occasion-image-feature-gap: {{ section.settings.card_gap }}px;
+    --occasion-image-feature-columns: {{ section.settings.desktop_columns }};
+    --occasion-image-feature-ratio: {{ section.settings.card_ratio }};
+    --occasion-image-feature-label-size: {{ section.settings.label_size }}px;
+    --occasion-image-feature-motif-opacity: {{ section.settings.motif_opacity | divided_by: 100.0 }};
+    --occasion-image-feature-motif-size: {{ section.settings.motif_size }}px;
+    --occasion-image-feature-heading-image: url('{{ heading_decoration_url }}');
+    --occasion-image-feature-background-image: url('{{ background_motif_url }}');
+  "
+>
+  <div class="occasion-image-feature__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <header class="occasion-image-feature__header">
+        <img
+          class="occasion-image-feature__divider"
+          src="{{ heading_decoration_url }}"
+          width="180"
+          height="46"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+        <h2 class="occasion-image-feature__heading">{{ section.settings.heading | escape }}</h2>
+        <img
+          class="occasion-image-feature__divider occasion-image-feature__divider--flipped"
+          src="{{ heading_decoration_url }}"
+          width="180"
+          height="46"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        >
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="occasion-image-feature__grid">
+        {%- for block in section.blocks -%}
+          {%- assign card_title = block.settings.title | default: 'Occasion' -%}
+          {%- assign card_image_alt = block.settings.image.alt | default: card_title -%}
+          <div
+            class="occasion-image-feature__item"
+            style="--occasion-image-feature-image-position: {{ block.settings.image_position }};"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.link != blank -%}
+              <a class="occasion-image-feature__card" href="{{ block.settings.link }}">
+            {%- else -%}
+              <div class="occasion-image-feature__card">
+            {%- endif -%}
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 1800
+                  | image_tag:
+                    class: 'occasion-image-feature__image',
+                    widths: '360, 540, 720, 1000, 1400, 1800',
+                    sizes: '(min-width: 1200px) 50vw, (min-width: 750px) 70vw, 100vw',
+                    loading: 'lazy',
+                    alt: card_image_alt
+                }}
+              {%- else -%}
+                {{ 'collection-apparel-1' | placeholder_svg_tag: 'occasion-image-feature__image occasion-image-feature__placeholder' }}
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <span class="occasion-image-feature__shade" aria-hidden="true"></span>
+                <span class="occasion-image-feature__label">{{ card_title | escape }}</span>
+              {%- endif -%}
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- else -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+  #OccasionImageFeature-{{ section.id }} {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-top: var(--occasion-image-feature-top);
+    padding-bottom: var(--occasion-image-feature-bottom);
+    background-color: var(--occasion-image-feature-background);
+  }
+
+  #OccasionImageFeature-{{ section.id }}::before {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: -5%;
+    width: var(--occasion-image-feature-motif-size);
+    aspect-ratio: 1;
+    background-image: var(--occasion-image-feature-background-image);
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: contain;
+    content: '';
+    opacity: var(--occasion-image-feature-motif-opacity);
+    pointer-events: none;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__inner {
+    width: 100%;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__header {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto 24px;
+    text-align: center;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__divider {
+    display: block;
+    width: min(180px, 42vw);
+    height: auto;
+    object-fit: contain;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__divider--flipped {
+    transform: rotate(180deg);
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__heading {
+    margin: 4px 0;
+    color: var(--occasion-image-feature-heading);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: clamp(20px, 2.4vw, 34px);
+    font-weight: 500;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--occasion-image-feature-columns), minmax(0, 1fr));
+    gap: var(--occasion-image-feature-gap);
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__item {
+    min-width: 0;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: var(--occasion-image-feature-ratio);
+    color: var(--occasion-image-feature-label);
+    text-decoration: none;
+    background: #e8d9cb;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--occasion-image-feature-image-position, center center);
+    transition: transform 650ms cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__placeholder {
+    padding: 14%;
+    opacity: 0.48;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__shade {
+    position: absolute;
+    inset: 52% 0 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(12, 12, 12, 0.2) 45%, rgba(12, 12, 12, 0.62) 100%);
+    pointer-events: none;
+  }
+
+  #OccasionImageFeature-{{ section.id }} .occasion-image-feature__label {
+    position: absolute;
+    right: 8px;
+    bottom: 8%;
+    left: 8px;
+    color: var(--occasion-image-feature-label);
+    font-family: var(--font-heading-family, Georgia, serif);
+    font-size: var(--occasion-image-feature-label-size);
+    font-weight: 400;
+    line-height: 1.1;
+    text-align: center;
+    text-transform: lowercase;
+  }
+
+  @media screen and (max-width: 749px) {
+    #OccasionImageFeature-{{ section.id }}::before {
+      right: -12%;
+      width: min(var(--occasion-image-feature-motif-size), 46vw);
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__header {
+      margin-bottom: 20px;
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid {
+      grid-template-columns: 1fr;
+      gap: var(--occasion-image-feature-gap);
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__label {
+      font-size: min(var(--occasion-image-feature-label-size), 8vw);
+    }
+  }
+
+  @media (hover: hover) {
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__card:hover .occasion-image-feature__image {
+      transform: scale(1.035);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__image {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Occasion image feature",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "READY TO WEAR"
+    },
+    {
+      "type": "image_picker",
+      "id": "heading_decoration",
+      "label": "Heading decoration image",
+      "info": "Leave blank to use the theme's decorative divider."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_motif",
+      "label": "Background motif image",
+      "info": "Leave blank to use the theme's mandala artwork."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#801814"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Image title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "card_ratio",
+      "label": "Card image ratio",
+      "options": [
+        { "value": "0.68", "label": "Tall" },
+        { "value": "0.76", "label": "Portrait" },
+        { "value": "0.9", "label": "Wide portrait" },
+        { "value": "1", "label": "Square" },
+        { "value": "1.35", "label": "Landscape" }
+      ],
+      "default": "0.76"
+    },
+    {
+      "type": "range",
+      "id": "desktop_columns",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Desktop cards per row",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 18,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "label": "Image title size",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Card spacing",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "motif_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Background motif opacity",
+      "default": 35
+    },
+    {
+      "type": "range",
+      "id": "motif_size",
+      "min": 100,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Background motif size",
+      "default": 230
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top spacing",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom spacing",
+      "default": 40
+    }
+  ],
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Image feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Image title",
+          "default": "ready to wear"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Image link"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image focal point",
+          "options": [
+            { "value": "center center", "label": "Center" },
+            { "value": "center top", "label": "Top" },
+            { "value": "center bottom", "label": "Bottom" },
+            { "value": "left center", "label": "Left" },
+            { "value": "right center", "label": "Right" }
+          ],
+          "default": "center center"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Occasion image feature",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "ready to wear" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
