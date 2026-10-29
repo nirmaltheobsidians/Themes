@@ -252,6 +252,7 @@
         "category_HxGpQ7": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/download_6b634255-4afa-4d57-87a3-abf625a7f030.jpg",
             "title": "Category 1",
             "link": "",
             "image_position": "center center"
@@ -260,6 +261,7 @@
         "category_KFgw49": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/download_b55f76e0-bcfb-426b-95e5-a1116449a111.jpg",
             "title": "Category 2",
             "link": "",
             "image_position": "center center"
@@ -268,6 +270,7 @@
         "category_YJ8HJC": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
             "title": "Category 3",
             "link": "",
             "image_position": "center center"
@@ -276,6 +279,7 @@
         "category_UwQPAK": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/download_4a9ffe51-1f3f-4853-b679-b1f9a47eb444.jpg",
             "title": "Plus Size",
             "link": "",
             "image_position": "center center"
