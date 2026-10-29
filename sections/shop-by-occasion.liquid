@@ -46,9 +46,19 @@
               {%- if block_column == column -%}
                 {%- assign occasion_title = block.settings.title | default: 'Occasion' -%}
                 {%- assign occasion_image_alt = block.settings.image.alt | default: occasion_title -%}
+                {%- assign occasion_order = forloop.index0 -%}
+                {%- assign occasion_offset_index = occasion_order | modulo: 2 -%}
+                {%- assign occasion_desktop_offset = '0px' -%}
+                {%- if occasion_offset_index == 1 -%}
+                  {%- assign occasion_desktop_offset = 'var(--shop-by-occasion-offset)' -%}
+                {%- endif -%}
                 <div
                   class="shop-by-occasion__item"
-                  style="--shop-by-occasion-image-position: {{ block.settings.image_position }};"
+                  style="
+                    --shop-by-occasion-image-position: {{ block.settings.image_position }};
+                    --shop-by-occasion-order: {{ occasion_order }};
+                    --shop-by-occasion-desktop-offset: {{ occasion_desktop_offset }};
+                  "
                   {{ block.shopify_attributes }}
                 >
                   {%- if block.settings.link != blank -%}
@@ -234,6 +244,23 @@
 
     #ShopByOccasion-{{ section.id }} .shop-by-occasion__card {
       aspect-ratio: 0.74;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    #ShopByOccasion-{{ section.id }} .shop-by-occasion__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: start;
+      gap: max(var(--shop-by-occasion-gap), 20px);
+    }
+
+    #ShopByOccasion-{{ section.id }} .shop-by-occasion__column {
+      display: contents;
+    }
+
+    #ShopByOccasion-{{ section.id }} .shop-by-occasion__item {
+      order: var(--shop-by-occasion-order);
+      margin-top: var(--shop-by-occasion-desktop-offset);
     }
   }
 
