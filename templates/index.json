@@ -311,6 +311,7 @@
         "occasion_HRNzne": {
           "type": "occasion",
           "settings": {
+            "image": "shopify://shop_images/N-2043_425x_a113ed96-7978-49d9-8665-aab7c9e5fca1.webp",
             "title": "daily wear",
             "link": "",
             "image_position": "center center"
@@ -319,6 +320,7 @@
         "occasion_76WGqF": {
           "type": "occasion",
           "settings": {
+            "image": "shopify://shop_images/N-2043-2_425x_da49c40c-c958-4e21-88e5-f6e55a61478c.webp",
             "title": "festive",
             "link": "",
             "image_position": "center center"
@@ -327,6 +329,7 @@
         "occasion_MqHzGr": {
           "type": "occasion",
           "settings": {
+            "image": "shopify://shop_images/download_1496a0cb-9e08-4dd3-a70b-3f3a06de36ae.jpg",
             "title": "party wear",
             "link": "",
             "image_position": "center center"
@@ -335,6 +338,7 @@
         "occasion_rDXxzB": {
           "type": "occasion",
           "settings": {
+            "image": "shopify://shop_images/download_73049d2e-17f2-4372-b01e-3035af7f60b0.jpg",
             "title": "all time",
             "link": "",
             "image_position": "center center"
