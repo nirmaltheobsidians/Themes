@@ -97,11 +97,10 @@
       url('{{ 'category-mandala.svg' | asset_url }}'),
       url('{{ 'category-mandala.svg' | asset_url }}'),
       url('{{ 'category-mandala.svg' | asset_url }}'),
-      url('{{ 'category-mandala.svg' | asset_url }}'),
       url('{{ 'category-mandala.svg' | asset_url }}');
     background-repeat: no-repeat;
-    background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, right -82px bottom -88px, center center;
-    background-size: 150px 150px, 185px 185px, 225px 225px, 190px 190px, 190px 190px;
+    background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, center center;
+    background-size: 150px 150px, 185px 185px, 225px 225px, 190px 190px;
     content: '';
     opacity: var(--shop-by-category-pattern-opacity);
     pointer-events: none;
@@ -153,7 +152,7 @@
 
   @media screen and (max-width: 749px) {
     #ShopByCategory-{{ section.id }}::before {
-      background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, right -82px bottom -88px, center 58%;
+      background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, center 58%;
     }
   }
 
