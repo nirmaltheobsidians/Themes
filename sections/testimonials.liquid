@@ -61,6 +61,19 @@
           {%- endfor -%}
         </div>
       </div>
+      {%- if section.blocks.size > 1 -%}
+        <nav class="testimonials__pagination" aria-label="Testimonial slides">
+          {%- for block in section.blocks -%}
+            <button
+              class="testimonials__dot{% if forloop.first %} is-active{% endif %}"
+              type="button"
+              data-testimonial-dot="{{ forloop.index0 }}"
+              aria-label="Go to testimonial {{ forloop.index }}"
+              {% if forloop.first %}aria-current="true"{% endif %}
+            ></button>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
     {%- elsif request.design_mode -%}
       <p class="testimonials__empty">Add testimonial blocks to display customer reviews.</p>
     {%- endif -%}
@@ -196,6 +209,10 @@
     line-height: 1;
   }
 
+  #Testimonials-{{ section.id }} .testimonials__pagination {
+    display: none;
+  }
+
   #Testimonials-{{ section.id }} .testimonials__star--empty {
     opacity: 0.28;
   }
@@ -279,6 +296,41 @@
       font-size: 15px;
     }
 
+    #Testimonials-{{ section.id }} .testimonials__pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      margin-top: 16px;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__dot {
+      position: relative;
+      display: block;
+      flex: 0 0 16px;
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__dot::before {
+      position: absolute;
+      inset: 4px;
+      border-radius: 50%;
+      background: var(--testimonials-accent);
+      content: '';
+    }
+
+    #Testimonials-{{ section.id }} .testimonials__dot.is-active::before {
+      inset: 0;
+      border-radius: 0;
+      background: url('{{ 'reels-slider-active-dot.png' | asset_url }}') center / contain no-repeat;
+    }
+
     #Testimonials-{{ section.id }} .testimonials__footer {
       margin-top: 24px;
     }
@@ -301,10 +353,20 @@
       const carousel = root.querySelector('[data-testimonials-carousel]');
       const slides = carousel?.querySelectorAll('.swiper-slide');
       if (!carousel || !slides || slides.length < 2) return;
+      const dots = Array.from(root.querySelectorAll('[data-testimonial-dot]'));
       if (!window.Swiper) {
         console.error('[Testimonials] Swiper is unavailable; the review carousel could not be initialized.');
         return;
       }
+
+      const updateDots = (swiper) => {
+        dots.forEach((dot, index) => {
+          const isActive = index === swiper.realIndex;
+          dot.classList.toggle('is-active', isActive);
+          if (isActive) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+      };
 
       root.testimonialsSlider = new window.Swiper(carousel, {
         a11y: { enabled: true },
@@ -325,11 +387,22 @@
         watchOverflow: true,
         on: {
           init(swiper) {
+            updateDots(swiper);
             requestAnimationFrame(() => {
               if (!swiper.destroyed) swiper.update();
             });
           },
+          slideChange(swiper) {
+            updateDots(swiper);
+          },
         },
+      });
+      dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const targetIndex = Number(dot.dataset.testimonialDot);
+          if (root.testimonialsSlider.params.loop) root.testimonialsSlider.slideToLoop(targetIndex);
+          else root.testimonialsSlider.slideTo(targetIndex);
+        });
       });
       root.dataset.testimonialsInitialized = 'true';
     };
