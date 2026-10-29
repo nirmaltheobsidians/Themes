@@ -569,6 +569,42 @@
         "padding_top": 32,
         "padding_bottom": 36
       }
+    },
+    "blog_slider_RmFXUb": {
+      "type": "blog-slider",
+      "blocks": {
+        "image_override_aTBYGW": {
+          "type": "image_override",
+          "settings": {
+            "article": "",
+            "image": "shopify://shop_images/Story_Embroidery.avif"
+          }
+        }
+      },
+      "block_order": [
+        "image_override_aTBYGW"
+      ],
+      "name": "Blog slider",
+      "settings": {
+        "heading": "BLOGS",
+        "blog": "",
+        "post_limit": 6,
+        "desktop_columns": 2,
+        "show_date": true,
+        "date_format": "%b %d, %Y",
+        "show_excerpt": true,
+        "excerpt_length": 150,
+        "show_read_more": true,
+        "read_more_label": "Read more",
+        "show_view_all": true,
+        "button_label": "VIEW ALL",
+        "background_color": "#ffffff",
+        "heading_color": "#801814",
+        "text_color": "#111111",
+        "pattern_opacity": 35,
+        "padding_top": 24,
+        "padding_bottom": 32
+      }
     }
   },
   "order": [
@@ -583,6 +619,7 @@
     "countdown_banner_6E8Y4G",
     "custom_main_product_pCTNaz",
     "popular_products_9PeBQ6",
-    "testimonials_qBYG3W"
+    "testimonials_qBYG3W",
+    "blog_slider_RmFXUb"
   ]
 }
