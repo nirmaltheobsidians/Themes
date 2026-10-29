@@ -239,30 +239,6 @@
       width: min(var(--occasion-image-feature-motif-size), 46vw);
     }
 
-    @media screen and (min-width: 750px) {
-      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid {
-        width: 100vw;
-        margin-left: calc(50% - 50vw);
-      }
-
-      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid--single {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__card {
-        aspect-ratio: auto;
-      }
-
-      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__picture {
-        height: auto;
-      }
-
-      #OccasionImageFeature-{{ section.id }} .occasion-image-feature__image {
-        height: auto;
-        aspect-ratio: auto;
-      }
-    }
-
     #OccasionImageFeature-{{ section.id }} .occasion-image-feature__header {
       margin-bottom: 20px;
     }
@@ -274,6 +250,30 @@
 
     #OccasionImageFeature-{{ section.id }} .occasion-image-feature__label {
       font-size: min(var(--occasion-image-feature-label-size), 8vw);
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__grid--single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__card {
+      aspect-ratio: auto;
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__picture {
+      height: auto;
+    }
+
+    #OccasionImageFeature-{{ section.id }} .occasion-image-feature__image {
+      height: auto;
+      aspect-ratio: auto;
     }
   }
 
