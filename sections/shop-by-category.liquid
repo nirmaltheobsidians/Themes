@@ -151,6 +151,12 @@
     gap: var(--shop-by-category-gap);
   }
 
+  @media screen and (max-width: 749px) {
+    #ShopByCategory-{{ section.id }}::before {
+      background-position: left -76px top -88px, right -76px top 64px, left -84px bottom -86px, right -82px bottom -88px, center 58%;
+    }
+  }
+
   #ShopByCategory-{{ section.id }} .shop-by-category__item {
     min-width: 0;
   }
