@@ -207,6 +207,10 @@
     box-shadow: none;
   }
 
+  #DeshKiPasand-{{ section.id }} .card__inner {
+    --ratio-percent: 142.857% !important;
+  }
+
   #DeshKiPasand-{{ section.id }} .td-trend-product-img-inner {
     overflow: hidden;
     background: transparent;
@@ -447,8 +451,9 @@
         dot.addEventListener('click', () => {
           const slide = slides[Number(dot.dataset.deshDot)];
           if (slide) {
+            const left = track.scrollLeft + slide.getBoundingClientRect().left - track.getBoundingClientRect().left;
             track.scrollTo({
-              left: slide.offsetLeft - track.offsetLeft,
+              left,
               behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
             });
           }
@@ -459,9 +464,10 @@
       track.addEventListener('scroll', () => {
         window.cancelAnimationFrame(scrollFrame);
         scrollFrame = window.requestAnimationFrame(() => {
+          const trackLeft = track.getBoundingClientRect().left;
           const currentIndex = slides.reduce((closestIndex, slide, index) => {
-            const closestDistance = Math.abs(slides[closestIndex].offsetLeft - track.offsetLeft - track.scrollLeft);
-            const slideDistance = Math.abs(slide.offsetLeft - track.offsetLeft - track.scrollLeft);
+            const closestDistance = Math.abs(slides[closestIndex].getBoundingClientRect().left - trackLeft);
+            const slideDistance = Math.abs(slide.getBoundingClientRect().left - trackLeft);
             return slideDistance < closestDistance ? index : closestIndex;
           }, 0);
           setActiveDot(currentIndex);
