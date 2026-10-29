@@ -412,7 +412,8 @@
 
       const track = root.querySelector('[data-reel-track]');
       const dots = Array.from(root.querySelectorAll('[data-reel-dot]'));
-      if (!track || !dots.length) return;
+      if (!track) return;
+      const slides = track.querySelectorAll('.swiper-slide');
 
       loadSwiper()
         .then((SwiperConstructor) => {
@@ -430,7 +431,7 @@
               : false,
             centeredSlides: true,
             grabCursor: true,
-            loop: true,
+            loop: slides.length > 2,
             slidesPerView: 'auto',
             spaceBetween: 18,
             speed: 500,
@@ -498,7 +499,12 @@
             video.addEventListener('pause', () => {
               button.hidden = false;
               if (cover && video.currentTime === 0) cover.hidden = false;
-              if (root.dataset.autoplay === 'true') slider.autoplay?.start();
+              if (
+                root.dataset.autoplay === 'true'
+                && card.closest('.swiper-slide')?.classList.contains('swiper-slide-active')
+              ) {
+                slider.autoplay?.start();
+              }
             });
             video.addEventListener('ended', () => {
               video.controls = false;
