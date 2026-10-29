@@ -316,9 +316,20 @@
         },
         grabCursor: true,
         loop: slides.length > 2,
+        loopAddBlankSlides: false,
+        observeParents: true,
+        observer: true,
+        resizeObserver: true,
         slidesPerView: 'auto',
         spaceBetween: 16,
         watchOverflow: true,
+        on: {
+          init(swiper) {
+            requestAnimationFrame(() => {
+              if (!swiper.destroyed) swiper.update();
+            });
+          },
+        },
       });
       root.dataset.testimonialsInitialized = 'true';
     };
