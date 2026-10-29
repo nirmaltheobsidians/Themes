@@ -601,7 +601,7 @@
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "text_color": "#111111",
-        "pattern_opacity": 35,
+        "pattern_opacity": 100,
         "padding_top": 24,
         "padding_bottom": 32
       }
