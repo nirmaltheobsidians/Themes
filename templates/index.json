@@ -56,7 +56,7 @@
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "label_color": "#ffffff",
-        "pattern_opacity": 35,
+        "pattern_opacity": 100,
         "desktop_columns": 4,
         "card_gap": 24,
         "padding_top": 24,
@@ -110,7 +110,7 @@
         "background_color": "#ffffff",
         "heading_color": "#801814",
         "label_color": "#ffffff",
-        "pattern_opacity": 35,
+        "pattern_opacity": 100,
         "card_gap": 6,
         "stagger_offset": 34,
         "padding_top": 0,
@@ -127,8 +127,8 @@
         "product_limit": 8,
         "background_color": "#ffffff",
         "heading_color": "#801814",
-        "pattern_opacity": 35,
-        "show_bottom_right_motif": false,
+        "pattern_opacity": 100,
+        "show_bottom_right_motif": true,
         "padding_top": 24,
         "padding_bottom": 40
       }
@@ -211,7 +211,7 @@
         "autoplay_delay": 4,
         "video_autoplay": false,
         "video_loop": true,
-        "pattern_opacity": 35,
+        "pattern_opacity": 100,
         "padding_top": 24,
         "padding_bottom": 32
       }
@@ -386,6 +386,7 @@
         "show_view_all": true,
         "button_label": "VIEW ALL",
         "background_color": "#ffffff",
+        "card_background_color": "#f7f1f1",
         "heading_color": "#801814",
         "text_color": "#111111",
         "pattern_opacity": 100,
