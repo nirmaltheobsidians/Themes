@@ -9,6 +9,83 @@
  */
 {
   "sections": {
+    "new_banner_AJ4Lt9": {
+      "type": "new-banner",
+      "blocks": {
+        "slide_PtHeNc": {
+          "type": "slide",
+          "settings": {
+            "banner_image": "shopify://shop_images/new-this-week.webp",
+            "top_text": "NEW SEASON",
+            "heading": "Elevate Your Everyday Style",
+            "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
+            "show_buttons": true,
+            "btn_1_label": "Shop Women",
+            "btn_1_link": "",
+            "btn_2_label": "Shop Men",
+            "btn_2_link": "",
+            "show_product_1": false,
+            "product_1": "",
+            "prod_1_title": "Red Co-ord Set",
+            "prod_1_price": "$89",
+            "prod_1_rating": "5.0",
+            "prod_1_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_2": false,
+            "product_2": "",
+            "prod_2_title": "Red Co-ord Set",
+            "prod_2_price": "$89",
+            "prod_2_rating": "5.0",
+            "prod_2_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_3": false,
+            "product_3": "",
+            "prod_3_title": "Red Co-ord Set",
+            "prod_3_price": "$89",
+            "prod_3_rating": "5.0",
+            "prod_3_desc": "A refined blazer and trousers in stretch fabric — designed to move with you."
+          }
+        },
+        "slide_Vb4ThG": {
+          "type": "slide",
+          "settings": {
+            "top_text": "NEW SEASON",
+            "heading": "Elevate Your Everyday Style",
+            "description": "Discover the latest arrivals designed for ultimate comfort and modern sophistication.",
+            "show_buttons": true,
+            "btn_1_label": "Shop Women",
+            "btn_1_link": "",
+            "btn_2_label": "Shop Men",
+            "btn_2_link": "",
+            "show_product_1": true,
+            "product_1": "",
+            "prod_1_title": "Red Co-ord Set",
+            "prod_1_price": "$89",
+            "prod_1_rating": "5.0",
+            "prod_1_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_2": true,
+            "product_2": "",
+            "prod_2_title": "Red Co-ord Set",
+            "prod_2_price": "$89",
+            "prod_2_rating": "5.0",
+            "prod_2_desc": "A refined blazer and trousers in stretch fabric — designed to move with you.",
+            "show_product_3": true,
+            "product_3": "",
+            "prod_3_title": "Red Co-ord Set",
+            "prod_3_price": "$89",
+            "prod_3_rating": "5.0",
+            "prod_3_desc": "A refined blazer and trousers in stretch fabric — designed to move with you."
+          }
+        }
+      },
+      "block_order": [
+        "slide_PtHeNc",
+        "slide_Vb4ThG"
+      ],
+      "name": "Custom Hero Banner",
+      "settings": {
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
     "shop_by_category_home": {
       "type": "shop-by-category",
       "blocks": {
@@ -396,6 +473,7 @@
     }
   },
   "order": [
+    "new_banner_AJ4Lt9",
     "shop_by_category_home",
     "shop_by_occasion_home",
     "desh_ki_pasand_home",
