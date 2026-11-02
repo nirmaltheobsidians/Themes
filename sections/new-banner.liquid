@@ -694,12 +694,48 @@
   <script>
     (() => {
       const section = document.currentScript.closest('.td-new-banner-section-custom');
+      const slider = section.querySelector('.td-new-hero-slider');
+      const swiperCssUrl = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
+      const swiperJsUrl = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
 
-      const initializeHeroSlider = () => {
-        const slider = section.querySelector('.td-new-hero-slider');
+      if (!document.querySelector('[data-td-hero-swiper-css]')) {
+        const stylesheet = document.createElement('link');
+        stylesheet.rel = 'stylesheet';
+        stylesheet.href = swiperCssUrl;
+        stylesheet.dataset.tdHeroSwiperCss = '';
+        stylesheet.addEventListener('error', () => {
+          console.error('Custom Hero Banner could not load the Swiper stylesheet.');
+        });
+        document.head.appendChild(stylesheet);
+      }
+
+      function loadSwiper() {
+        if (window.Swiper) return Promise.resolve(window.Swiper);
+        if (window.tdHeroSwiperLoader) return window.tdHeroSwiperLoader;
+
+        window.tdHeroSwiperLoader = new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = swiperJsUrl;
+          script.onload = () => {
+            if (window.Swiper) {
+              resolve(window.Swiper);
+            } else {
+              reject(new Error('Swiper loaded without exposing its constructor.'));
+            }
+          };
+          script.onerror = () => reject(new Error('Custom Hero Banner could not load the Swiper script.'));
+          document.head.appendChild(script);
+        });
+
+        return window.tdHeroSwiperLoader;
+      }
+
+      function initializeHeroSlider() {
         if (!slider || slider.swiper) return;
 
         const totalSlides = slider.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)').length;
+        if (!totalSlides) return;
+
         const progressFill = slider.querySelector('.td-new-hero-slider-progress-fill');
         const swiper = new window.Swiper(slider, {
           speed: 1400,
@@ -713,12 +749,13 @@
 
         function updateActiveClass() {
           swiper.slides.forEach((slide) => slide.classList.remove('td-slide-active'));
-          swiper.slides[swiper.activeIndex]?.classList.add('td-slide-active');
+          const activeSlide = swiper.slides[swiper.activeIndex];
+          if (activeSlide) activeSlide.classList.add('td-slide-active');
           slider.classList.add('td-slider-active');
         }
 
         function updateProgress() {
-          if (!progressFill) return;
+          if (!progressFill || !totalSlides) return;
           progressFill.style.width = `${((swiper.realIndex + 1) / totalSlides) * 100}%`;
         }
 
@@ -734,79 +771,53 @@
           updateActiveClass();
           updateProgress();
         });
-      };
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeHeroSlider, { once: true });
-      } else {
-        initializeHeroSlider();
       }
+
+      loadSwiper()
+        .then(initializeHeroSlider)
+        .catch((error) => console.error('Custom Hero Banner initialization failed.', error));
+
+      section.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+        if (!target) return;
+
+        const highlightDot = target.closest('.td-product-highlight-dot');
+        if (highlightDot && section.contains(highlightDot)) {
+          const currentBox = highlightDot.closest('.td-product-hightlight-box');
+          if (!currentBox) return;
+
+          section.querySelectorAll('.td-product-hightlight-box.active').forEach((box) => {
+            if (box !== currentBox) box.classList.remove('active');
+          });
+          currentBox.classList.toggle('active');
+          return;
+        }
+
+        const swatchBox = target.closest('.td-new-product-swatch-box');
+        if (!swatchBox || !section.contains(swatchBox)) return;
+
+        const productBox = swatchBox.closest('.td-new-banner-product-box');
+        if (!productBox) return;
+
+        swatchBox.parentElement
+          .querySelectorAll('.td-new-product-swatch-box')
+          .forEach((swatch) => swatch.classList.remove('is-active'));
+        swatchBox.classList.add('is-active');
+
+        const swatchImage = swatchBox.querySelector('img');
+        const secondaryImage = productBox.querySelector('.media-2 img, .media-2');
+        if (swatchImage && secondaryImage) {
+          const targetImage = secondaryImage.tagName === 'IMG' ? secondaryImage : secondaryImage.querySelector('img');
+          if (targetImage) targetImage.setAttribute('src', swatchImage.getAttribute('src'));
+        }
+
+        const variantId = swatchBox.getAttribute('data-variant-id');
+        const variantInput = variantId ? productBox.closest('form')?.querySelector('.product-variant-id') : null;
+        if (variantInput) variantInput.value = variantId;
+      });
     })();
   </script>
 </div>
-
-<script>
-  document.addEventListener(
-    'click',
-    function (event) {
-      // Check karein ki click swatch box par hua hai ya uske andar ki image par
-      const swatchBox = event.target.closest('.td-new-product-swatch-box');
-      if (!swatchBox) return;
-
-      // Swatch box ke andar ki image ka src nikalen
-      const swatchImg = swatchBox.querySelector('img');
-      if (!swatchImg) return;
-      const newSrc = swatchImg.getAttribute('src');
-
-      // Sahi parent product box ko target karein
-      const productBox = swatchBox.closest('.td-new-banner-product-box');
-
-      if (productBox) {
-        const media2Img = productBox.querySelector('.media-2 img, .media-2');
-
-        if (media2Img) {
-          if (media2Img.tagName === 'IMG') {
-            media2Img.setAttribute('src', newSrc);
-          } else {
-            const img = media2Img.querySelector('img');
-            if (img) img.setAttribute('src', newSrc);
-          }
-          console.log('Theme mein image successfully update ho gayi:', newSrc);
-        } else {
-          console.log('.media-2 nahi mili is product box mein.');
-        }
-      } else {
-        console.log('.td-new-banner-product-box nahi mila.');
-      }
-    },
-    true
-  ); // <--- Yeh 'true' bohot zaroori hai, yehi theme ke baki scripts ke interference ko bypass karega
-
-  document.addEventListener('click', function (event) {
-    const swatchBox = event.target.closest('.td-new-product-swatch-box');
-    if (!swatchBox) return;
-
-    const productBox = swatchBox.closest('.td-new-banner-product-box');
-    if (!productBox) return;
-
-    // Visual active class toggle karne ke liye
-    swatchBox.parentElement
-      .querySelectorAll('.td-new-product-swatch-box')
-      .forEach((el) => el.classList.remove('is-active'));
-    swatchBox.classList.add('is-active');
-
-    // Yahan aap apne product ke available variants ka data map kar sakte hain
-    // Ya agar aapke paas variant ID attribute hai toh use update karein:
-    const variantId = swatchBox.getAttribute('data-variant-id');
-    if (variantId) {
-      const form = productBox.closest('form');
-      if (form) {
-        const variantInput = form.querySelector('.product-variant-id');
-        if (variantInput) variantInput.value = variantId;
-      }
-    }
-  });
-</script>
 
 {% schema %}
 {
