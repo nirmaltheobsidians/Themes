@@ -1576,17 +1576,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-// Product Highlight box
-jQuery(document).ready(function ($) {
-    $('.td-product-highlight-dot').on('click', function () {
-        let currentBox = $(this).closest('.td-product-hightlight-box');
-        $('.td-product-hightlight-box').not(currentBox).removeClass('active');
-        currentBox.toggleClass('active');
-    });
-
-});
-
-
 // Banner Slider
 
 $('.td-banner-slider').slick({
