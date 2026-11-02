@@ -15,6 +15,103 @@
 <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 
+{% style %}
+.td-new-banner-section-custom h1 {
+  margin-bottom: 16px;
+  color: var(--white-color);
+  font-size: 84px;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.td-new-banner-section-custom .td-new-banner-content-inner p {
+  padding-right: 70px;
+  color: var(--white-color);
+  font-size: 18px;
+  line-height: 160%;
+}
+
+.td-new-banner-section-custom .td-new-banner-top {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  color: var(--white-color);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+.td-new-banner-section-custom .td-new-banner-top::before {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--white-color);
+  content: '';
+  transition: width 1s linear 1s;
+}
+
+.td-new-banner-section-custom .swiper-slide.swiper-slide-active .td-new-banner-top::before {
+  width: 60%;
+}
+
+.td-new-banner-section-custom .td-new-banner-content-outer {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+}
+
+.td-new-banner-section-custom .td-new-banner-content-inner {
+  width: 100%;
+  max-width: 512px;
+  transform: translateX(-32px) scale(1.05);
+  transition: all 1s linear, opacity 1.3s ease, transform 2.7s ease;
+  opacity: 0;
+}
+
+.td-new-banner-section-custom .swiper-slide.td-slide-active .td-new-banner-content-inner {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+@media screen and (min-width: 767px) {
+  .td-new-banner-section-custom .td-new-banner-button-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .td-new-banner-section-custom .td-new-banner-button-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .td-new-banner-section-custom .td-new-banner-content-inner h1 {
+    font-size: 50px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0;
+    text-transform: capitalize;
+  }
+}
+{% endstyle %}
+
 <div
   class="td-new-banner-section-custom"
   style="margin-top: {{ section.settings.margin_top }}px; margin-bottom: {{ section.settings.margin_bottom }}px;"
@@ -547,6 +644,59 @@
     <!-- Pagination -->
     <div class="swiper-pagination"></div>
   </div>
+
+  <script>
+    (() => {
+      const section = document.currentScript.closest('.td-new-banner-section-custom');
+
+      const initializeHeroSlider = () => {
+        const slider = section.querySelector('.td-new-hero-slider');
+        if (!slider || slider.swiper) return;
+
+        const totalSlides = slider.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)').length;
+        const progressFill = slider.querySelector('.td-new-hero-slider-progress-fill');
+        const swiper = new window.Swiper(slider, {
+          speed: 1400,
+          loop: true,
+          effect: 'slide',
+          navigation: {
+            nextEl: slider.querySelector('.swiper-button-next'),
+            prevEl: slider.querySelector('.swiper-button-prev'),
+          },
+        });
+
+        function updateActiveClass() {
+          swiper.slides.forEach((slide) => slide.classList.remove('td-slide-active'));
+          swiper.slides[swiper.activeIndex]?.classList.add('td-slide-active');
+          slider.classList.add('td-slider-active');
+        }
+
+        function updateProgress() {
+          if (!progressFill) return;
+          progressFill.style.width = `${((swiper.realIndex + 1) / totalSlides) * 100}%`;
+        }
+
+        updateActiveClass();
+        updateProgress();
+
+        swiper.on('slideChangeTransitionStart', () => {
+          slider.classList.add('td-slider-sliding');
+        });
+
+        swiper.on('slideChangeTransitionEnd', () => {
+          slider.classList.remove('td-slider-sliding');
+          updateActiveClass();
+          updateProgress();
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeHeroSlider, { once: true });
+      } else {
+        initializeHeroSlider();
+      }
+    })();
+  </script>
 </div>
 
 <script>
