@@ -698,7 +698,7 @@
       const swiperCssUrl = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css';
       const swiperJsUrl = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
 
-      if (!document.querySelector('[data-td-hero-swiper-css]')) {
+      if (!document.querySelector('[data-td-hero-swiper-css], link[href*="swiper-bundle.min.css"]')) {
         const stylesheet = document.createElement('link');
         stylesheet.rel = 'stylesheet';
         stylesheet.href = swiperCssUrl;
@@ -714,17 +714,24 @@
         if (window.tdHeroSwiperLoader) return window.tdHeroSwiperLoader;
 
         window.tdHeroSwiperLoader = new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = swiperJsUrl;
-          script.onload = () => {
+          const existingScript = [...document.scripts].find((script) => script.src.includes('swiper-bundle.min.js'));
+          const script = existingScript || document.createElement('script');
+          const handleLoad = () => {
             if (window.Swiper) {
               resolve(window.Swiper);
             } else {
               reject(new Error('Swiper loaded without exposing its constructor.'));
             }
           };
-          script.onerror = () => reject(new Error('Custom Hero Banner could not load the Swiper script.'));
-          document.head.appendChild(script);
+          const handleError = () => reject(new Error('Custom Hero Banner could not load the Swiper script.'));
+
+          script.addEventListener('load', handleLoad, { once: true });
+          script.addEventListener('error', handleError, { once: true });
+
+          if (!existingScript) {
+            script.src = swiperJsUrl;
+            document.head.appendChild(script);
+          }
         });
 
         return window.tdHeroSwiperLoader;
