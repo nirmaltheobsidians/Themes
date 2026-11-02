@@ -22,10 +22,12 @@
 .td-new-banner-section-custom .td-new-banner-image-wrapper {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-.td-new-banner-section-custom .td-new-banner-image-wrapper img {
+.td-new-banner-section-custom .td-new-banner-image-wrapper img,
+.td-new-banner-section-custom .td-new-banner-image-wrapper svg {
   width: 100%; height: 100%; object-fit: cover; transform: scale(1.3); transition: transform 2.7s ease;
 }
-.td-new-banner-section-custom .swiper-slide-active .td-new-banner-image-wrapper img { transform: scale(1); }
+.td-new-banner-section-custom .swiper-slide-active .td-new-banner-image-wrapper img,
+.td-new-banner-section-custom .swiper-slide-active .td-new-banner-image-wrapper svg { transform: scale(1); }
 .td-new-banner-section-custom .td-new-banner-image-wrapper::before {
   position: absolute; z-index: 1; inset: 0; background: rgb(0 0 0 / 22%); content: '';
 }
@@ -81,6 +83,7 @@
   position: static; display: flex; width: 48px; height: 48px; align-items: center; justify-content: center;
   margin: 0; overflow: hidden; border: 1px solid #fff; border-radius: 50%; cursor: pointer;
 }
+.td-new-banner-section-custom .td-new-hero-slider-nav::after { display: none; }
 .td-new-banner-section-custom .td-nav-icon-wrapper {
   display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 12px;
 }
@@ -100,6 +103,37 @@
 .td-new-banner-section-custom .td-product-highlight-dot {
   position: absolute; z-index: 2; top: -160px; display: flex; width: 22px; height: 22px; align-items: center;
   justify-content: center; border: 0; border-radius: 50%; background: #fff; cursor: pointer;
+}
+.td-new-banner-section-custom .td-product-highlight-dot::after {
+  position: absolute; top: 32px; width: 1px; height: 110px; background: #fff; content: '';
+}
+.td-new-banner-section-custom .td-product-highlight-dot.td-top-left-dot::after {
+  top: 10px; right: -136px; height: 0;
+  transition: height .3s ease .35s;
+}
+.td-new-banner-section-custom .td-product-highlight-dot.td-top-left-dot::before,
+.td-new-banner-section-custom .td-product-highlight-dot.td-bottom-right-dot::before {
+  position: absolute; left: 30px; width: 0; height: 1px; background: #fff; content: '';
+  transition: width .3s ease .35s;
+}
+.td-new-banner-section-custom .td-product-highlight-dot.td-top-left-dot::before { top: 10px; }
+.td-new-banner-section-custom .td-product-highlight-dot.td-bottom-right-dot::before {
+  top: 10px; transition-delay: 0s;
+}
+.td-new-banner-section-custom .td-product-hightlight-box.active .td-product-highlight-dot.td-top-left-dot::before {
+  width: 127px; transition-delay: 0s;
+}
+.td-new-banner-section-custom .td-product-hightlight-box.active .td-product-highlight-dot.td-top-left-dot::after {
+  height: 42px; transition-delay: .3s;
+}
+.td-new-banner-section-custom .td-product-highlight-dot.td-bottom-right-dot::after {
+  top: auto; right: -73px; bottom: 10px; left: auto; height: 0;
+}
+.td-new-banner-section-custom .td-product-hightlight-box.active .td-product-highlight-dot.td-bottom-right-dot::before {
+  width: 65px; transition-delay: 0s;
+}
+.td-new-banner-section-custom .td-product-hightlight-box.active .td-product-highlight-dot.td-bottom-right-dot::after {
+  height: 58px; transition-delay: .3s;
 }
 .td-new-banner-section-custom .td-product-highlight-outer-dot-border {
   position: absolute; width: 40px; height: 40px; border: 1px solid #fff; border-radius: 50%;
